@@ -1,0 +1,20 @@
+name: Notify pull request
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  notify-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack notification
+        uses: rtCamp/action-slack-notify@12e36fc18b0689399306c2e0b3e0f2978b7f1ee7
+        env:
+          SLACK_USERNAME: 'kong-ui-pull-request'
+          SLACK_CHANNEL: '#op-platform-bravo-noti'
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_ICON_EMOJI: ':art:'
+          SLACK_WEBHOOK: ${{ secrets.BRAVO_NOTI_SLACK_WEB_HOOK }} # 사용하는 slack hook 적용
+          SLACK_MESSAGE: '<@U03ENQ74S9K> <@U02RRJM4ST1> <@U02SJSA85R7> @etham @den @koon <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>'
+          SLACK_LINK_NAMES: true
+        if: always()

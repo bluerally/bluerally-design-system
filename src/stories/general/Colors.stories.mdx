@@ -1,0 +1,14 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs';
+import { theme } from '@/style/theme';
+
+<Meta title="general/Colors" />
+
+<ColorPalette>
+  <ColorItem title="primary" colors={theme.palette.primary} />
+  <ColorItem title="general" colors={theme.palette.gray} />
+  <ColorItem title="error" colors={theme.palette.error} />
+  <ColorItem title="success" colors={theme.palette.success} />
+  <ColorItem title="warning" colors={theme.palette.warning} />
+  <ColorItem title="black" colors={[theme.palette.black]} />
+  <ColorItem title="white" colors={[theme.palette.white]} />
+</ColorPalette>

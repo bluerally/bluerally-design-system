@@ -1,0 +1,91 @@
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: true
+        type: string
+    secrets:
+      harbor_username:
+        required: true
+      harbor_password:
+        required: true
+      slack_webhook:
+        required: true
+
+jobs:
+  build:
+    runs-on: [self-hosted, 8core-16gb]
+    env:
+      registry: r.upbit.io/opp-omega.dna/kong-ui
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build-storybook
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Set Tags
+        id: set_tags
+        run: |
+          if [ $GITHUB_REF == 'refs/heads/master' ]
+          then 
+            echo "harbor=$registry:production, $registry:production-$(TZ=Asia/Seoul date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+            echo "tags=production" >> $GITHUB_OUTPUT
+          else
+            echo "harbor=$registry:${{ inputs.tag }}" >> $GITHUB_OUTPUT
+            echo "tags=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.registry }}
+          tags: ${{ steps.set_tags.outputs.tags }}
+
+      - name: Log in to the Harbor
+        uses: docker/login-action@v2
+        with:
+          registry: r.upbit.io
+          username: ${{ secrets.harbor_username }}
+          password: ${{ secrets.harbor_password }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.set_tags.outputs.harbor }}
+          labels: org.opencontainers.image.source=https://github.com/dunamu-fd/kong-ui
+
+      - name: Sign images
+        uses: dunamu/sign-container-images@v1
+        with:
+          tags: ${{ steps.meta.outputs.tags }}
+
+  noti:
+    needs: build
+    runs-on: [self-hosted, default]
+    steps:
+      - name: Slack notification
+        uses: rtCamp/action-slack-notify@12e36fc18b0689399306c2e0b3e0f2978b7f1ee7
+        env:
+          SLACK_USERNAME: 'kong-ui-ci'
+          SLACK_CHANNEL: '#op-platform-bravo-deploy'
+          SLACK_COLOR: ${{ needs.build.result }}
+          SLACK_ICON_EMOJI: ${{ needs.build.result == 'success' && ':art:' || ':x:' }}
+          SLACK_WEBHOOK: ${{ secrets.slack_webhook }}
+          SLACK_MESSAGE: ${{ needs.build.result == 'success' && 'Kong-UI 빌드 완료' || '<@U03ENQ74S9K> <@U02RRJM4ST1> <@U02SJSA85R7> @etham @den @koon Kong-UI 빌드 실패' }}
+          SLACK_LINK_NAMES: true
+
