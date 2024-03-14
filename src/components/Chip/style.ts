@@ -1,151 +1,64 @@
-import { SerializedStyles, css } from '@emotion/react';
-
 import { theme } from '@/style/theme';
-
-import { ChipColors } from './Chip';
-
-type ChipStyle = 'background' | 'border' | 'fontColor' | 'outlinedFontColor';
-type ChipStyleType = {
-  [variant in ChipColors]: Record<ChipStyle, SerializedStyles>;
-};
+import { css } from '@emotion/react';
 
 export const chipIconColors = {
-  primary: theme.palette.primary.main,
+  primary: theme.palette.white,
   gray: theme.palette.gray['600'],
-  error: theme.palette.error['600'],
-  warning: theme.palette.warning['600'],
-  success: theme.palette.success['600'],
-  orange: '#FF7F00',
-  lightgray: theme.palette.gray['600'],
-  purple: '#4E3276',
-  darkPrimary: theme.palette.white,
 };
 
-export const chipStyles: ChipStyleType = {
-  primary: {
-    background: css`
-      background-color: ${theme.palette.primary['100']};
+export default {
+  colors: {
+    primary: css`
+      --main-color: ${theme.palette.sky['500']};
+      --main-text-color: ${theme.palette.white};
+      --disabled-color: ${theme.palette.newGray['200']};
+      --filled-hover-color: ${theme.palette.sky['600']};
+      --lightFilled-background-color: ${theme.palette.sky['50']};
+      --lightFilled-border-color: ${theme.palette.sky['150']};
+      --lightFilled-text-color: ${theme.palette.sky['500']};
+      --lightFilled-disabled-color: ${theme.palette.newGray['50']};
+      --lightFilled-disabled-border-color: ${theme.palette.gray['200']};
     `,
-    border: css`
-      border: 1px solid ${theme.palette.primary.main};
-    `,
-    fontColor: css`
-      color: ${theme.palette.primary.main};
-    `,
-    outlinedFontColor: css`
-      color: ${theme.palette.primary.main};
-    `,
-  },
-  gray: {
-    background: css`
-      background-color: ${theme.palette.gray['100']};
-    `,
-    border: css`
-      border: 1px solid ${theme.palette.gray.main};
-    `,
-    fontColor: css`
-      color: ${theme.palette.gray[600]};
-    `,
-    outlinedFontColor: css`
-      color: ${theme.palette.gray.main};
+    gray: css`
+      --main-color: ${theme.palette.newGray['100']};
+      --main-text-color: ${theme.palette.newGray['600']};
+      --disabled-color: ${theme.palette.gray['300']};
+      --filled-hover-color: ${theme.palette.newGray['300']};
+      --lightFilled-background-color: ${theme.palette.primary['100']};
+      --lightFilled-border-color: ${theme.palette.primary['200']};
+      --lightFilled-text-color: ${theme.palette.primary['300']};
+      --lightFilled-disabled-color: ${theme.palette.gray['50']};
+      --lightFilled-disabled-border-color: ${theme.palette.gray['200']};
     `,
   },
-  error: {
-    background: css`
-      background-color: ${theme.palette.error['50']};
+  variants: {
+    filled: css`
+      background: var(--main-color);
+      border: 1px solid transparent;
+      color: var(--main-text-color);
+
+      &:hover {
+        background: var(--filled-hover-color);
+      }
+
+      &:disabled {
+        background-color: var(--disabled-color);
+      }
     `,
-    border: css`
-      border: 1px solid ${theme.palette.error.main};
-    `,
-    fontColor: css`
-      color: ${theme.palette.error.main};
-    `,
-    outlinedFontColor: css`
-      color: ${theme.palette.error.main};
-    `,
-  },
-  success: {
-    background: css`
-      background-color: ${theme.palette.success['50']};
-    `,
-    border: css`
-      border: 1px solid ${theme.palette.success.main};
-    `,
-    fontColor: css`
-      color: ${theme.palette.success[600]};
-    `,
-    outlinedFontColor: css`
-      color: ${theme.palette.success.main};
-    `,
-  },
-  warning: {
-    background: css`
-      background-color: ${theme.palette.warning['50']};
-    `,
-    border: css`
-      border: 1px solid ${theme.palette.warning.main};
-    `,
-    fontColor: css`
-      color: ${theme.palette.warning[600]};
-    `,
-    outlinedFontColor: css`
-      color: ${theme.palette.warning.main};
-    `,
-  },
-  orange: {
-    background: css`
-      background-color: #fff3e0;
-    `,
-    border: css`
-      border: 1px solid #ff7f00;
-    `,
-    fontColor: css`
-      color: #ff7f00;
-    `,
-    outlinedFontColor: css`
-      color: #ff7f00;
-    `,
-  },
-  lightgray: {
-    background: css`
-      background-color: ${theme.palette.gray[50]};
-    `,
-    border: css`
-      border: 1px solid ${theme.palette.gray[200]};
-    `,
-    fontColor: css`
-      color: ${theme.palette.gray[500]};
-    `,
-    outlinedFontColor: css`
-      color: ${theme.palette.gray[300]};
-    `,
-  },
-  purple: {
-    background: css`
-      background-color: #e6e1ef;
-    `,
-    border: css`
-      border: 1px solid #4e3276;
-    `,
-    fontColor: css`
-      color: #4e3276;
-    `,
-    outlinedFontColor: css`
-      color: #4e3276;
-    `,
-  },
-  darkPrimary: {
-    background: css`
-      background-color: ${theme.palette.primary.main};
-    `,
-    border: css`
-      border: 1px solid ${theme.palette.primary.main};
-    `,
-    fontColor: css`
-      color: ${theme.palette.white};
-    `,
-    outlinedFontColor: css`
-      color: ${theme.palette.primary.main};
+    outlined: css`
+      border: 1px solid var(--lightFilled-border-color);
+      background-color: var(--lightFilled-background-color);
+      color: var(--lightFilled-text-color);
+
+      &:hover {
+        background-color: var(--lightFilled-border-color);
+        color: var(--lightFilled-text-color);
+      }
+
+      &:disabled {
+        border: 1px solid var(--lightFilled-disabled-border-color);
+        color: var(--lightFilled-disabled-color);
+      }
     `,
   },
 };

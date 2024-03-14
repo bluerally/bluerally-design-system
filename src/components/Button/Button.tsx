@@ -1,9 +1,7 @@
+import buttonStyles from './style';
+import { Size } from '@/@types';
 import styled from '@emotion/styled';
 import React from 'react';
-
-import { Size } from '@/@types';
-
-import buttonStyles from './style';
 
 type ButtonVariant = 'filled' | 'outlined' | 'text' | 'lightFilled';
 type ButtonColor = 'primary' | 'warning' | 'error' | 'success';
@@ -50,7 +48,7 @@ const ButtonContainer = styled('button')<ButtonProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
   border: none;
   cursor: pointer;

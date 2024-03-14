@@ -1,20 +1,13 @@
-import { css } from '@emotion/react';
+import { Icon } from '../Icon';
+import buttonStyles from './style';
+import { Colors } from '@/@types';
+import { theme } from '@/style';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { Colors } from '@/@types';
-
-import { Icon } from '../Icon';
-import { chipIconColors, chipStyles } from './style';
-
 type ChipVariant = 'outlined' | 'filled';
 type Size = 'sm' | 'md';
-export type ChipColors =
-  | Colors
-  | 'orange'
-  | 'lightgray'
-  | 'purple'
-  | 'darkPrimary';
+export type ChipColors = Extract<Colors, 'primary' | 'gray'>;
 
 export interface ChipProps {
   size?: Size;
@@ -26,6 +19,11 @@ export interface ChipProps {
   onClickCancel?: (e: React.MouseEvent<HTMLDivElement>) => void;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
+
+export const chipIconColors = {
+  primary: theme.palette.white,
+  gray: theme.palette.gray['600'],
+};
 
 export const Chip = ({
   size = 'sm',
@@ -70,25 +68,13 @@ const ChipContainer = styled('div')<{
   justify-content: center;
   white-space: nowrap;
   vertical-align: middle;
-  height: ${({ size }) => (size === 'md' ? '28px' : '24px')};
-  border-radius: 14px;
+  height: 24px;
+  border-radius: 4px;
   gap: ${({ theme }) => theme.spacing(2)};
   padding: 0 ${({ theme }) => theme.spacing(5)};
 
-  ${({ variant, color, disabled, theme }) => {
-    const chipColor = disabled ? 'gray' : color;
-
-    if (variant === 'outlined') {
-      return css`
-        background-color: ${theme.palette.white};
-        ${chipStyles[chipColor].border};
-      `;
-    }
-
-    return css`
-      ${chipStyles[chipColor].background};
-    `;
-  }}
+  ${({ color }) => color && buttonStyles.colors[color]};
+  ${({ variant }) => variant && buttonStyles.variants[variant]};
 
   cursor: ${({ disabled, onClick }) => {
     if (disabled) {
@@ -113,14 +99,6 @@ const ChipInner = styled('div')<{
   gap: 4px;
   white-space: nowrap;
 
-  ${({ theme }) => theme.typography.sm.medium};
+  ${({ theme }) => theme.typography['sm-2'].medium};
   line-height: 16px;
-
-  ${({ variant, color, disabled }) => {
-    const chipColor = disabled ? 'gray' : color;
-
-    return variant === 'outlined'
-      ? chipStyles[chipColor].outlinedFontColor
-      : chipStyles[chipColor].fontColor;
-  }}
 `;

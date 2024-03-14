@@ -1,7 +1,7 @@
 import { palette } from './palette';
-import { zIndex } from './zIndex';
-import { typography, FontWeight } from './typography';
 import { spacing } from './spacing';
+import { FontWeight, typography } from './typography';
+import { zIndex } from './zIndex';
 
 declare module '@emotion/react' {
   export interface Theme {
