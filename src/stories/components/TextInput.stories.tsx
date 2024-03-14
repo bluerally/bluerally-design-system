@@ -1,6 +1,6 @@
+import { TextInput } from '@/components/TextInput';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
-import { TextInput } from '@/components/TextInput';
 
 export default {
   title: 'components/TextInput',
@@ -16,6 +16,7 @@ const Template: Story = (args) => {
       value={value}
       onChange={(e) => setValue(e.target.value)}
       placeholder="텍스트를 입력하세요"
+      label="Label"
     />
   );
 };

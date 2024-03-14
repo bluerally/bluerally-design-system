@@ -1,15 +1,4 @@
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import { useRef, useState } from 'react';
-import React from 'react';
-import Highlighter from 'react-highlight-words';
-
 import { LabeledComponentType } from '@/@types/LabeledComponentType';
-
-import { AnchorSide, Position } from '@/utils/getPosition';
-
-import { LabeledComponentWrapper } from '@/components/@common/LabeledComponentWrapper';
-
 import {
   Chip as ChipBase,
   Icon,
@@ -17,6 +6,13 @@ import {
   STATUS,
   TextInput,
 } from '@/components';
+import { LabeledComponentWrapper } from '@/components/@common/LabeledComponentWrapper';
+import { AnchorSide, Position } from '@/utils/getPosition';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { useRef, useState } from 'react';
+import React from 'react';
+import Highlighter from 'react-highlight-words';
 
 export interface SelectItem {
   title: string | number;
@@ -293,7 +289,7 @@ export const Select = <T extends boolean = false>({
       </SelectContainer>
       {isSelectOpen && (
         <OptionContainer>
-          <Overlay
+          <StyledOverlay
             open={isSelectOpen}
             anchorRef={selectRef}
             defaultPosition={defaultPosition}
@@ -396,7 +392,7 @@ export const Select = <T extends boolean = false>({
                 </OptionItem>
               )}
             </OptionList>
-          </Overlay>
+          </StyledOverlay>
         </OptionContainer>
       )}
     </LabeledComponentWrapper>
@@ -474,11 +470,11 @@ const OptionList = styled('ul')<{ width?: number; maxHeight?: number }>`
   max-height: ${({ maxHeight }) => maxHeight && `${maxHeight}px`};
   margin: 0;
   background: ${({ theme }) => theme.palette.white};
-  border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.palette.gray['200']};
+  border-radius: 5px;
+  border: none;
   padding: 0;
   overflow: auto;
-  color: ${({ theme }) => theme.palette.gray['600']};
+  color: ${({ theme }) => theme.palette.newGray['950']};
 `;
 
 const OptionItem = styled('li')<{ lineHeight?: string; disabled?: boolean }>`
@@ -486,11 +482,8 @@ const OptionItem = styled('li')<{ lineHeight?: string; disabled?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ${({ theme }) => theme.typography.basic.regular};
+  ${({ theme }) => theme.typography.md.medium};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  line-height: ${({ lineHeight }) => {
-    return lineHeight || '30px';
-  }};
 
   ${({ disabled, theme }) => {
     if (disabled) {
@@ -502,16 +495,15 @@ const OptionItem = styled('li')<{ lineHeight?: string; disabled?: boolean }>`
   }}
 
   &:hover {
-    background: ${({ theme }) => theme.palette.primary['200']};
+    background: ${({ theme }) => theme.palette.sky['50']};
   }
 `;
 
 const OptionItemSpan = styled('span')<{ lineHeight?: string }>`
+  ${({ theme }) => theme.typography.md.medium};
   line-height: ${({ lineHeight }) => {
-    return lineHeight || '30px';
+    return lineHeight || '38px';
   }};
-  font-size: 12px;
-  font-weight: 400;
   white-space: pre-wrap;
 
   .highlight {
@@ -540,4 +532,8 @@ const OptionContainer = styled('div')`
   overflow: hidden;
   margin: 0;
   padding: 0;
+`;
+
+const StyledOverlay = styled(Overlay)`
+  box-shadow: 0px 6px 18px 0px #0000001f;
 `;

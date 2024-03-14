@@ -38,7 +38,7 @@ const GuideTextContainer = styled('div')<{ status?: Status }>`
     switch (status) {
       case STATUS.ERROR:
         return css`
-          color: ${theme.palette.error.main};
+          color: ${theme.palette.newError['600']};
         `;
       case STATUS.WARNING:
         return css`
@@ -57,7 +57,7 @@ const GuideTextContainer = styled('div')<{ status?: Status }>`
 `;
 
 const Description = styled('p')`
-  ${({ theme }) => theme.typography.basic.regular};
+  ${({ theme }) => theme.typography['sm-2'].lighter};
   line-height: 24px;
   color: ${({ theme }) => theme.palette.gray['600']};
   margin-top: ${({ theme }) => theme.spacing(3)};

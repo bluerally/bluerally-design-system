@@ -36,14 +36,14 @@ const sliderStyleOverride = (size?: Size, checked?: boolean) => {
   const switchShape = css`
     height: 14px;
     width: 14px;
-    left: 4.5px;
+    left: 2.5px;
     bottom: 2px;
   `;
 
   if (checked) {
     return css`
       ${switchShape}
-      transform: translateX(10px);
+      transform: translateX(11.5px);
     `;
   }
   return switchShape;
@@ -80,8 +80,8 @@ const Slider = styled('span')<{
       : css`
           cursor: pointer;
           background-color: ${checked
-            ? theme.palette.primary['400']
-            : theme.palette.gray['300']};
+            ? theme.palette.sky['400']
+            : theme.palette.newGray['200']};
         `}
 
   &:before {

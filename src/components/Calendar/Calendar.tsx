@@ -1,32 +1,19 @@
-import styled from '@emotion/styled';
-import dayjs, { Dayjs } from 'dayjs';
-import { isNil } from 'lodash';
-import React, { useMemo, useState } from 'react';
-
 import { LabeledComponentType } from '@/@types/LabeledComponentType';
-
-import { formatter } from '@/utils/formatter';
-
 import { LabeledComponentWrapper } from '@/components/@common/LabeledComponentWrapper';
 import { Icon } from '@/components/Icon';
-
 import { theme } from '@/style/theme';
-import { FontWeight } from '@/style/theme/typography';
+import { formatter } from '@/utils/formatter';
+import styled from '@emotion/styled';
+import dayjs, { Dayjs } from 'dayjs';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
 
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const MAX_DOTS = 3;
-enum MODES {
-  Calendar,
-  Year,
-  Month,
-}
+const DAYS = ['월', '화', '수', '목', '금', '토', '일'];
 
 export interface CalendarInfo {
   date?: string;
   active?: boolean;
   disabled?: boolean;
-  emptyDots?: number;
-  fullDots?: number;
   startDate?: string;
   endDate?: string;
 }
@@ -46,25 +33,12 @@ interface DateInfo {
   disabled?: boolean;
   left?: boolean;
   right?: boolean;
-  emptyDots: number;
-  fullDots: number;
 }
-
-const DEFAULT_START_YEAR = 1900;
-const DEFAULT_END_YEAR = 2099;
-
-const getYearRange = (start: number, end: number) => {
-  if (isNil(start) || isNil(end) || start > end) {
-    return [];
-  }
-
-  return Array.from({ length: end - start + 1 }, (_, index) => start + index);
-};
 
 export const Calendar = ({
   info,
   onClick,
-  width = 260,
+  width = 300,
   defaultDate,
   label,
   name,
@@ -73,36 +47,18 @@ export const Calendar = ({
   description,
   required,
   border = 0,
-  startYear = DEFAULT_START_YEAR,
-  endYear = DEFAULT_END_YEAR,
 }: CalendarProps) => {
   const [displayDate, setDisplayDate] = useState<Dayjs>(
     dayjs(dayjs(defaultDate).isValid() ? defaultDate : undefined),
   );
   const firstDate = displayDate.startOf('month');
-  const firstDateOfCalendar = firstDate.subtract(firstDate.day(), 'day');
-  const [mode, setMode] = useState(MODES.Calendar);
-
-  const yearOptions = useMemo(() => {
-    if (startYear > endYear) {
-      return getYearRange(DEFAULT_START_YEAR, DEFAULT_END_YEAR);
-    }
-
-    return getYearRange(startYear, endYear);
-  }, [endYear, startYear]);
+  const firstDateOfCalendar = firstDate.subtract(
+    (firstDate.day() + 6) % 7,
+    'day',
+  );
 
   const handleChangeDisplayMonth = (offset: number) => {
     setDisplayDate(displayDate.add(offset, 'month'));
-  };
-
-  const handleClickYear = (year: number) => {
-    setDisplayDate(dayjs(displayDate).set('year', year));
-    setMode(MODES.Calendar);
-  };
-
-  const handleClickMonth = (month: number) => {
-    setDisplayDate(dayjs(displayDate).set('month', month));
-    setMode(MODES.Calendar);
   };
 
   return (
@@ -117,122 +73,78 @@ export const Calendar = ({
     >
       <CalendarContainer width={width} border={border}>
         <MonthSelector>
-          <MonthChangeIcon
+          <ChevronLeft
             onClick={() => handleChangeDisplayMonth(-1)}
-            icon="chevron-left"
             size={24}
-            width={24}
-            height={24}
-            draggable={false}
             color={theme.palette.primary.main}
+            cursor="pointer"
           />
           <YearMonthContainer>
-            <YearMonthText onClick={() => setMode(MODES.Year)}>
-              {displayDate.year()}년
-            </YearMonthText>
-            <YearMonthText onClick={() => setMode(MODES.Month)}>
-              {displayDate.month() + 1}월
-            </YearMonthText>
+            <YearMonthText>{displayDate.year()}</YearMonthText>
+            <YearMonthText>{displayDate.month() + 1}월</YearMonthText>
           </YearMonthContainer>
-          <MonthChangeIcon
+          <ChevronRight
             onClick={() => handleChangeDisplayMonth(1)}
-            icon="chevron-right"
             size={24}
-            width={24}
-            height={24}
-            draggable={false}
             color={theme.palette.primary.main}
+            cursor="pointer"
           />
         </MonthSelector>
-        {mode === MODES.Calendar && (
-          <CalendarTable>
-            <thead>
-              <tr>
-                {DAYS.map((day) => (
-                  <Th key={day}>{day}</Th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[...Array(getWeekCount(displayDate))].map((_, week) => (
-                <tr key={`week-${week}`}>
-                  {[...Array(7)].map((_, day) => {
-                    const date = firstDateOfCalendar.add(week * 7 + day, 'day');
-                    const isCurrentMonth =
-                      date >= firstDate && date < firstDate.add(1, 'month');
-                    const {
-                      left,
-                      right,
-                      active,
-                      emptyDots,
-                      fullDots,
-                      disabled = false,
-                    } = getDateInfo(info ?? [], date);
-
-                    return (
-                      <Td key={`day-${week}-${day}`}>
-                        <DateContainer
-                          onClick={() => onClick?.(formatter.date(date))}
-                        >
-                          <RangeContainer>
-                            <RangePanel selected={left} />
-                            <RangePanel selected={right} />
-                          </RangeContainer>
-                          <DateInner
-                            disabled={disabled}
-                            selected={active}
-                            currentMonth={isCurrentMonth}
-                          >
-                            {date.date()}
-                          </DateInner>
-                        </DateContainer>
-                        <CalendarDotContainer>
-                          {[...Array(Math.min(fullDots, MAX_DOTS))].map(
-                            (_, i) => (
-                              <CalendarDot
-                                full={true}
-                                key={`dots-${week}-${day}-full-${i}`}
-                              />
-                            ),
-                          )}
-                          {[
-                            ...Array(Math.min(emptyDots, MAX_DOTS - fullDots)),
-                          ].map((_, i) => (
-                            <CalendarDot
-                              full={false}
-                              key={`dots-${week}-${day}-empty-${i}`}
-                            />
-                          ))}
-                        </CalendarDotContainer>
-                      </Td>
-                    );
-                  })}
-                </tr>
+        <CalendarTable>
+          <thead>
+            <tr>
+              {DAYS.map((day) => (
+                <Th key={day}>{day}</Th>
               ))}
-            </tbody>
-          </CalendarTable>
-        )}
-        {mode === MODES.Year && (
-          <YearMonthSelectContainer>
-            {yearOptions.map((_year) => (
-              <YearMonthBlock
-                onClick={() => handleClickYear(_year)}
-                key={_year}
-              >
-                {_year}년
-              </YearMonthBlock>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(getWeekCount(displayDate))].map((_, week) => (
+              <tr key={`week-${week}`}>
+                {[...Array(7)].map((_, day) => {
+                  const date = firstDateOfCalendar.add(week * 7 + day, 'day');
+                  const isCurrentMonth =
+                    date >= firstDate && date < firstDate.add(1, 'month');
+                  const {
+                    left,
+                    right,
+                    active,
+                    disabled = false,
+                  } = getDateInfo(info ?? [], date);
+
+                  const isToday = date.isSame(dayjs(), 'day');
+                  return (
+                    <Td key={`day-${week}-${day}`}>
+                      <DateContainer
+                        onClick={() => onClick?.(formatter.date(date))}
+                      >
+                        <RangeContainer>
+                          <RangePanel selected={left} />
+                          <RangePanel selected={right} />
+                        </RangeContainer>
+                        <DateInner
+                          disabled={disabled}
+                          selected={active}
+                          currentMonth={isCurrentMonth}
+                        >
+                          {date.date()}
+                        </DateInner>
+                      </DateContainer>
+                      <CalendarDotContainer>
+                        {isToday && (
+                          <CalendarDot
+                            full={true}
+                            key={`dots-${week}-${day}`}
+                          />
+                        )}
+                      </CalendarDotContainer>
+                    </Td>
+                  );
+                })}
+              </tr>
             ))}
-          </YearMonthSelectContainer>
-        )}
-        {mode === MODES.Month && (
-          <YearMonthSelectContainer>
-            {[...Array(12)].map((_, i) => (
-              <YearMonthBlock onClick={() => handleClickMonth(i)} key={`${i}`}>
-                {(i + 1).toString().padStart(2, '0')}월
-              </YearMonthBlock>
-            ))}
-          </YearMonthSelectContainer>
-        )}
+          </tbody>
+        </CalendarTable>
       </CalendarContainer>
     </LabeledComponentWrapper>
   );
@@ -242,51 +154,41 @@ const getDateInfo: (info: CalendarInfo[], targetDate: Dayjs) => DateInfo = (
   info,
   targetDate,
 ) => {
-  const dateInfo: DateInfo = { active: false, emptyDots: 0, fullDots: 0 };
+  const dateInfo: DateInfo = { active: false };
   const strDate = formatter.date(targetDate);
 
-  info.forEach(
-    ({ disabled, date, startDate, endDate, emptyDots, fullDots, active }) => {
-      if (date === strDate) {
-        if (emptyDots) {
-          dateInfo.emptyDots = emptyDots;
-        }
-
-        if (fullDots) {
-          dateInfo.fullDots = fullDots;
-        }
-
-        if (active) {
-          dateInfo.active = true;
-        }
-
-        if (disabled) {
-          dateInfo.disabled = true;
-        }
-      }
-
-      if (!startDate || !endDate) {
-        return;
-      }
-
-      if (startDate <= strDate && strDate <= endDate && disabled) {
-        dateInfo.disabled = true;
-        return;
-      }
-
-      if (startDate === strDate || endDate === strDate) {
+  info.forEach(({ disabled, date, startDate, endDate, active }) => {
+    if (date === strDate) {
+      if (active) {
         dateInfo.active = true;
       }
 
-      if (startDate < strDate && strDate <= endDate) {
-        dateInfo.left = true;
+      if (disabled) {
+        dateInfo.disabled = true;
       }
+    }
 
-      if (startDate <= strDate && strDate < endDate) {
-        dateInfo.right = true;
-      }
-    },
-  );
+    if (!startDate || !endDate) {
+      return;
+    }
+
+    if (startDate <= strDate && strDate <= endDate && disabled) {
+      dateInfo.disabled = true;
+      return;
+    }
+
+    if (startDate === strDate || endDate === strDate) {
+      dateInfo.active = true;
+    }
+
+    if (startDate < strDate && strDate <= endDate) {
+      dateInfo.left = true;
+    }
+
+    if (startDate <= strDate && strDate < endDate) {
+      dateInfo.right = true;
+    }
+  });
 
   return dateInfo;
 };
@@ -295,7 +197,7 @@ const getWeekCount = (date: Dayjs) => {
   const firstOfMonth = dayjs(date).startOf('month');
   const lastOfMonth = dayjs(date).endOf('month');
 
-  const used = firstOfMonth.day() + lastOfMonth.date();
+  const used = firstOfMonth.day() - 1 + lastOfMonth.date();
 
   return Math.ceil(used / 7);
 };
@@ -320,13 +222,9 @@ const MonthSelector = styled('div')`
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing(12)};
-  margin-bottom: ${({ theme }) => theme.spacing(4)};
-`;
-
-const MonthChangeIcon = styled(Icon)`
-  user-select: none;
-  align-self: center;
+  margin-bottom: ${({ theme }) => theme.spacing(10)};
 `;
 
 const YearMonthContainer = styled('div')`
@@ -335,21 +233,12 @@ const YearMonthContainer = styled('div')`
   text-align: center;
   justify-content: center;
   display: flex;
-
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 26px;
+  ${theme.typography.lg.semiBold}
 `;
 
 const YearMonthText = styled('div')`
-  cursor: pointer;
   user-select: none;
-  border-radius: 8px;
-  padding: ${({ theme }) => `${theme.spacing(2)} ${theme.spacing(5)}`};
-
-  :hover {
-    background-color: ${({ theme }) => theme.palette.primary['100']};
-  }
+  padding: ${({ theme }) => `${theme.spacing(2)} ${theme.spacing(2)}`};
 `;
 
 const CalendarTable = styled('table')`
@@ -362,11 +251,9 @@ const CalendarTable = styled('table')`
 `;
 
 const Th = styled('th')`
-  padding: ${({ theme }) => `${theme.spacing(4)} 0 ${theme.spacing(8)}`};
-  color: ${({ theme }) => theme.palette.gray.main};
-  font-size: 12px;
-  line-height: 12px;
-  font-weight: ${FontWeight.regular};
+  padding: 8px;
+  color: ${({ theme }) => theme.palette.newGray['400']};
+  ${theme.typography['basic-2'].regular}
 `;
 
 const Td = styled('td')`
@@ -382,6 +269,8 @@ const DateContainer = styled('div')`
   align-items: center;
   justify-content: center;
   position: relative;
+  ${theme.typography.md.regular}
+  color: ${({ theme }) => theme.palette.newGray['500']};
 `;
 
 const DateInner = styled('div')<{
@@ -399,7 +288,7 @@ const DateInner = styled('div')<{
 
   background-color: ${({ theme, disabled, selected }) =>
     selected
-      ? theme.palette.primary['400']
+      ? theme.palette.sky['500']
       : disabled
       ? theme.palette.primary['50']
       : 'transparent'};
@@ -409,7 +298,7 @@ const DateInner = styled('div')<{
       : disabled
       ? theme.palette.gray['500']
       : theme.palette.gray[currentMonth ? '600' : '300']};
-  border-radius: 8px;
+  border-radius: 50%;
 `;
 
 const RangeContainer = styled('div')`
@@ -421,7 +310,7 @@ const RangeContainer = styled('div')`
 
 const RangePanel = styled('div')<{ selected?: boolean }>`
   background-color: ${({ selected = false, theme }) =>
-    selected ? theme.palette.primary['200'] : 'transparent'};
+    selected ? theme.palette.sky['50'] : 'transparent'};
   flex-grow: 1;
 `;
 
@@ -435,34 +324,11 @@ const CalendarDotContainer = styled('div')`
 
 const CalendarDot = styled('div')<{ full: boolean }>`
   display: inline-block;
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
-  border: 1px solid ${({ theme }) => theme.palette.primary.main};
+  border: 1px solid ${({ theme }) => theme.palette.sky['500']};
 
   background-color: ${({ theme, full }) =>
-    full ? theme.palette.primary.main : 'transparent'};
-`;
-
-const YearMonthSelectContainer = styled('div')`
-  display: flex;
-  justify-content: center;
-  row-gap: 8px;
-  flex-wrap: wrap;
-  max-height: 250px;
-  overflow-y: scroll;
-`;
-
-const YearMonthBlock = styled('div')`
-  display: inline-block;
-  width: 57px;
-  white-space: nowrap;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 12px;
-  user-select: none;
-  cursor: pointer;
-  color: ${({ theme }) => theme.palette.gray['600']};
-  padding: ${({ theme }) => `${theme.spacing(5)} 0`};
-  text-align: center;
+    full ? theme.palette.sky['500'] : 'transparent'};
 `;

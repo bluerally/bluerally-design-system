@@ -1,5 +1,5 @@
+import { Size } from '../../@types/style';
 import buttonStyles from './style';
-import { Size } from '@/@types';
 import styled from '@emotion/styled';
 import React from 'react';
 

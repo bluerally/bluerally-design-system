@@ -1,12 +1,11 @@
+import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
+import { LabeledComponentType } from '@/@types/LabeledComponentType';
+import { STATUS } from '@/components';
+import { theme } from '@/style/theme';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { CircleAlert } from 'lucide-react';
 import React, { CSSProperties, InputHTMLAttributes } from 'react';
-
-import { LabeledComponentType } from '@/@types/LabeledComponentType';
-
-import { STATUS } from '@/components';
-
-import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
 
 export interface TextInputProps
   extends InputHTMLAttributes<HTMLInputElement>,
@@ -18,6 +17,7 @@ export interface TextInputProps
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   containerStyle?: CSSProperties;
+  inputContainerStyle?: CSSProperties;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   inputRef?: React.LegacyRef<HTMLInputElement>;
   containerRef?: React.RefObject<HTMLDivElement>;
@@ -43,6 +43,7 @@ export const TextInput = ({
   containerRef,
   onFocus,
   containerStyle,
+  inputContainerStyle,
   ...rest
 }: TextInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +74,7 @@ export const TextInput = ({
         onClick={onClick}
         ref={containerRef}
         style={containerStyle}
+        className="textInput-container"
       >
         {startIcon && <StartAdornment>{startIcon}</StartAdornment>}
         <StyledInput
@@ -80,14 +82,19 @@ export const TextInput = ({
           aria-label={name}
           name={name}
           placeholder={placeholder}
+          error={status === STATUS.ERROR}
           value={value}
           onChange={handleChange}
           disabled={disabled}
           onKeyUp={onKeyUp}
           onFocus={onFocus}
+          style={inputContainerStyle}
           {...rest}
         />
         {endIcon && <EndAdornment>{endIcon}</EndAdornment>}
+        {status === STATUS.ERROR && (
+          <CircleAlert size={24} color={theme.palette.newError[600]} />
+        )}
       </TextInputContainer>
     </LabeledComponentWrapper>
   );
@@ -102,21 +109,21 @@ const TextInputContainer = styled('div')<{
   align-items: center;
   overflow: hidden;
   width: 100%;
-  min-height: 42px;
+  min-height: 48px;
   border-radius: 8px;
-  background-color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.gray['50'] : theme.palette.white};
+  background-color: ${({ theme, error, disabled }) =>
+    error
+      ? theme.palette.error['50']
+      : disabled
+      ? theme.palette.newGray['50']
+      : theme.palette.white};
   padding: ${({ theme, icon }) =>
     `${theme.spacing(4.5)} ${theme.spacing(7)} ${theme.spacing(
       4.5,
     )} ${theme.spacing(icon ? 2.5 : 7)}`};
   border: 1px solid
-    ${({ theme, error, disabled }) =>
-      error
-        ? theme.palette.error.main
-        : disabled
-        ? theme.palette.gray['200']
-        : theme.palette.gray['300']};
+    ${({ theme, error }) =>
+      error ? theme.palette.newError['600'] : theme.palette.newGray['200']};
 
   ${({ disabled }) =>
     disabled &&
@@ -125,19 +132,28 @@ const TextInputContainer = styled('div')<{
     `};
 
   &:focus-within {
-    border-color: ${({ theme }) => theme.palette.primary.main};
+    border-color: ${({ theme, error }) =>
+      error ? theme.palette.newError['600'] : theme.palette.newGray['500']};
   }
 `;
 
-const StyledInput = styled('input')<{ disabled: boolean }>`
-  ${({ theme }) => theme.typography.basic.regular}
+const StyledInput = styled('input')<{ error?: boolean; disabled: boolean }>`
+  ${({ theme }) => theme.typography.md.regular}
   width: 100%;
   border: none;
   outline: none;
-  color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.gray['200'] : theme.palette.black};
-  background-color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.gray['50'] : theme.palette.white};
+  color: ${({ theme, error, disabled }) =>
+    error
+      ? theme.palette.error['600']
+      : disabled
+      ? theme.palette.newGray['400']
+      : theme.palette.newGray['950']};
+  background-color: ${({ theme, error, disabled }) =>
+    error
+      ? theme.palette.error['50']
+      : disabled
+      ? theme.palette.newGray['50']
+      : theme.palette.white};
 
   ${({ disabled }) =>
     disabled &&
@@ -146,7 +162,7 @@ const StyledInput = styled('input')<{ disabled: boolean }>`
     `};
 
   &::placeholder {
-    color: ${({ theme }) => theme.palette.gray['300']};
+    color: ${({ theme }) => theme.palette.newGray['400']};
   }
 
   &:focus::placeholder {

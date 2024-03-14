@@ -1,12 +1,10 @@
-import { KeyboardEvent } from 'react';
-
-import { LabeledComponentType } from '@/@types/LabeledComponentType';
-
-import { theme } from '@/style/theme';
-
 import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
-import { Icon } from '../Icon';
 import { TextInput, TextInputProps } from '../TextInput';
+import { LabeledComponentType } from '@/@types/LabeledComponentType';
+import { theme } from '@/style/theme';
+import styled from '@emotion/styled';
+import { Search, X } from 'lucide-react';
+import { KeyboardEvent } from 'react';
 
 interface SearchInputProps extends TextInputProps, LabeledComponentType {
   onClickReset?: () => void;
@@ -16,7 +14,6 @@ interface SearchInputProps extends TextInputProps, LabeledComponentType {
 export const SearchInput = ({
   onClickReset,
   onSearch,
-  disabled,
   status,
   name,
   label,
@@ -44,21 +41,21 @@ export const SearchInput = ({
       description={description}
       required={required}
     >
-      <TextInput
+      <SearchTextInput
         {...rest}
         width={width}
-        startIcon={
-          <Icon
-            icon="search"
-            width={15}
-            height={15}
-            color={disabled ? theme.palette.gray['200'] : '#333333'}
-          />
-        }
-        disabled={disabled}
+        containerStyle={{
+          border: 'none',
+          backgroundColor: theme.palette.newGray['100'],
+        }}
+        inputContainerStyle={{
+          backgroundColor: theme.palette.newGray['100'],
+        }}
         endIcon={
-          !disabled && (
-            <Icon icon="x" width={13} height={13} onClick={onClickReset} />
+          rest.value?.trim() === '' ? (
+            <Search size={18} />
+          ) : (
+            <X size={18} onClick={onClickReset} />
           )
         }
         onKeyUp={handleKeyUp}
@@ -66,3 +63,9 @@ export const SearchInput = ({
     </LabeledComponentWrapper>
   );
 };
+
+const SearchTextInput = styled(TextInput)`
+  input {
+    background-color: ${({ theme }) => theme.palette.newGray['100']};
+  }
+`;
