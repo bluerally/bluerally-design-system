@@ -32,7 +32,7 @@ type GrayColorVariant =
   | '700'
   | 'main';
 type SubColorVariant = '50' | '300' | '600' | 'main';
-type StatusColorVariant = '50' | '600';
+type StatusColorVariant = '50' | '200' | '600' | '700';
 
 export type PrimaryColorType = { [variant in DefaultColorVariant]: string };
 export type NewPrimaryColorType = {
@@ -117,12 +117,9 @@ const warningColors: SubColorType = {
 
 const newErrorColors: StatusColorType = {
   '50': '#fff1f2',
+  '200': '#F4A1A6',
   '600': '#e11d48',
-};
-
-const positiveColors: StatusColorType = {
-  '50': '#E0F8F6',
-  '600': '#0d9488',
+  '700': '#C51239',
 };
 
 export const palette = {
@@ -136,5 +133,4 @@ export const palette = {
   sky: skyColors,
   newGray: grayColors,
   newError: newErrorColors,
-  positive: positiveColors,
 };

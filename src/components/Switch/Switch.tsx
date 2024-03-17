@@ -73,15 +73,11 @@ const Slider = styled('span')<{
   ${({ theme, checked, disabled }) =>
     disabled
       ? css`
-          background-color: ${checked
-            ? theme.palette.primary['300']
-            : theme.palette.gray['200']};
+          background-color: ${theme.palette.newGray['150']};
         `
       : css`
           cursor: pointer;
-          background-color: ${checked
-            ? theme.palette.sky['400']
-            : theme.palette.newGray['200']};
+          background-color: ${theme.palette.newGray['200']};
         `}
 
   &:before {

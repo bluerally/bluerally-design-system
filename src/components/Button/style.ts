@@ -3,56 +3,52 @@ import { css } from '@emotion/react';
 
 export default {
   colors: {
-    primary: css`
+    sky: css`
       --main-color: ${theme.palette.sky['500']};
+      --text-color: ${theme.palette.white};
       --disabled-color: ${theme.palette.newGray['150']};
-      --filled-hover-color: ${theme.palette.sky['500']};
-      --lightFilled-background-color: ${theme.palette.sky['50']};
-      --lightFilled-border-color: ${theme.palette.sky['500']};
-      --lightFilled-text-color: ${theme.palette.sky['500']};
-      --lightFilled-disabled-color: ${theme.palette.white};
-      --lightFilled-disabled-border-color: ${theme.palette.newGray['150']};
-      --text-main-color: ${theme.palette.sky['500']};
+      --disabled-text-color: ${theme.palette.newGray['400']};
+      --filled-hover-color: ${theme.palette.sky['700']};
+      --outlined-background-color: ${theme.palette.sky['50']};
+      --outlined-border-color: ${theme.palette.sky['500']};
+      --outlined-text-color: ${theme.palette.sky['500']};
+      --outlined-background-color: ${theme.palette.sky['50']};
+      --outlined-hover-background-color: ${theme.palette.sky['150']};
+      --outlined-hover-border-color: ${theme.palette.sky['500']};
+      --outlined-disabled-border-color: ${theme.palette.newGray['200']};
     `,
-    warning: css`
-      --main-color: ${theme.palette.primary.main};
-      --disabled-color: ${theme.palette.gray['300']};
-      --filled-hover-color: ${theme.palette.primary['500']};
-      --lightFilled-background-color: ${theme.palette.primary['100']};
-      --lightFilled-border-color: ${theme.palette.primary['200']};
-      --lightFilled-text-color: ${theme.palette.primary['300']};
-      --lightFilled-disabled-color: ${theme.palette.gray['50']};
-      --lightFilled-disabled-border-color: ${theme.palette.gray['200']};
-      --text-main-color: ${theme.palette.warning.main};
+    gray: css`
+      --main-color: ${theme.palette.newGray['150']};
+      --text-color: ${theme.palette.newGray['500']};
+      --disabled-color: ${theme.palette.newGray['150']};
+      --disabled-text-color: ${theme.palette.newGray['400']};
+      --filled-hover-color: ${theme.palette.newGray['200']};
+      --outlined-background-color: ${theme.palette.white};
+      --outlined-border-color: ${theme.palette.newGray['300']};
+      --outlined-text-color: ${theme.palette.newGray['400']};
+      --outlined-hover-background-color: ${theme.palette.newGray['150']};
+      --outlined-hover-border-color: ${theme.palette.newGray['200']};
+      --outlined-disabled-border-color: ${theme.palette.newGray['200']};
     `,
     error: css`
-      --main-color: ${theme.palette.primary.main};
-      --disabled-color: ${theme.palette.gray['300']};
-      --filled-hover-color: ${theme.palette.primary['500']};
-      --lightFilled-background-color: ${theme.palette.primary['100']};
-      --lightFilled-border-color: ${theme.palette.primary['200']};
-      --lightFilled-text-color: ${theme.palette.primary['300']};
-      --lightFilled-disabled-color: ${theme.palette.gray['50']};
-      --lightFilled-disabled-border-color: ${theme.palette.gray['200']};
-      --text-main-color: ${theme.palette.error.main};
-    `,
-    success: css`
-      --main-color: ${theme.palette.primary.main};
-      --disabled-color: ${theme.palette.gray['300']};
-      --filled-hover-color: ${theme.palette.primary['500']};
-      --lightFilled-background-color: ${theme.palette.primary['100']};
-      --lightFilled-border-color: ${theme.palette.primary['200']};
-      --lightFilled-text-color: ${theme.palette.primary['300']};
-      --lightFilled-disabled-color: ${theme.palette.gray['50']};
-      --lightFilled-disabled-border-color: ${theme.palette.gray['200']};
-      --text-main-color: ${theme.palette.success.main};
+      --main-color: ${theme.palette.newError['600']};
+      --text-color: ${theme.palette.white};
+      --disabled-color: ${theme.palette.newGray['150']};
+      --disabled-text-color: ${theme.palette.newGray['400']};
+      --filled-hover-color: ${theme.palette.newError['700']};
+      --outlined-background-color: ${theme.palette.newError['50']};
+      --outlined-border-color: ${theme.palette.newError['600']};
+      --outlined-text-color: ${theme.palette.newError['600']};
+      --outlined-hover-background-color: ${theme.palette.newError['200']};
+      --outlined-hover-border-color: ${theme.palette.newError['600']};
+      --outlined-disabled-border-color: ${theme.palette.newGray['200']};
     `,
   },
   variants: {
     filled: css`
       background: var(--main-color);
       border: 1px solid transparent;
-      color: ${theme.palette.white};
+      color: var(--text-color);
 
       &:hover {
         background: var(--filled-hover-color);
@@ -60,21 +56,24 @@ export default {
 
       &:disabled {
         background-color: var(--disabled-color);
+        color: var(--disabled-text-color);
       }
     `,
     outlined: css`
-      border: 1px solid var(--main-color);
-      background-color: ${theme.palette.white};
-      color: var(--main-color);
+      border: 1px solid var(--outlined-border-color);
+      background-color: var(--outlined-background-color);
+      color: var(--outlined-text-color);
 
       &:hover {
-        background-color: var(--main-color);
-        color: ${theme.palette.white};
+        background-color: var(--outlined-hover-background-color);
+        color: var(--outlined-text-color);
+        border: 1px solid var(--outlined-hover-border-color);
       }
 
       &:disabled {
-        border: 1px solid var(--disabled-color);
-        color: var(--disabled-color);
+        border: 1px solid var(--outlined-disabled-border-color);
+        color: var(--disabled-text-color);
+        background-color: var(--disabled-color);
       }
     `,
     text: css`
@@ -86,42 +85,26 @@ export default {
         color: ${theme.palette.newGray['400']};
       }
     `,
-    lightFilled: css`
-      border: 1px solid var(--lightFilled-border-color);
-      background-color: var(--lightFilled-background-color);
-      color: var(--lightFilled-text-color);
-
-      &:hover {
-        border: 1px solid var(--main-color);
-        color: var(--main-color);
-      }
-
-      &:disabled {
-        background-color: var(--lightFilled-disabled-color);
-        border: 1px solid var(--lightFilled-disabled-border-color);
-        color: var(--disabled-color);
-      }
-    `,
   },
   sizes: {
     xs: css`
       ${theme.typography['sm-2'].semiBold}
-      padding: ${theme.spacing(2)} ${theme.spacing(7)};
+      padding: ${theme.spacing(2.5)} ${theme.spacing(6)};
       height: 27px;
     `,
     sm: css`
       ${theme.typography['sm-2'].semiBold}
-      padding: ${theme.spacing(3)} ${theme.spacing(10)};
+      padding: ${theme.spacing(4)} ${theme.spacing(6)};
       height: 33px;
     `,
     md: css`
       ${theme.typography.md.semiBold}
-      padding: ${theme.spacing(5)} ${theme.spacing(10)};
+      padding: ${theme.spacing(4)} ${theme.spacing(6)};
       height: 37px;
     `,
     lg: css`
       ${theme.typography.lg.semiBold}
-      padding: ${theme.spacing(7)} ${theme.spacing(12)};
+      padding: ${theme.spacing(5)} ${theme.spacing(7)};
       height: 44px;
     `,
   },

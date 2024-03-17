@@ -3,8 +3,8 @@ import buttonStyles from './style';
 import styled from '@emotion/styled';
 import React from 'react';
 
-type ButtonVariant = 'filled' | 'outlined' | 'text' | 'lightFilled';
-type ButtonColor = 'primary' | 'warning' | 'error' | 'success';
+type ButtonVariant = 'filled' | 'outlined' | 'text';
+type ButtonColor = 'sky' | 'gray' | 'error';
 type ButtonSize = 'xs' | Size;
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -17,7 +17,7 @@ export interface ButtonProps
 
 export const Button = ({
   variant = 'filled',
-  color = 'primary',
+  color = 'sky',
   size = 'md',
   children,
   disabled,

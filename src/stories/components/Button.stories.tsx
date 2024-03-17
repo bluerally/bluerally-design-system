@@ -1,8 +1,8 @@
-import { Story } from '@storybook/react';
-import React from 'react';
+import { Icon } from '@/components';
 import { Button } from '@/components/Button';
 import styled from '@emotion/styled';
-import { Icon } from '@/components';
+import { Story } from '@storybook/react';
+import React from 'react';
 
 export default {
   title: 'components/Button',
@@ -15,6 +15,9 @@ const Template: Story = (args) => <Button {...args}>버튼</Button>;
 export const Default = Template.bind({});
 
 Default.args = {
+  variant: 'filled',
+  color: 'sky',
+  size: 'sm',
   disabled: false,
 };
 
