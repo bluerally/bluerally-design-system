@@ -1,15 +1,11 @@
 import { LabeledComponentType } from '@/@types/LabeledComponentType';
-import {
-  Chip as ChipBase,
-  Icon,
-  Overlay,
-  STATUS,
-  TextInput,
-} from '@/components';
+import { Button, Overlay, STATUS, TextInput } from '@/components';
 import { LabeledComponentWrapper } from '@/components/@common/LabeledComponentWrapper';
-import { AnchorSide, Position } from '@/utils/getPosition';
+import { theme } from '@/style/theme';
+import { Position } from '@/utils/getPosition';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Check, ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { useRef, useState } from 'react';
 import React from 'react';
 import Highlighter from 'react-highlight-words';
@@ -17,24 +13,19 @@ import Highlighter from 'react-highlight-words';
 export interface SelectItem {
   title: string | number;
   value: string | number;
-  disabled?: boolean;
   render?: (option?: Omit<SelectItem, 'render'>) => JSX.Element;
 }
 
-export type Selected<T> = T extends true
-  ? SelectItem[]
-  : SelectItem | undefined;
+export type Selected<T> = SelectItem | undefined;
 
 export interface SelectProps<T> extends LabeledComponentType {
   search?: boolean;
   selected?: Selected<T>;
-  multiple?: T;
   options: SelectItem[];
   placeholder?: string;
   isClickOutsideClose?: boolean;
   chip?: boolean;
   focusOpen?: boolean;
-  side?: AnchorSide;
   defaultPosition?: Position;
   gap?: number;
   width?: string;
@@ -44,24 +35,21 @@ export interface SelectProps<T> extends LabeledComponentType {
   minimumSearchLength?: number;
   enableAll?: boolean;
   allItem?: SelectItem;
-  disabled?: boolean;
   onSelect?: (selected: Selected<T>) => void;
   onEnter?: (e: string) => void;
   onChangeSearchValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Select = <T extends boolean = false>({
-  multiple,
   search,
   selected,
   options,
   placeholder,
   isClickOutsideClose = true,
   defaultPosition = { top: 0, left: 0 },
-  gap = 12,
+  gap = 0,
   chip = false,
   focusOpen = true,
-  side = 'bottom',
   width,
   lineHeight,
   optionMaxHeight,
@@ -74,7 +62,6 @@ export const Select = <T extends boolean = false>({
   minimumSearchLength = 0,
   enableAll,
   allItem = { title: '전체', value: 'ALL' },
-  disabled,
   required,
   onSelect,
   onEnter,
@@ -90,47 +77,13 @@ export const Select = <T extends boolean = false>({
         )
       : options;
 
-  const enableOptions = options.filter((option) => !option.disabled);
   const isSelectedAll =
     enableAll &&
     selected &&
     ((selected as SelectItem).value === allItem.value ||
-      (Array.isArray(selected) && selected.length === enableOptions.length));
+      (Array.isArray(selected) && selected.length === options.length));
 
   const handleSelectChange = (item: SelectItem) => {
-    if (multiple) {
-      if (enableAll && item === allItem) {
-        if (
-          !selected ||
-          (selected as SelectItem[]).length !== enableOptions.length
-        ) {
-          onSelect?.(enableOptions as Selected<T>);
-        } else {
-          onSelect?.([] as unknown as Selected<T>);
-        }
-
-        return;
-      }
-
-      if (!Array.isArray(selected)) {
-        onSelect?.([item] as Selected<T>);
-
-        return;
-      }
-
-      const otherSelectedItems = selected.filter(
-        (selectedItem) => selectedItem.value !== item.value,
-      );
-      const newSelectedItems = selected.some(
-        (select) => select.value === item.value,
-      )
-        ? otherSelectedItems
-        : [...otherSelectedItems, item];
-
-      onSelect?.(newSelectedItems as Selected<T>);
-
-      return;
-    }
     onSelect?.(item as Selected<T>);
   };
 
@@ -138,16 +91,6 @@ export const Select = <T extends boolean = false>({
     if (value === allItem.value) {
       setSearchValue('');
       onSelect?.(undefined as Selected<T>);
-
-      return;
-    }
-
-    if (multiple && Array.isArray(selected)) {
-      onSelect?.(
-        selected.filter(
-          (selectedItem) => selectedItem.value !== value,
-        ) as Selected<T>,
-      );
 
       return;
     }
@@ -174,22 +117,23 @@ export const Select = <T extends boolean = false>({
           setIsSelectOpen((prev) => !prev);
         }}
         width={width}
-        disabled={disabled}
       >
         <SelectBox>
           <ValueBox lineHeight={lineHeight}>
             {Array.isArray(selected) ? (
               selected.length ? (
                 isSelectedAll ? (
-                  <Chip
+                  <Button
+                    size="xs"
+                    variant="outlined"
                     key={allItem.value}
-                    onClickCancel={(e) => {
+                    onClick={(e) => {
                       e.stopPropagation();
                       handleChipClick(allItem.value);
                     }}
                   >
                     {allItem.title}
-                  </Chip>
+                  </Button>
                 ) : (
                   selected.map(({ title, value, render }) =>
                     render ? (
@@ -197,32 +141,38 @@ export const Select = <T extends boolean = false>({
                         {render({ title, value })}
                       </React.Fragment>
                     ) : (
-                      <Chip
+                      <Button
+                        size="xs"
+                        variant="outlined"
                         key={value}
-                        onClickCancel={(e) => {
+                        onClick={(e) => {
                           e.stopPropagation();
                           handleChipClick(value);
                         }}
                       >
                         {title}
-                      </Chip>
+                      </Button>
                     ),
                   )
                 )
               ) : (
-                !search && placeholder
+                !search && (
+                  <PlaceHolderContainer>{placeholder}</PlaceHolderContainer>
+                )
               )
             ) : selected?.title ? (
               chip ? (
-                <Chip
+                <Button
+                  size="xs"
+                  variant="outlined"
                   key={selected.value}
-                  onClickCancel={(e) => {
+                  onClick={(e) => {
                     e.stopPropagation();
                     handleChipClick(selected.value);
                   }}
                 >
                   {selected.title}
-                </Chip>
+                </Button>
               ) : selected.render ? (
                 selected.render({
                   title: selected.title,
@@ -232,10 +182,12 @@ export const Select = <T extends boolean = false>({
                 selected.title
               )
             ) : (
-              !search && placeholder
+              !search && (
+                <PlaceHolderContainer>{placeholder}</PlaceHolderContainer>
+              )
             )}
           </ValueBox>
-          {search && (multiple || !chip || !selected) && (
+          {search && (!chip || !selected) && (
             <TextInput
               value={searchValue}
               containerStyle={{
@@ -265,25 +217,20 @@ export const Select = <T extends boolean = false>({
                   onEnter(searchValue);
                 }
               }}
-              startIcon={<Icon icon="search" width={15} height={15} />}
+              startIcon={<Search size={15} />}
               placeholder={placeholder}
-              disabled={disabled}
             />
           )}
         </SelectBox>
         {(Array.isArray(selected) || downIcon) && (
           <IconBox
+            isOpen={isSelectOpen}
             onClick={(e) => {
               e.stopPropagation();
               setIsSelectOpen((prev) => !prev);
             }}
           >
-            <Icon
-              icon={'chevron-down'}
-              width={20}
-              height={20}
-              color={'#8B8F9F'}
-            />
+            <ChevronDown size={20} color={theme.palette.newGray['400']} />
           </IconBox>
         )}
       </SelectContainer>
@@ -294,7 +241,6 @@ export const Select = <T extends boolean = false>({
             anchorRef={selectRef}
             defaultPosition={defaultPosition}
             gap={gap}
-            side={side}
             isAttachRoot
             ignoreClickRefs={[selectRef]}
             onClickOutside={
@@ -313,23 +259,13 @@ export const Select = <T extends boolean = false>({
 
                     handleSelectChange(allItem);
 
-                    if (multiple) {
-                      setSearchValue('');
-                      return;
-                    }
-
                     setIsSelectOpen(false);
                   }}
                 >
                   <OptionItemSpan>{allItem.title}</OptionItemSpan>
                   <OptionCheckedIcon>
                     {isSelectedAll && (
-                      <Icon
-                        icon={'check'}
-                        width={24}
-                        height={24}
-                        color={'#3751FF'}
-                      />
+                      <Check size={16} color={theme.palette.sky['500']} />
                     )}
                   </OptionCheckedIcon>
                 </OptionItem>
@@ -339,23 +275,13 @@ export const Select = <T extends boolean = false>({
                   <OptionItem
                     key={option.value}
                     lineHeight={lineHeight}
+                    selected={option.value === selected?.value}
                     onClick={(e) => {
                       e.stopPropagation();
 
-                      if (option.disabled) {
-                        return;
-                      }
-
                       handleSelectChange(option);
-
-                      if (multiple) {
-                        setSearchValue('');
-                        return;
-                      }
-
                       setIsSelectOpen(false);
                     }}
-                    disabled={option.disabled}
                   >
                     <OptionItemSpan lineHeight={lineHeight}>
                       {option.render ? (
@@ -376,12 +302,7 @@ export const Select = <T extends boolean = false>({
                       ? selected.some((select) => select.value === option.value)
                       : selected?.value === option.value) && (
                       <OptionCheckedIcon>
-                        <Icon
-                          icon={'check'}
-                          width={24}
-                          height={24}
-                          color={'#3751FF'}
-                        />
+                        <Check size={16} color={theme.palette.sky['500']} />
                       </OptionCheckedIcon>
                     )}
                   </OptionItem>
@@ -404,7 +325,6 @@ const SelectContainer = styled('div')<{
   height?: string;
   isSelectOpen?: boolean;
   error?: boolean;
-  disabled?: boolean;
 }>`
   position: relative;
   width: ${({ width }) => {
@@ -428,15 +348,6 @@ const SelectContainer = styled('div')<{
   color: ${({ theme }) => theme.palette.gray['600']};
   cursor: pointer;
 
-  ${({ disabled, theme }) =>
-    disabled &&
-    css`
-      pointer-events: none;
-      border: 1px solid ${theme.palette.gray['200']};
-      background-color: ${theme.palette.gray['50']};
-      color: ${theme.palette.gray['200']};
-    `}
-
   &:hover {
     border: 1px solid
       ${({ error, theme }) =>
@@ -450,17 +361,16 @@ const SelectBox = styled('div')`
 `;
 
 const ValueBox = styled('div')<{ lineHeight?: string }>`
-  line-height: ${({ lineHeight }) => {
-    return lineHeight || '30px';
-  }};
+  ${({ theme }) => theme.typography.md.medium}
   white-space: pre-wrap;
-  font-size: 12px;
 `;
 
-const IconBox = styled('div')`
+const IconBox = styled('div')<{ isOpen: boolean }>`
   flex: 0 0 20px;
   width: 20px;
   height: 20px;
+  transition: transform 0.3s ease;
+  transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
 `;
 
 const OptionList = styled('ul')<{ width?: number; maxHeight?: number }>`
@@ -477,26 +387,28 @@ const OptionList = styled('ul')<{ width?: number; maxHeight?: number }>`
   color: ${({ theme }) => theme.palette.newGray['950']};
 `;
 
-const OptionItem = styled('li')<{ lineHeight?: string; disabled?: boolean }>`
+const OptionItem = styled('li')<{ lineHeight?: string; selected?: boolean }>`
   padding: 5px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: ${({ theme }) => theme.palette.newGray['950']};
   ${({ theme }) => theme.typography.md.medium};
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  cursor: pointer;
 
-  ${({ disabled, theme }) => {
-    if (disabled) {
-      return `
-        background: ${theme.palette.gray['100']};
-        color: ${theme.palette.gray['400']};
+  &:hover {
+    background: ${({ theme, selected }) =>
+      selected ? theme.palette.sky['50'] : theme.palette.newGray['50']};
+  }
+
+  ${({ theme, selected }) => {
+    if (selected) {
+      return css`
+        color: ${theme.palette.sky['500']};
+        background-color: ${theme.palette.sky['50']};
       `;
     }
   }}
-
-  &:hover {
-    background: ${({ theme }) => theme.palette.sky['50']};
-  }
 `;
 
 const OptionItemSpan = styled('span')<{ lineHeight?: string }>`
@@ -512,13 +424,11 @@ const OptionItemSpan = styled('span')<{ lineHeight?: string }>`
 `;
 
 const OptionCheckedIcon = styled('div')`
+  display: flex;
+  align-items: center;
   flex: 0 0 24px;
   width: 24px;
   height: 24px;
-`;
-
-const Chip = styled(ChipBase)`
-  margin-right: 10px;
 `;
 
 const OptionContainer = styled('div')`
@@ -536,4 +446,8 @@ const OptionContainer = styled('div')`
 
 const StyledOverlay = styled(Overlay)`
   box-shadow: 0px 6px 18px 0px #0000001f;
+`;
+
+const PlaceHolderContainer = styled('div')`
+  color: ${({ theme }) => theme.palette.newGray['400']};
 `;

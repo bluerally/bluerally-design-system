@@ -1,3 +1,13 @@
+import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
+import { Button } from '../Button';
+import { Calendar } from '../Calendar';
+import { CalendarIcon } from '../CalendarIcon';
+import { Overlay as OverlayBase } from '../Overlay';
+import { OverlayDimmedWrapper } from '../Overlay/OverlayWrapper';
+import { TextInput } from '../TextInput';
+import { LabeledComponentType } from '@/@types/LabeledComponentType';
+import { theme } from '@/style/theme';
+import { DateTimeFormat, formatter } from '@/utils/formatter';
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
 import React, {
@@ -7,17 +17,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-
-import { LabeledComponentType } from '@/@types/LabeledComponentType';
-
-import { DateTimeFormat, formatter } from '@/utils/formatter';
-
-import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
-import { Calendar } from '../Calendar';
-import { Icon } from '../Icon';
-import { Overlay as OverlayBase } from '../Overlay';
-import { OverlayDimmedWrapper } from '../Overlay/OverlayWrapper';
-import { TextInput } from '../TextInput';
 
 const SEPARATOR = '~';
 
@@ -31,7 +30,6 @@ export type DateRangeType = [string?, string?];
 type DateType<T> = T extends true ? DateRangeType : string;
 
 export interface DatePickerProps<T> extends LabeledComponentType {
-  isTime?: T extends true ? false : boolean;
   isRange?: T;
   width?: number | string;
   placeholder?: string;
@@ -41,9 +39,6 @@ export interface DatePickerProps<T> extends LabeledComponentType {
   onChange?: (value: DateType<T>, inputChanged?: boolean) => void;
   onEnterInput?: () => void;
   inputRef?: MutableRefObject<HTMLInputElement | null>;
-  time?: string;
-  onChangeTime?: (value: string, inputChanged?: boolean) => void;
-  onEnterTime?: () => void;
   isAttachRoot?: boolean;
   disabled?: boolean;
   startYear?: number;
@@ -51,7 +46,6 @@ export interface DatePickerProps<T> extends LabeledComponentType {
 }
 
 export const DatePicker = <T extends boolean = false>({
-  isTime = false,
   isRange,
   width = 311,
   placeholder = '',
@@ -61,9 +55,6 @@ export const DatePicker = <T extends boolean = false>({
   onChange,
   onEnterInput,
   inputRef: inputRefProp,
-  time: timeProp,
-  onChangeTime,
-  onEnterTime,
   status,
   name,
   label,
@@ -120,28 +111,6 @@ export const DatePicker = <T extends boolean = false>({
     };
   }, [onEnterInput, openCalendar]);
 
-  useEffect(() => {
-    const timeRefElement = timeRef.current;
-
-    if (!timeRefElement) {
-      return;
-    }
-
-    const handleEnterTime = (e: KeyboardEvent): void => {
-      if (onEnterTime && e.key === 'Enter') {
-        e.preventDefault();
-        onEnterTime();
-        openCalendar(false);
-      }
-    };
-
-    timeRefElement.addEventListener('keydown', handleEnterTime);
-
-    return () => {
-      timeRefElement?.removeEventListener('keydown', handleEnterTime);
-    };
-  }, [onEnterTime, openCalendar]);
-
   const handleClick = (date: string) => {
     setSelectedDate(date);
 
@@ -167,25 +136,12 @@ export const DatePicker = <T extends boolean = false>({
       return;
     }
 
-    if (isTime) {
-      changeValue(
-        formatter.dateTime(`${date} ${time || timeProp || ''}`) as DateType<T>,
-      );
-      timeRef.current?.focus();
-      return;
-    }
-
     changeValue(date as DateType<T>);
     openCalendar(false);
   };
 
   const changeValue = (value: DateType<T>, inputChanged: boolean = false) => {
     onChange?.(value, inputChanged);
-  };
-
-  const changeTime = (value: string, inputChanged: boolean = false) => {
-    setTime(value);
-    onChangeTime?.(value, inputChanged);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -197,27 +153,6 @@ export const DatePicker = <T extends boolean = false>({
       true,
     );
     openCalendar(false);
-  };
-
-  const handleChangeTime = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTime = e.target.value;
-    const defaultDate = formatter.date(dayjs());
-    changeTime(newTime, true);
-
-    if (
-      !dayjs(
-        `${selectedDate || defaultDate} ${newTime}`,
-        DateTimeFormat.DATE_TIME,
-      ).isValid()
-    ) {
-      return;
-    }
-
-    changeValue(
-      formatter.dateTime(
-        `${selectedDate || defaultDate} ${newTime}`,
-      ) as DateType<T>,
-    );
   };
 
   const calcDate = (newValue?: DateType<T>) => {
@@ -259,12 +194,6 @@ export const DatePicker = <T extends boolean = false>({
     }
 
     setSelectedDate(formatter.date(newDate));
-
-    if (isTime) {
-      changeValue(formatter.dateTime(newDate) as DateType<T>);
-      changeTime(newDate.format('HH:mm'));
-      return;
-    }
 
     changeValue(formatter.date(newDate) as DateType<T>);
   };
@@ -313,11 +242,10 @@ export const DatePicker = <T extends boolean = false>({
             ) as DateType<T>;
             calcDate(newValue);
           }}
-          endIcon={
+          startIcon={
             <CalendarIcon
-              icon="calendar"
-              disabled={disabled}
               onClick={handleOpen}
+              color={theme.palette.newGray['400']}
             />
           }
           onChange={handleInputChange}
@@ -355,20 +283,14 @@ export const DatePicker = <T extends boolean = false>({
                 startYear={startYear}
                 endYear={endYear}
               />
-              {isTime && (
-                <TimeContainer>
-                  <TimeTitle>시간</TimeTitle>
-                  <TextInput
-                    value={time || timeProp}
-                    inputRef={timeRef}
-                    onChange={handleChangeTime}
-                    onBlur={() => {
-                      calcDate();
-                    }}
-                    placeholder="00:00 시간 입력"
-                  />
-                </TimeContainer>
-              )}
+              <Button
+                variant="outlined"
+                color="gray"
+                width="100%"
+                onClick={() => openCalendar(false)}
+              >
+                닫기
+              </Button>
             </Overlay>
           </OverlayDimmedWrapper>
         )}
@@ -387,30 +309,7 @@ const Container = styled('div')<{
 
 const Overlay = styled(OverlayBase)`
   background: ${({ theme }) => theme.palette.white};
-  outline: 1px solid ${({ theme }) => theme.palette.gray['200']};
+  outline: 1px solid ${({ theme }) => theme.palette.newGray['200']};
   border-radius: 8px;
-
-  padding: ${({ theme }) => `${theme.spacing(12)} ${theme.spacing(8)}`};
-`;
-
-const CalendarIcon = styled(Icon)<{ disabled?: boolean }>`
-  ${({ disabled, theme }) => {
-    if (!disabled) {
-      return;
-    }
-
-    return `
-    background: ${theme.palette.gray['200']};
-    cursor: not-allowed;
-    `;
-  }}
-`;
-
-const TimeContainer = styled('div')`
-  padding: ${({ theme }) => `${theme.spacing(5)} ${theme.spacing(2)}`};
-`;
-
-const TimeTitle = styled('div')`
-  margin-bottom: ${({ theme }) => theme.spacing(5)};
-  ${({ theme }) => theme.typography.basic.medium};
+  padding: ${({ theme }) => `${theme.spacing(10)} ${theme.spacing(10)}`};
 `;

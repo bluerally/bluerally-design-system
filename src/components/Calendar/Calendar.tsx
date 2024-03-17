@@ -1,6 +1,5 @@
 import { LabeledComponentType } from '@/@types/LabeledComponentType';
 import { LabeledComponentWrapper } from '@/components/@common/LabeledComponentWrapper';
-import { Icon } from '@/components/Icon';
 import { theme } from '@/style/theme';
 import { formatter } from '@/utils/formatter';
 import styled from '@emotion/styled';
@@ -75,8 +74,8 @@ export const Calendar = ({
         <MonthSelector>
           <ChevronLeft
             onClick={() => handleChangeDisplayMonth(-1)}
-            size={24}
-            color={theme.palette.primary.main}
+            size={20}
+            color={theme.palette.newGray['500']}
             cursor="pointer"
           />
           <YearMonthContainer>
@@ -85,8 +84,8 @@ export const Calendar = ({
           </YearMonthContainer>
           <ChevronRight
             onClick={() => handleChangeDisplayMonth(1)}
-            size={24}
-            color={theme.palette.primary.main}
+            size={20}
+            color={theme.palette.newGray['500']}
             cursor="pointer"
           />
         </MonthSelector>

@@ -13,6 +13,7 @@ export interface ButtonProps
   size?: ButtonSize;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  width?: string;
 }
 
 export const Button = ({
@@ -25,6 +26,7 @@ export const Button = ({
   startIcon,
   endIcon,
   type,
+  width,
   ...rest
 }: ButtonProps) => {
   return (
@@ -36,6 +38,7 @@ export const Button = ({
       size={size}
       disabled={disabled}
       onClick={onClick}
+      width={width}
     >
       {startIcon}
       {children}
@@ -59,6 +62,7 @@ const ButtonContainer = styled('button')<ButtonProps>`
     pointer-events: none;
   }
 
+  ${({ width }) => `width: ${width}`};
   ${({ color }) => color && buttonStyles.colors[color]};
   ${({ variant }) => variant && buttonStyles.variants[variant]};
   ${({ size }) => size && buttonStyles.sizes[size]};

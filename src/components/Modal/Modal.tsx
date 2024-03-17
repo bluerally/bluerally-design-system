@@ -1,16 +1,13 @@
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import { last } from 'lodash';
-import { useEffect, useRef } from 'react';
-
-import { AlignType, AnchorSide } from '@/utils/getPosition';
-
-import { Size } from '@/@types';
-
 import { Overlay } from '../Overlay/Overlay';
 import { ModalContent } from './ModalContent';
 import { ModalFooter } from './ModalFooter';
 import { ModalHeader } from './ModalHeader';
+import { Size } from '@/@types';
+import { AlignType, AnchorSide } from '@/utils/getPosition';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { last } from 'lodash';
+import { useEffect, useRef } from 'react';
 
 const ESCAPE_KEY = 'Escape';
 const MODAL_DIM_CLASS_NAME = 'modal-dim';
@@ -107,7 +104,7 @@ const Dim = styled('div')<{ dimmed: boolean }>`
   left: 0;
   position: fixed;
   background-color: ${({ theme, dimmed }) =>
-    dimmed ? theme.palette.gray['700'] : 'transparent'};
+    dimmed ? theme.palette.newGray['950'] : 'transparent'};
   z-index: ${({ theme }) => theme.zIndex.DIM};
   opacity: 0.3;
   animation: fade_in 0.4s ease;
@@ -130,9 +127,9 @@ const ModalContainer = styled('div')<{
   height?: string | number;
 }>`
   background-color: ${({ theme }) => theme.palette.white};
-  border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.palette.gray['300']};
-  padding: ${({ theme }) => theme.spacing(10)};
+  border-radius: ${({ theme }) => theme.spacing(5)};
+  padding: ${({ theme }) => theme.spacing(12)};
+  box-shadow: 0px 6px 18px 0px #0000001f;
   overflow-y: auto;
   ${({ height }) =>
     `height: ${typeof height === 'number' ? `${height}px` : height}`};

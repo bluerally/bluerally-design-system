@@ -35,6 +35,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   position: { top: 10, left: 0 },
+  dimmed: true,
 };
 
 const Header = styled('h4')`

@@ -1,57 +1,40 @@
 import { Icon } from '../Icon';
-import buttonStyles from './style';
-import { Colors } from '@/@types';
+import chipStyles from './style';
 import { theme } from '@/style';
 import styled from '@emotion/styled';
 import React from 'react';
 
 type ChipVariant = 'outlined' | 'filled';
-type Size = 'sm' | 'md';
-export type ChipColors = Extract<Colors, 'primary' | 'gray'>;
+export type ChipColors = 'sky' | 'gray';
 
 export interface ChipProps {
-  size?: Size;
   color?: ChipColors;
   variant?: ChipVariant;
-  startIcon?: React.ReactNode;
-  disabled?: boolean;
   children: React.ReactNode;
-  onClickCancel?: (e: React.MouseEvent<HTMLDivElement>) => void;
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
 }
 
 export const chipIconColors = {
-  primary: theme.palette.white,
+  sky: theme.palette.white,
   gray: theme.palette.gray['600'],
 };
 
 export const Chip = ({
-  size = 'sm',
-  color = 'primary',
+  color = 'sky',
   variant = 'filled',
   startIcon,
-  disabled,
-  onClickCancel,
-  onClick,
+  endIcon,
   children,
   ...rest
 }: ChipProps) => {
   return (
-    <ChipContainer
-      variant={variant}
-      color={color}
-      size={size}
-      disabled={disabled}
-      onClick={!disabled ? onClick : undefined}
-      {...rest}
-    >
-      {startIcon}
-      <ChipInner variant={variant} color={color} disabled={disabled}>
+    <ChipContainer variant={variant} color={color} {...rest}>
+      <ChipInner variant={variant} color={color}>
+        {startIcon}
         {children}
+        {endIcon}
       </ChipInner>
-      {onClickCancel && (
-        <Icon icon="x" color={chipIconColors[color]} onClick={onClickCancel} />
-      )}
     </ChipContainer>
   );
 };
@@ -59,7 +42,6 @@ export const Chip = ({
 const ChipContainer = styled('div')<{
   variant: ChipVariant;
   color: ChipColors;
-  size: Size;
   disabled?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }>`
@@ -73,20 +55,8 @@ const ChipContainer = styled('div')<{
   gap: ${({ theme }) => theme.spacing(2)};
   padding: 0 ${({ theme }) => theme.spacing(5)};
 
-  ${({ color }) => color && buttonStyles.colors[color]};
-  ${({ variant }) => variant && buttonStyles.variants[variant]};
-
-  cursor: ${({ disabled, onClick }) => {
-    if (disabled) {
-      return 'not-allowed';
-    }
-
-    if (onClick) {
-      return 'pointer';
-    }
-
-    return 'default';
-  }};
+  ${({ color }) => color && chipStyles.colors[color]};
+  ${({ variant }) => variant && chipStyles.variants[variant]};
 `;
 
 const ChipInner = styled('div')<{

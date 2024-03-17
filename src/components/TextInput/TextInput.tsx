@@ -109,7 +109,7 @@ const TextInputContainer = styled('div')<{
   align-items: center;
   overflow: hidden;
   width: 100%;
-  min-height: 48px;
+  height: 48px;
   border-radius: 8px;
   background-color: ${({ theme, error, disabled }) =>
     error
@@ -117,10 +117,7 @@ const TextInputContainer = styled('div')<{
       : disabled
       ? theme.palette.newGray['50']
       : theme.palette.white};
-  padding: ${({ theme, icon }) =>
-    `${theme.spacing(4.5)} ${theme.spacing(7)} ${theme.spacing(
-      4.5,
-    )} ${theme.spacing(icon ? 2.5 : 7)}`};
+  padding: ${({ theme }) => `${theme.spacing(7)} ${theme.spacing(8)}`};
   border: 1px solid
     ${({ theme, error }) =>
       error ? theme.palette.newError['600'] : theme.palette.newGray['200']};

@@ -2,17 +2,14 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { CSSProperties } from 'react';
 
-type TabsColor = 'primary' | 'gray';
 export interface TabItemProps {
   label: string;
   value: string;
   content: React.ReactNode;
-  disabled?: boolean;
 }
 
 export interface TabsProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   items: TabItemProps[];
-  color?: TabsColor;
   selected: string;
   onTabChange?: (value: string) => void;
   preRender?: boolean;
@@ -21,7 +18,6 @@ export interface TabsProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
 
 export const Tabs = ({
   items,
-  color = 'primary',
   selected,
   onTabChange,
   preRender,
@@ -40,8 +36,6 @@ export const Tabs = ({
               onClick={() => {
                 onTabChange?.(item.value);
               }}
-              color={color}
-              disabled={item.disabled}
             >
               {item.label}
             </TabBase>
@@ -80,44 +74,25 @@ const TabContainer = styled('div')`
 
 const TabBase = styled('button')<{
   selected: boolean;
-  color: TabsColor;
 }>`
-  ${({ theme }) => theme.typography.md.regular}
+  ${({ theme }) => theme.typography.md.bold}
   border-radius: 8px 8px 0px 0px;
   background-color: ${({ theme }) => theme.palette.white};
   min-width: 92px;
-  padding: ${({ theme }) => theme.spacing(6)} ${({ theme }) => theme.spacing(8)};
+  padding: 14.5px ${({ theme }) => theme.spacing(8)};
   cursor: pointer;
   transition: all 0.3s;
 
-  ${({ selected, color, theme }) => {
-    switch (color) {
-      case 'primary': {
-        return css`
-          color: ${selected
-            ? theme.palette.primary.main
-            : theme.palette.gray['500']};
-          box-shadow: inset 0px -4px 0px ${selected ? theme.palette.primary.main : theme.palette.gray['200']};
-        `;
-      }
-      case 'gray': {
-        return css`
-          color: ${selected
-            ? theme.palette.gray['500']
-            : theme.palette.gray['500']};
-          box-shadow: inset 0px -4px 0px ${selected ? theme.palette.gray['500'] : theme.palette.gray['200']};
-        `;
-      }
-    }
+  ${({ selected, theme }) => {
+    return css`
+      color: ${selected
+        ? theme.palette.sky['500']
+        : theme.palette.newGray['400']};
+      box-shadow: ${selected
+        ? `inset 0px -2px 0px ${theme.palette.sky['500']}`
+        : 'none'};
+    `;
   }}
-
-  ${({ disabled, theme }) =>
-    disabled &&
-    css`
-      cursor: not-allowed;
-      color: ${theme.palette.gray['200']};
-      box-shadow: inset 0px -4px 0px ${theme.palette.gray['100']};
-    `};
 `;
 
 const PreRenderedTabPanel = styled('div')<{ visible?: boolean }>`

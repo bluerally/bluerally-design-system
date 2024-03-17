@@ -1,10 +1,8 @@
+import { DatePicker, DateRangeType } from '@/components/DatePicker';
+import { formatter } from '@/utils';
 import { Story } from '@storybook/react';
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
-
-import { DatePicker, DateRangeType } from '@/components/DatePicker';
-
-import { formatter } from '@/utils';
 
 export default {
   title: 'components/DatePicker',
@@ -36,23 +34,7 @@ export const RangeDatePicker: Story = () => {
   return (
     <div style={{ height: 600 }}>
       <DatePicker
-        isTime={false}
         isRange={true}
-        placeholder={formatter.date(dayjs())}
-        value={value}
-        onChange={setValue}
-      />
-    </div>
-  );
-};
-
-export const TimeDatePicker: Story = () => {
-  const [value, setValue] = useState<string>('');
-
-  return (
-    <div style={{ height: 600 }}>
-      <DatePicker
-        isTime
         placeholder={formatter.date(dayjs())}
         value={value}
         onChange={setValue}

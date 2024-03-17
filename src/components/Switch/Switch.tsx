@@ -32,7 +32,7 @@ export const Switch = ({
   );
 };
 
-const sliderStyleOverride = (size?: Size, checked?: boolean) => {
+const sliderStyleOverride = (checked?: boolean) => {
   const switchShape = css`
     height: 14px;
     width: 14px;
@@ -43,7 +43,7 @@ const sliderStyleOverride = (size?: Size, checked?: boolean) => {
   if (checked) {
     return css`
       ${switchShape}
-      transform: translateX(11.5px);
+      transform: translateX(13px);
     `;
   }
   return switchShape;
@@ -77,16 +77,19 @@ const Slider = styled('span')<{
         `
       : css`
           cursor: pointer;
-          background-color: ${theme.palette.newGray['200']};
+          background-color: ${checked
+            ? theme.palette.sky['500']
+            : theme.palette.newGray['200']};
         `}
 
   &:before {
     content: '';
     position: absolute;
     border-radius: 50%;
-    background-color: ${({ theme }) => theme.palette.white};
+    background-color: ${({ theme, disabled }) =>
+      disabled ? theme.palette.newGray['300'] : theme.palette.white};
     transition: 0.4s;
 
-    ${({ checked, size }) => sliderStyleOverride(size, checked)};
+    ${({ checked, size }) => sliderStyleOverride(checked)};
   }
 `;
