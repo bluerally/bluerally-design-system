@@ -1,13 +1,10 @@
-import styled from '@emotion/styled';
-import React from 'react';
-
-import { LabeledComponentType } from '@/@types/LabeledComponentType';
-
-import { theme } from '@/style/theme';
-
 import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
 import { Chip } from '../Chip/Chip';
 import { Icon } from '../Icon';
+import { LabeledComponentType } from '@/@types/LabeledComponentType';
+import { theme } from '@/style/theme';
+import styled from '@emotion/styled';
+import React from 'react';
 
 export type ChipValue = string | number;
 export interface ChipItem {
@@ -19,19 +16,15 @@ export interface ChipItem {
 export interface ChipGroupProps extends LabeledComponentType {
   gap?: number;
   values?: ChipValue[];
-  onChange?: (selectedValues: ChipValue[]) => void;
   options: ChipItem[];
   enableAll?: boolean;
   allTitle?: string;
   allValue?: ChipValue;
-  disabled?: boolean;
-  size?: 'sm' | 'md';
 }
 
 export const ChipGroup = ({
   gap = 4,
   values = [],
-  onChange,
   options,
   label,
   name,
@@ -41,36 +34,10 @@ export const ChipGroup = ({
   enableAll = true,
   allTitle = '전체',
   allValue = 'ALL',
-  disabled,
   required,
-  size,
 }: ChipGroupProps) => {
   const isSelectedAll =
     values.length === options.filter((option) => !option.disabled).length;
-
-  const handleChange = (value: ChipValue) => {
-    if (values.includes(value)) {
-      return onChange?.(values.filter((val) => val !== value));
-    }
-
-    return onChange?.([...values, value]);
-  };
-
-  const handleAllClick = () => {
-    if (isSelectedAll) {
-      return onChange?.([]);
-    }
-
-    return onChange?.(
-      options.reduce((acc, option) => {
-        if (!option.disabled) {
-          acc.push(option.value);
-        }
-
-        return acc;
-      }, [] as ChipValue[]),
-    );
-  };
 
   return (
     <LabeledComponentWrapper
@@ -86,15 +53,12 @@ export const ChipGroup = ({
           <Chip
             key={allValue}
             variant="outlined"
-            onClick={handleAllClick}
-            size={size}
-            color={isSelectedAll ? 'primary' : 'gray'}
+            color={isSelectedAll ? 'sky' : 'gray'}
             startIcon={
               isSelectedAll && (
                 <Icon icon="check" color={theme.palette.primary.main} />
               )
             }
-            disabled={disabled}
           >
             {allTitle}
           </Chip>
@@ -106,15 +70,12 @@ export const ChipGroup = ({
             <Chip
               key={option.value}
               variant="outlined"
-              onClick={() => handleChange(option.value)}
-              size={size}
-              color={isChecked ? 'primary' : 'gray'}
+              color={isChecked ? 'sky' : 'gray'}
               startIcon={
                 isChecked && (
                   <Icon icon="check" color={theme.palette.primary.main} />
                 )
               }
-              disabled={option.disabled || disabled}
             >
               {option.title}
             </Chip>

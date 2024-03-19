@@ -90,6 +90,6 @@ const Slider = styled('span')<{
       disabled ? theme.palette.newGray['300'] : theme.palette.white};
     transition: 0.4s;
 
-    ${({ checked, size }) => sliderStyleOverride(checked)};
+    ${({ checked }) => sliderStyleOverride(checked)};
   }
 `;

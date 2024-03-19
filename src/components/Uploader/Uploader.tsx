@@ -1,13 +1,11 @@
+import { Button as ButtonBase } from '../Button';
+import { Icon } from '../Icon';
+import { useDrag } from '@/hooks/useDrag';
+import { useSnackbar } from '@/hooks/useSnackbar';
 import styled from '@emotion/styled';
 import { isEmpty } from 'lodash';
 import React from 'react';
 import { v4 as uuid } from 'uuid';
-
-import { useDrag } from '@/hooks/useDrag';
-import { useSnackbar } from '@/hooks/useSnackbar';
-
-import { Chip as ChipBase } from '../Chip';
-import { Icon } from '../Icon';
 
 export interface UploaderProps {
   files: File[];
@@ -134,9 +132,14 @@ export const Uploader = ({
       <FileList>
         {files?.map((file) => {
           return (
-            <Chip key={uuid()} onClickCancel={() => onRemoveFile?.(file)}>
+            <Button
+              size="xs"
+              variant="outlined"
+              key={uuid()}
+              onClick={() => onRemoveFile?.(file)}
+            >
               {file.name}
-            </Chip>
+            </Button>
           );
         })}
       </FileList>
@@ -201,6 +204,6 @@ const FileList = styled('div')`
   padding-top: ${({ theme }) => theme.spacing(10)};
 `;
 
-const Chip = styled(ChipBase)`
+const Button = styled(ButtonBase)`
   margin-right: 5px;
 `;
