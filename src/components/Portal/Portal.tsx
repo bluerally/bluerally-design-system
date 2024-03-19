@@ -1,7 +1,6 @@
+import { ZIndex } from '@/style/theme/zIndex';
 import React, { useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
-
-import { ZIndex } from '@/style/theme/zIndex';
 
 export const PORTAL_ROOT_ID = '__kongPortalRoot__';
 export const DATA_PORTAL_ROOT = '[data-portal-root]';
