@@ -11,6 +11,23 @@ export default {
 };
 
 const Template: Story = () => {
+  const [value, setValue] = useState<DateRangeType>([]);
+
+  return (
+    <div style={{ height: 600 }}>
+      <DatePicker
+        isRange={true}
+        placeholder={formatter.date(dayjs())}
+        value={value}
+        onChange={setValue}
+      />
+    </div>
+  );
+};
+
+export const Default = Template.bind({});
+
+export const SingleDatePicker: Story = () => {
   const [value, setValue] = useState<string>('');
 
   return (
@@ -21,23 +38,6 @@ const Template: Story = () => {
         onChange={setValue}
         startYear={2000}
         endYear={2030}
-      />
-    </div>
-  );
-};
-
-export const Default = Template.bind({});
-
-export const RangeDatePicker: Story = () => {
-  const [value, setValue] = useState<DateRangeType>([]);
-
-  return (
-    <div style={{ height: 600 }}>
-      <DatePicker
-        isRange={true}
-        placeholder={formatter.date(dayjs())}
-        value={value}
-        onChange={setValue}
       />
     </div>
   );

@@ -1,6 +1,6 @@
+import { SearchInput } from '@/components/SearchInput';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
-import { SearchInput } from '@/components/SearchInput';
 
 export default {
   title: 'components/SearchInput',

@@ -26,16 +26,12 @@ const dummyInfo: CalendarInfo[] = [
   {
     date: formatter.date(today),
     active: true,
-    emptyDots: 2,
   },
   {
     date: formatter.date(today.subtract(4, 'day')),
-    fullDots: 2,
-    emptyDots: 2,
   },
   {
     date: formatter.date(today.subtract(1, 'day')),
-    fullDots: 1,
   },
   {
     startDate: formatter.date(today.add(start, 'day')),

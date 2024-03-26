@@ -13,7 +13,7 @@ const sports: SelectItem[] = [
   { title: '서핑', value: 'surfing' },
   { title: '수영', value: 'swimming' },
   { title: '낚시', value: 'fishing' },
-  { title: '기타 등등', value: 'etc', disabled: true },
+  { title: '기타 등등', value: 'etc' },
 ];
 
 const Template: Story = (args) => {
@@ -33,20 +33,3 @@ const Template: Story = (args) => {
 };
 
 export const Default = Template.bind({});
-
-export const SearchSingleSelect: Story = () => {
-  const [value, setValue] = useState<SelectItem>();
-
-  return (
-    <div style={{ width: 340, height: 400 }}>
-      <Select
-        selected={value}
-        options={sports}
-        placeholder={'하나만 선택해주세요(검색가능)'}
-        search
-        onSelect={setValue}
-        chip
-      />
-    </div>
-  );
-};

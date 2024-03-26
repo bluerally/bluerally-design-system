@@ -1,3 +1,4 @@
+import { Label as LabelBase } from '../Label';
 import { Size } from '@/@types';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -6,6 +7,7 @@ export interface SwitchProps {
   name?: string;
   checked: boolean;
   disabled?: boolean;
+  label?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -14,21 +16,25 @@ export const Switch = ({
   onChange,
   disabled,
   name,
+  label,
   ...rest
 }: SwitchProps) => {
   return (
-    <SwitchContainer role="switch" {...rest}>
-      <CheckBox
-        aria-hidden
-        type="checkbox"
-        name={name}
-        aria-checked={checked}
-        disabled={disabled}
-        checked={checked}
-        onChange={onChange}
-      />
-      <Slider checked={checked} disabled={disabled} />
-    </SwitchContainer>
+    <Container {...rest}>
+      {label && <Label>{label}</Label>}
+      <SwitchContainer role="switch">
+        <CheckBox
+          aria-hidden
+          type="checkbox"
+          name={name}
+          aria-checked={checked}
+          disabled={disabled}
+          checked={checked}
+          onChange={onChange}
+        />
+        <Slider checked={checked} disabled={disabled} />
+      </SwitchContainer>
+    </Container>
   );
 };
 
@@ -92,4 +98,16 @@ const Slider = styled('span')<{
 
     ${({ checked }) => sliderStyleOverride(checked)};
   }
+`;
+
+const Container = styled('div')`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing(4)};
+`;
+
+const Label = styled(LabelBase)`
+  padding: 0;
+  ${({ theme }) => theme.typography.md.medium}
+  color: ${({ theme }) => theme.palette.newGray['700']};
 `;

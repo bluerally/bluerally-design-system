@@ -1,5 +1,5 @@
-import { Story } from '@storybook/react';
 import { Switch as SwitchComponent, SwitchProps } from '@/components/Switch';
+import { Story } from '@storybook/react';
 import { useState } from 'react';
 
 export default {
@@ -8,14 +8,14 @@ export default {
   argTypes: {},
 };
 
-const Switch = ({ checked, disabled, size }: SwitchProps) => {
+const Switch = ({ checked, disabled }: SwitchProps) => {
   const [isChecked, setIsChecked] = useState(checked);
   return (
     <SwitchComponent
       checked={isChecked}
-      size={size}
       onChange={() => setIsChecked((prev) => !prev)}
       disabled={disabled}
+      label="마감여부"
     />
   );
 };

@@ -1,7 +1,7 @@
 {
   "homepage": ".",
-  "name": "bluerally-ui",
-  "version": "1.0.0",
+  "name": "bluerally-design-system",
+  "version": "1.0.1",
   "description": "bluerally 공통 컴포넌트",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,9 +13,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/bluerally/bluerally-design-system"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^11.10.0",
