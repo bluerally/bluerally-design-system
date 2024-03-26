@@ -1,4 +1,4 @@
-import { Chip, ChipColors } from '@/components/Chip';
+import { Chip } from '@/components/Chip';
 import { Story } from '@storybook/react';
 import React from 'react';
 

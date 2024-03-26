@@ -1,6 +1,6 @@
+import { TextArea } from '@/components/TextArea';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
-import { TextArea } from '@/components/TextArea';
 
 export default {
   title: 'components/TextArea',

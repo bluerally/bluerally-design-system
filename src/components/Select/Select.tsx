@@ -5,7 +5,7 @@ import { theme } from '@/style/theme';
 import { Position } from '@/utils/getPosition';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Check, ChevronDown, ChevronUp, Search } from 'lucide-react';
+import { Check, ChevronDown, Search } from 'lucide-react';
 import { useRef, useState } from 'react';
 import React from 'react';
 import Highlighter from 'react-highlight-words';
@@ -16,11 +16,11 @@ export interface SelectItem {
   render?: (option?: Omit<SelectItem, 'render'>) => JSX.Element;
 }
 
-export type Selected<T> = SelectItem | undefined;
+export type Selected = SelectItem | undefined;
 
-export interface SelectProps<T> extends LabeledComponentType {
+export interface SelectProps extends LabeledComponentType {
   search?: boolean;
-  selected?: Selected<T>;
+  selected?: Selected;
   options: SelectItem[];
   placeholder?: string;
   isClickOutsideClose?: boolean;
@@ -35,12 +35,12 @@ export interface SelectProps<T> extends LabeledComponentType {
   minimumSearchLength?: number;
   enableAll?: boolean;
   allItem?: SelectItem;
-  onSelect?: (selected: Selected<T>) => void;
+  onSelect?: (selected: Selected) => void;
   onEnter?: (e: string) => void;
   onChangeSearchValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Select = <T extends boolean = false>({
+export const Select = ({
   search,
   selected,
   options,
@@ -66,7 +66,7 @@ export const Select = <T extends boolean = false>({
   onSelect,
   onEnter,
   onChangeSearchValue,
-}: SelectProps<T>) => {
+}: SelectProps) => {
   const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
   const selectRef = useRef<HTMLDivElement>(null);
   const [searchValue, setSearchValue] = useState<string>('');
@@ -84,19 +84,19 @@ export const Select = <T extends boolean = false>({
       (Array.isArray(selected) && selected.length === options.length));
 
   const handleSelectChange = (item: SelectItem) => {
-    onSelect?.(item as Selected<T>);
+    onSelect?.(item as Selected);
   };
 
   const handleChipClick = (value: string | number) => {
     if (value === allItem.value) {
       setSearchValue('');
-      onSelect?.(undefined as Selected<T>);
+      onSelect?.(undefined as Selected);
 
       return;
     }
 
     setSearchValue('');
-    onSelect?.(undefined as Selected<T>);
+    onSelect?.(undefined as Selected);
   };
 
   return (
@@ -330,7 +330,7 @@ const SelectContainer = styled('div')<{
   width: ${({ width }) => {
     return width || '340px';
   }};
-  min-height: 42px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   padding: 4px 11px;
@@ -340,7 +340,7 @@ const SelectContainer = styled('div')<{
         ? theme.palette.error.main
         : isSelectOpen
         ? theme.palette.primary['400']
-        : theme.palette.gray['300']};
+        : theme.palette.newGray['200']};
   border-radius: 8px;
   ${({ theme }) => theme.typography.basic.regular};
   justify-content: space-between;

@@ -1,9 +1,8 @@
+import { PORTAL_ROOT_ID, Portal } from '../Portal/Portal';
 import { useAnchoredPosition } from '@/hooks/useAnchoredPosition';
 import { AlignType, AnchorSide, Position } from '@/utils/getPosition';
 import styled from '@emotion/styled';
 import React, { ReactElement, useCallback, useEffect, useRef } from 'react';
-
-import { PORTAL_ROOT_ID, Portal } from '../Portal/Portal';
 
 interface OverlayProps {
   anchorRef?: React.RefObject<HTMLElement>;
