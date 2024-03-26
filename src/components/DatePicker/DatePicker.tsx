@@ -10,6 +10,7 @@ import { theme } from '@/style/theme';
 import { DateTimeFormat, formatter } from '@/utils/formatter';
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
+import { ChevronDown } from 'lucide-react';
 import React, {
   MutableRefObject,
   useCallback,
@@ -68,12 +69,10 @@ export const DatePicker = <T extends boolean = false>({
 }: DatePickerProps<T>) => {
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
-  const [time, setTime] = useState('');
   const inputRef = useRef<HTMLInputElement | undefined>(
     null,
   ) as MutableRefObject<HTMLInputElement | null>;
   const inputContainerRef = useRef<HTMLDivElement>(null);
-  const timeRef = useRef<HTMLInputElement>(null);
 
   const openCalendar = useCallback(
     (isOpen: boolean) => {
@@ -251,13 +250,18 @@ export const DatePicker = <T extends boolean = false>({
           onChange={handleInputChange}
           placeholder={placeholder}
           disabled={disabled}
+          endIcon={
+            <IconBox isOpen={openProp || open}>
+              <ChevronDown size={20} color={theme.palette.newGray['400']} />
+            </IconBox>
+          }
         />
         {(openProp || open) && (
           <OverlayDimmedWrapper isAttachRoot={isAttachRoot}>
             <Overlay
               open={openProp ?? open}
               anchorRef={inputContainerRef}
-              gap={17}
+              gap={4}
               side="bottom"
               ignoreClickRefs={[inputContainerRef]}
               onClickOutside={() => openCalendar(false)}
@@ -310,6 +314,14 @@ const Container = styled('div')<{
 const Overlay = styled(OverlayBase)`
   background: ${({ theme }) => theme.palette.white};
   outline: 1px solid ${({ theme }) => theme.palette.newGray['200']};
-  border-radius: 8px;
+  border-radius: 5px;
   padding: ${({ theme }) => `${theme.spacing(10)} ${theme.spacing(10)}`};
+`;
+
+const IconBox = styled('div')<{ isOpen: boolean }>`
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+  transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
 `;

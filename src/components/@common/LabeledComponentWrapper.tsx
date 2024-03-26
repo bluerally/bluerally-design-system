@@ -1,10 +1,8 @@
-import styled from '@emotion/styled';
-import React from 'react';
-
-import { LabeledComponentType } from '@/@types/LabeledComponentType';
-
 import { GuideText, STATUS } from '../GuideText';
 import { Label } from '../Label';
+import { LabeledComponentType } from '@/@types/LabeledComponentType';
+import styled from '@emotion/styled';
+import React from 'react';
 
 export const LabeledComponentWrapper = ({
   children,

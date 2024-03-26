@@ -1,11 +1,8 @@
+import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
+import { LabeledComponentType } from '@/@types/LabeledComponentType';
+import { Radio } from '@/components/Radio';
 import styled from '@emotion/styled';
 import React from 'react';
-
-import { LabeledComponentType } from '@/@types/LabeledComponentType';
-
-import { Radio } from '@/components/Radio';
-
-import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
 
 export type RadioOption = {
   key?: string;

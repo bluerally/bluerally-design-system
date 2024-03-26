@@ -46,7 +46,7 @@ export const Select = ({
   options,
   placeholder,
   isClickOutsideClose = true,
-  defaultPosition = { top: 0, left: 0 },
+  defaultPosition = { top: 4, left: 0 },
   gap = 0,
   chip = false,
   focusOpen = true,
@@ -333,7 +333,7 @@ const SelectContainer = styled('div')<{
   min-height: 48px;
   display: flex;
   align-items: center;
-  padding: 4px 11px;
+  padding: ${({ theme }) => `${theme.spacing(7)} ${theme.spacing(8)}`};
   border: 1px solid
     ${({ theme, isSelectOpen, error }) =>
       error
@@ -351,7 +351,7 @@ const SelectContainer = styled('div')<{
   &:hover {
     border: 1px solid
       ${({ error, theme }) =>
-        error ? theme.palette.error.main : theme.palette.primary['400']};
+        error ? theme.palette.newError['600'] : theme.palette.sky['500']};
   }
 `;
 
@@ -445,7 +445,9 @@ const OptionContainer = styled('div')`
 `;
 
 const StyledOverlay = styled(Overlay)`
-  box-shadow: 0px 6px 18px 0px #0000001f;
+  background: ${({ theme }) => theme.palette.white};
+  outline: 1px solid ${({ theme }) => theme.palette.newGray['200']};
+  border-radius: 5px;
 `;
 
 const PlaceHolderContainer = styled('div')`

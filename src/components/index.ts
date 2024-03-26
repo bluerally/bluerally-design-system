@@ -1,5 +1,6 @@
 export * from './Accordion';
 export * from './Button';
+export * from './ButtonGroup';
 export * from './Calendar';
 export * from './CalendarIcon';
 export * from './Card';

@@ -128,9 +128,10 @@ const TextInputContainer = styled('div')<{
       cursor: not-allowed;
     `};
 
-  &:focus-within {
-    border-color: ${({ theme, error }) =>
-      error ? theme.palette.newError['600'] : theme.palette.newGray['500']};
+  &:hover {
+    border: 1px solid
+      ${({ error, theme }) =>
+        error ? theme.palette.newError['600'] : theme.palette.sky['500']};
   }
 `;
 
@@ -171,14 +172,12 @@ const StartAdornment = styled('div')<{ focused?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 ${({ theme }) => theme.spacing(5)} 0
-    ${({ theme }) => theme.spacing(2)};
+  margin-right: ${({ theme }) => theme.spacing(2)};
 `;
 
 const EndAdornment = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 ${({ theme }) => theme.spacing(2)} 0
-    ${({ theme }) => theme.spacing(5)};
+  margin-left: ${({ theme }) => theme.spacing(2)};
 `;
