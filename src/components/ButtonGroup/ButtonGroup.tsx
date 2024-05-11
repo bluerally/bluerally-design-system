@@ -1,8 +1,8 @@
-import { Button } from '../Button';
+import { Button, ButtonVariant } from '../Button';
 import { Size } from '@/@types';
 import { LabeledComponentType } from '@/@types/LabeledComponentType';
 import styled from '@emotion/styled';
-import React, { MouseEventHandler } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 
 export type ButtonItemOption = {
   id: number;
@@ -12,10 +12,12 @@ export type ButtonItemOption = {
 export interface ButtonGroupProps extends LabeledComponentType {
   gap?: number;
   options: ButtonItemOption[];
-  value?: string | number;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  value?: string | number | (string | number)[];
+  onClick?: (value: string | number) => void;
   size?: Size;
+  variant?: ButtonVariant;
   width?: string;
+  isMultiple?: boolean;
 }
 
 export const ButtonGroup = ({
@@ -25,17 +27,43 @@ export const ButtonGroup = ({
   options,
   onClick,
   width = '384px',
+  variant = 'filled',
+  isMultiple = false,
 }: ButtonGroupProps) => {
+  const [selectedValues, setSelectedValues] = useState<(string | number)[]>(
+    Array.isArray(value) ? value.filter((v) => v) : value ? [value] : [],
+  );
+
+  const handleButtonClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    const selectedValue = event.currentTarget.value;
+
+    const isSelected = selectedValues.includes(selectedValue);
+
+    setSelectedValues(
+      isMultiple
+        ? isSelected
+          ? selectedValues.filter((value) => value !== selectedValue)
+          : [...selectedValues, selectedValue]
+        : [selectedValue],
+    );
+
+    if (onClick) {
+      onClick(selectedValue);
+    }
+  };
+
   return (
     <ButtonGroupContainer gap={gap} width={width}>
       {options.map(({ id, name }) => {
+        const isSelected = selectedValues.includes(String(id));
+
         return (
           <Button
             key={id}
             value={id}
-            variant={id === value ? 'filled' : 'outlined'}
-            color={id === value ? 'sky' : 'gray'}
-            onClick={onClick}
+            variant={isSelected ? variant : 'outlined'}
+            color={isSelected ? 'sky' : 'gray'}
+            onClick={handleButtonClick}
             size={size}
             width="100%"
           >

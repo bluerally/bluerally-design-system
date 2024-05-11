@@ -1,6 +1,6 @@
 import { ButtonGroup } from '@/components/ButtonGroup';
 import { Story } from '@storybook/react';
-import React, { MouseEventHandler, useState } from 'react';
+import React, { useState } from 'react';
 
 export default {
   title: 'components/ButtonGroup',
@@ -28,10 +28,9 @@ const SPORTS_TYPE_CODES = [
 ];
 
 const Template: Story = (args) => {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState<string | number>('1');
 
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-    const selectedValue = Number(event.currentTarget.value);
+  const handleClick: (value: string | number) => void = (selectedValue) => {
     setValue(selectedValue);
   };
 
@@ -49,4 +48,5 @@ export const Default = Template.bind({});
 
 Default.args = {
   disabled: false,
+  isMultiple: false,
 };

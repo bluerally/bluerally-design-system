@@ -3,7 +3,7 @@ import buttonStyles from './style';
 import styled from '@emotion/styled';
 import React from 'react';
 
-type ButtonVariant = 'filled' | 'outlined' | 'text';
+export type ButtonVariant = 'filled' | 'outlined' | 'text';
 type ButtonColor = 'sky' | 'gray' | 'error';
 type ButtonSize = 'xs' | Size;
 export interface ButtonProps
