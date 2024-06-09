@@ -1,6 +1,7 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import { GlobalStyle, theme } from '../src/style/index';
 import { SnackbarProvider } from '@/contexts/Snackbar';
+import { ConfirmProvider } from '@/contexts/Confirm'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -19,10 +20,12 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
-      <SnackbarProvider>
-        <Global styles={GlobalStyle} />
-        <Story />
-      </SnackbarProvider>
+      <ConfirmProvider>
+        <SnackbarProvider>
+          <Global styles={GlobalStyle} />
+          <Story />
+        </SnackbarProvider>
+      </ConfirmProvider>
     </ThemeProvider>
   ),
 ];
