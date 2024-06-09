@@ -14,7 +14,6 @@ export interface TabsProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   onTabChange?: (value: string) => void;
   preRender?: boolean;
   tabPanelStyle?: CSSProperties;
-  tabBaseStyle?: CSSProperties;
 }
 
 export const Tabs = ({
@@ -23,7 +22,6 @@ export const Tabs = ({
   onTabChange,
   preRender,
   tabPanelStyle,
-  tabBaseStyle,
   ...rest
 }: TabsProps) => {
   return (
@@ -38,7 +36,6 @@ export const Tabs = ({
               onClick={() => {
                 onTabChange?.(item.value);
               }}
-              style={tabBaseStyle}
             >
               {item.label}
             </TabBase>
@@ -68,7 +65,7 @@ export const Tabs = ({
 };
 
 const TabContainer = styled('div')`
-  width: max-content;
+  width: 100%;
   display: flex;
   position: relative;
   border-radius: 8px;
@@ -81,6 +78,7 @@ const TabBase = styled('button')<{
   ${({ theme }) => theme.typography.md.bold}
   border-radius: 8px 8px 0px 0px;
   background-color: ${({ theme }) => theme.palette.white};
+  width: 100%;
   min-width: 92px;
   padding: 14.5px ${({ theme }) => theme.spacing(8)};
   cursor: pointer;
