@@ -128,7 +128,6 @@ const ModalContainer = styled('div')<{
 }>`
   background-color: ${({ theme }) => theme.palette.white};
   border-radius: ${({ theme }) => theme.spacing(5)};
-  padding: ${({ theme }) => theme.spacing(12)};
   box-shadow: 0px 6px 18px 0px #0000001f;
   overflow-y: auto;
   ${({ height }) =>
