@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 export type ButtonVariant = 'filled' | 'outlined' | 'text';
-type ButtonColor = 'sky' | 'gray' | 'error';
+export type ButtonColor = 'sky' | 'gray' | 'error';
 type ButtonSize = 'xs' | Size;
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

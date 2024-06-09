@@ -19,8 +19,8 @@ const Template: Story<ConfirmProps> = () => {
     <>
       <ConfirmComponent
         open={open}
-        title="회원 탈퇴"
-        description="사용 중인 {IDName}는 탈퇴할 경우 재사용 및 복구가 불가능합니다."
+        title="게시물 삭제"
+        description="게시물을 정말 삭제하시겠습니까?"
         onClose={() => setOpen(false)}
       />
       <Button onClick={() => setOpen((prev) => !prev)}>버튼</Button>
