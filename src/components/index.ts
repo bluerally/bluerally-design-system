@@ -7,6 +7,7 @@ export * from './Card';
 export * from './Cascader';
 export * from './Checkbox';
 export * from './CheckboxGroup';
+export * from './Confirm';
 export * from './Chip';
 export * from './ChipGroup';
 export * from './DetailCard';
