@@ -14,6 +14,7 @@ export interface TabsProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   onTabChange?: (value: string) => void;
   preRender?: boolean;
   tabPanelStyle?: CSSProperties;
+  tabBaseStyle?: CSSProperties;
 }
 
 export const Tabs = ({
@@ -22,6 +23,7 @@ export const Tabs = ({
   onTabChange,
   preRender,
   tabPanelStyle,
+  tabBaseStyle,
   ...rest
 }: TabsProps) => {
   return (
@@ -36,6 +38,7 @@ export const Tabs = ({
               onClick={() => {
                 onTabChange?.(item.value);
               }}
+              style={tabBaseStyle}
             >
               {item.label}
             </TabBase>

@@ -89,22 +89,22 @@ export default {
   sizes: {
     xs: css`
       ${theme.typography['sm-2'].semiBold}
-      padding: ${theme.spacing(2.5)} ${theme.spacing(6)};
+      padding: ${theme.spacing(2.5)} ${theme.spacing(5.5)};
       height: 27px;
     `,
     sm: css`
       ${theme.typography['sm-2'].semiBold}
-      padding: ${theme.spacing(4)} ${theme.spacing(6)};
+      padding: ${theme.spacing(4)} ${theme.spacing(5.5)};
       height: 33px;
     `,
     md: css`
       ${theme.typography.md.semiBold}
-      padding: ${theme.spacing(4)} ${theme.spacing(6)};
+      padding: ${theme.spacing(4)} ${theme.spacing(5.5)};
       height: 37px;
     `,
     lg: css`
       ${theme.typography.lg.semiBold}
-      padding: ${theme.spacing(5)} ${theme.spacing(7)};
+      padding: ${theme.spacing(5)} ${theme.spacing(5.5)};
       height: 44px;
     `,
   },

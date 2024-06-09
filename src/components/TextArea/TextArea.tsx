@@ -1,10 +1,8 @@
+import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
+import { LabeledComponentType } from '@/@types/LabeledComponentType';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { CSSProperties, InputHTMLAttributes } from 'react';
-
-import { LabeledComponentType } from '@/@types/LabeledComponentType';
-
-import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
 
 export interface TextAreaProps
   extends InputHTMLAttributes<HTMLTextAreaElement>,
@@ -124,15 +122,15 @@ const TextAreaContainer = styled('div')<{
   width: 100%;
   border-radius: 8px;
   background-color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.gray['50'] : theme.palette.white};
+    disabled ? theme.palette.newGray['50'] : theme.palette.white};
   padding: ${({ theme }) => `${theme.spacing(4)} ${theme.spacing(7)}`};
   border: 1px solid
     ${({ theme, error, disabled }) =>
       error
-        ? theme.palette.error.main
+        ? theme.palette.newError['600']
         : disabled
-        ? theme.palette.gray['200']
-        : theme.palette.gray['300']};
+        ? theme.palette.newGray['100']
+        : theme.palette.newGray['200']};
 
   ${({ disabled }) =>
     disabled &&
@@ -140,8 +138,10 @@ const TextAreaContainer = styled('div')<{
       cursor: not-allowed;
     `};
 
-  &:focus-within {
-    border-color: ${({ theme }) => theme.palette.primary.main};
+  &:hover {
+    border: 1px solid
+      ${({ error, theme }) =>
+        error ? theme.palette.newError['600'] : theme.palette.sky['500']};
   }
 `;
 
@@ -162,9 +162,9 @@ const TextAreaInner = styled('textarea')<{
   outline: none;
   resize: none;
   color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.gray['200'] : theme.palette.black};
+    disabled ? theme.palette.newGray['200'] : theme.palette.black};
   background-color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.gray['50'] : theme.palette.white};
+    disabled ? theme.palette.newGray['50'] : theme.palette.white};
 
   ${({ disabled }) =>
     disabled &&
@@ -173,7 +173,7 @@ const TextAreaInner = styled('textarea')<{
     `};
 
   &::placeholder {
-    color: ${({ theme }) => theme.palette.gray['300']};
+    color: ${({ theme }) => theme.palette.newGray['300']};
   }
 
   &:focus::placeholder {
