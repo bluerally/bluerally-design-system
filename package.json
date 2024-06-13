@@ -1,7 +1,7 @@
 {
   "homepage": ".",
   "name": "bluerally-design-system",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "bluerally 공통 컴포넌트",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
