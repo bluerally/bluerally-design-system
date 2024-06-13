@@ -1,2 +1,2 @@
 export * from './Snackbar';
-export * from './Confirm';
+export * from './Notification';
