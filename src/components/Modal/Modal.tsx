@@ -39,16 +39,16 @@ export const Modal = ({
 }: ModalProps) => {
   const dimRef = useRef(null);
 
-  const body = window.document.querySelector('body');
-
-  if (!body) {
-    throw new Error('nobody');
-  }
-
   useEffect(() => {
     if (!open) {
       return;
     }
+
+    const body = window.document.querySelector('body');
+    if (!body) {
+      throw new Error('nobody');
+    }
+
     const originalStyle = window.getComputedStyle(document.body).overflow;
     document.body.style.overflow = 'hidden';
 
@@ -68,10 +68,13 @@ export const Modal = ({
 
     return () => {
       document.body.style.overflow = originalStyle;
-
       body.removeEventListener('keydown', handleKeydown);
     };
-  }, [open]);
+  }, [open, onClose]);
+
+  if (typeof window === 'undefined') {
+    return null;
+  }
 
   return open ? (
     <Dim dimmed={dimmed} ref={dimRef} className={MODAL_DIM_CLASS_NAME}>
