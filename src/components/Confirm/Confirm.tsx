@@ -34,14 +34,17 @@ export const Confirm = ({
         <Description>{description}</Description>
         <Modal.Footer>
           <ButtonContainer>
-            <Button
-              variant="outlined"
-              color="gray"
-              onClick={onCancel}
-              width="100%"
-            >
-              {cancelText}
-            </Button>
+            {cancelText && onCancel && (
+              <Button
+                variant="outlined"
+                color="gray"
+                onClick={onCancel}
+                width="100%"
+              >
+                {cancelText}
+              </Button>
+            )}
+
             <Button
               variant="outlined"
               color={confirmStatus}

@@ -5,7 +5,7 @@ import {
 import { Confirm } from '@/components/Confirm';
 import { useState } from 'react';
 
-export type NotificationType = 'alert' | 'error';
+export type NotificationType = 'alert' | 'confirm' | 'error';
 
 export interface NotificationBaseProps {
   type: NotificationType;
@@ -47,7 +47,7 @@ export const NotificationProvider = ({
       content,
       onClose,
       onConfirm,
-      cancelButtonText,
+      cancelButtonText: type === 'alert' ? undefined : cancelButtonText,
       confirmButtonText,
     });
   };
@@ -66,14 +66,18 @@ export const NotificationProvider = ({
           description={notification.content}
           confirmStatus={notification.type === 'error' ? 'error' : 'sky'}
           onClose={handleExit}
-          onCancel={handleExit}
+          onCancel={notification.type !== 'alert' ? handleExit : undefined}
           onConfirm={() => {
             if (notification.onConfirm) {
               notification.onConfirm();
             }
             handleExit();
           }}
-          cancelText={notification.cancelButtonText}
+          cancelText={
+            notification.type !== 'alert'
+              ? notification.cancelButtonText
+              : undefined
+          }
           confirmText={notification.confirmButtonText}
         />
       )}
