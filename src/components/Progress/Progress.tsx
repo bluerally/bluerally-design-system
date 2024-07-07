@@ -1,7 +1,7 @@
+import progressStyles, { circularRotateKeyframe } from './style';
 import { Size } from '@/@types';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import progressStyles, { circularRotateKeyframe } from './style';
 
 export interface ProgressProps {
   size?: Size | number;
