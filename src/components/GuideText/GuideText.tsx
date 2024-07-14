@@ -8,7 +8,7 @@ export const STATUS = {
   SUCCESS: 'success',
 } as const;
 
-export type Status = typeof STATUS[keyof typeof STATUS];
+export type Status = (typeof STATUS)[keyof typeof STATUS];
 
 interface GuideTextProps {
   status?: Status;
@@ -38,15 +38,7 @@ const GuideTextContainer = styled('div')<{ status?: Status }>`
     switch (status) {
       case STATUS.ERROR:
         return css`
-          color: ${theme.palette.newError['600']};
-        `;
-      case STATUS.WARNING:
-        return css`
-          color: ${theme.palette.warning.main};
-        `;
-      case STATUS.SUCCESS:
-        return css`
-          color: ${theme.palette.success.main};
+          color: ${theme.palette.error['300']};
         `;
       default:
         return css`

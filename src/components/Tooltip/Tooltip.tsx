@@ -1,3 +1,5 @@
+import { Portal } from '../Portal';
+import { getAnchoredPosition } from '@/utils/getPosition';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, {
@@ -8,10 +10,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-
-import { getAnchoredPosition } from '@/utils/getPosition';
-
-import { Portal } from '../Portal';
 
 export type TooltipColor = 'primary' | 'gray';
 export type TooltipDirection = 'left' | 'right' | 'top' | 'bottom';

@@ -4,16 +4,10 @@ import { css } from '@emotion/react';
 export default {
   colors: {
     primary: css`
-      --main-color: ${theme.palette.primary.main};
-    `,
-    warning: css`
-      --main-color: ${theme.palette.warning.main};
+      --main-color: ${theme.palette.primary['300']};
     `,
     error: css`
-      --main-color: ${theme.palette.error.main};
-    `,
-    success: css`
-      --main-color: ${theme.palette.success.main};
+      --main-color: ${theme.palette.error['300']};
     `,
     gray: css`
       --main-color: ${theme.palette.gray['200']};

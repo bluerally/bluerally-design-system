@@ -75,7 +75,7 @@ export const Calendar = ({
           <ChevronLeft
             onClick={() => handleChangeDisplayMonth(-1)}
             size={20}
-            color={theme.palette.newGray['500']}
+            color={theme.palette.gray['500']}
             cursor="pointer"
           />
           <YearMonthContainer>
@@ -85,7 +85,7 @@ export const Calendar = ({
           <ChevronRight
             onClick={() => handleChangeDisplayMonth(1)}
             size={20}
-            color={theme.palette.newGray['500']}
+            color={theme.palette.gray['500']}
             cursor="pointer"
           />
         </MonthSelector>
@@ -242,7 +242,7 @@ const YearMonthText = styled('div')`
 
 const CalendarTable = styled('table')`
   width: 100%;
-  color: ${({ theme }) => theme.palette.gray['600']};
+  color: ${({ theme }) => theme.palette.gray['500']};
   border-collapse: separate;
   border-spacing: 0;
   text-align: center;
@@ -251,7 +251,7 @@ const CalendarTable = styled('table')`
 
 const Th = styled('th')`
   padding: 8px;
-  color: ${({ theme }) => theme.palette.newGray['400']};
+  color: ${({ theme }) => theme.palette.gray['400']};
   ${theme.typography['basic-2'].regular}
 `;
 
@@ -269,7 +269,7 @@ const DateContainer = styled('div')`
   justify-content: center;
   position: relative;
   ${theme.typography.md.regular}
-  color: ${({ theme }) => theme.palette.newGray['500']};
+  color: ${({ theme }) => theme.palette.gray['500']};
 `;
 
 const DateInner = styled('div')<{
@@ -287,7 +287,7 @@ const DateInner = styled('div')<{
 
   background-color: ${({ theme, disabled, selected }) =>
     selected
-      ? theme.palette.sky['500']
+      ? theme.palette.primary['300']
       : disabled
       ? theme.palette.primary['50']
       : 'transparent'};
@@ -305,11 +305,12 @@ const RangeContainer = styled('div')`
   height: 100%;
   display: flex;
   position: absolute;
+  color: ${({ theme }) => theme.palette.gray['500']};
 `;
 
 const RangePanel = styled('div')<{ selected?: boolean }>`
   background-color: ${({ selected = false, theme }) =>
-    selected ? theme.palette.sky['50'] : 'transparent'};
+    selected ? theme.palette.primary['50'] : 'transparent'};
   flex-grow: 1;
 `;
 
@@ -326,8 +327,8 @@ const CalendarDot = styled('div')<{ full: boolean }>`
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  border: 1px solid ${({ theme }) => theme.palette.sky['500']};
+  border: 1px solid ${({ theme }) => theme.palette.primary['300']};
 
   background-color: ${({ theme, full }) =>
-    full ? theme.palette.sky['500'] : 'transparent'};
+    full ? theme.palette.primary['300'] : 'transparent'};
 `;

@@ -1,7 +1,6 @@
+import { Align, Modal, ModalProps } from '@/index';
 import styled from '@emotion/styled';
 import React from 'react';
-
-import { Align, Modal, ModalProps } from '@/index';
 
 export interface DialogProps extends ModalProps {
   title?: string;
@@ -63,7 +62,7 @@ const Title = styled('h2')<{ titleAlign: Align }>`
   }};
 
   ${({ theme }) => theme.typography['3xl'].bold};
-  color: ${({ theme }) => theme.palette.gray['700']};
+  color: ${({ theme }) => theme.palette.gray['600']};
 `;
 
 const SubTitle = styled('p')<{ titleAlign: Align }>`

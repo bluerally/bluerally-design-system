@@ -1,11 +1,9 @@
+import { Align } from '@/@types';
+import { Checkbox } from '@/components/Checkbox';
+import { Radio } from '@/components/Radio';
 import styled from '@emotion/styled';
 import { get } from 'lodash';
 import React from 'react';
-
-import { Checkbox } from '@/components/Checkbox';
-import { Radio } from '@/components/Radio';
-
-import { Align } from '@/@types';
 
 export enum TABLE_RENDER_TYPE {
   RADIO,

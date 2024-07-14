@@ -68,7 +68,7 @@ const RadioBase = styled('input')<RadioProps>`
 
     if (checked) {
       return css`
-        border: 5px solid ${theme.palette.primary.main};
+        border: 5px solid ${theme.palette.primary['300']};
       `;
     }
   }}

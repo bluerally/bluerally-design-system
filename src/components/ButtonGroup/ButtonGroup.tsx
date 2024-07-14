@@ -26,8 +26,8 @@ export const ButtonGroup = ({
   size = 'sm',
   options,
   onClick,
-  width = '384px',
-  variant = 'filled',
+  width = 'auto',
+  variant = 'primary-filled',
   isMultiple = false,
 }: ButtonGroupProps) => {
   const [selectedValues, setSelectedValues] = useState<(string | number)[]>(
@@ -61,8 +61,7 @@ export const ButtonGroup = ({
           <Button
             key={id}
             value={id}
-            variant={isSelected ? variant : 'outlined'}
-            color={isSelected ? 'sky' : 'gray'}
+            variant={isSelected ? variant : 'primary-outline'}
             onClick={handleButtonClick}
             size={size}
             width="100%"

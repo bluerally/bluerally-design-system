@@ -133,8 +133,8 @@ export const Uploader = ({
         {files?.map((file) => {
           return (
             <Button
-              size="xs"
-              variant="outlined"
+              size="sm"
+              variant="primary-outline"
               key={uuid()}
               onClick={() => onRemoveFile?.(file)}
             >
@@ -168,15 +168,15 @@ const FileInput = styled('div')<{ isDrag: boolean }>`
   border: 1px
     ${({ isDrag, theme }) =>
       isDrag
-        ? `solid ${theme.palette.primary.main}`
-        : `dashed ${theme.palette.gray.main}`};
+        ? `solid ${theme.palette.primary['300']}`
+        : `dashed ${theme.palette.gray['600']}`};
   border-radius: 8px;
   padding: ${({ theme }) => `${theme.spacing(4.5)} ${theme.spacing(7)}`};
   cursor: pointer;
   transition: border 0.3s;
 
   &:hover {
-    border: 1px solid ${({ theme }) => theme.palette.primary.main};
+    border: 1px solid ${({ theme }) => theme.palette.primary['300']};
   }
 `;
 
@@ -189,13 +189,13 @@ const Input = styled('input')`
 
 const Description = styled('div')`
   line-height: 24px;
-  color: ${({ theme }) => theme.palette.gray.main};
+  color: ${({ theme }) => theme.palette.gray['600']};
   margin-top: ${({ theme }) => theme.spacing(4.5)};
 `;
 
 const Placeholder = styled('span')`
   line-height: 24px;
-  color: ${({ theme }) => theme.palette.gray.main};
+  color: ${({ theme }) => theme.palette.gray['600']};
   padding-left: ${({ theme }) => theme.spacing(5)};
 `;
 

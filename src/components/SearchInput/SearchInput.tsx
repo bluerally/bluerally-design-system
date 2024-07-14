@@ -46,16 +46,19 @@ export const SearchInput = ({
         width={width}
         containerStyle={{
           border: 'none',
-          backgroundColor: theme.palette.newGray['100'],
+          backgroundColor: theme.palette.gray['100'],
         }}
         inputContainerStyle={{
-          backgroundColor: theme.palette.newGray['100'],
+          backgroundColor: theme.palette.gray['100'],
         }}
+        startIcon={<Search size={18} color={theme.palette.gray['400']} />}
         endIcon={
-          rest.value?.trim() === '' ? (
-            <Search size={18} />
-          ) : (
-            <X size={18} onClick={onClickReset} />
+          rest.value?.trim() !== '' && (
+            <X
+              size={18}
+              onClick={onClickReset}
+              color={theme.palette.gray['400']}
+            />
           )
         }
         onKeyUp={handleKeyUp}
@@ -66,6 +69,6 @@ export const SearchInput = ({
 
 const SearchTextInput = styled(TextInput)`
   input {
-    background-color: ${({ theme }) => theme.palette.newGray['100']};
+    background-color: ${({ theme }) => theme.palette.gray['50']};
   }
 `;

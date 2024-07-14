@@ -3,22 +3,23 @@ import buttonStyles from './style';
 import styled from '@emotion/styled';
 import React from 'react';
 
-export type ButtonVariant = 'filled' | 'outlined' | 'text';
-export type ButtonColor = 'sky' | 'gray' | 'error';
-type ButtonSize = 'xs' | Size;
+export type ButtonVariant =
+  | 'primary-filled'
+  | 'primary-outline'
+  | 'red-outline'
+  | 'gray-outline';
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
-  color?: ButtonColor;
-  size?: ButtonSize;
+  size?: Size;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   width?: string;
 }
 
 export const Button = ({
-  variant = 'filled',
-  color = 'sky',
+  variant = 'primary-filled',
   size = 'md',
   children,
   disabled,
@@ -34,7 +35,6 @@ export const Button = ({
       {...rest}
       type={type ?? 'submit'}
       variant={variant}
-      color={color}
       size={size}
       disabled={disabled}
       onClick={onClick}
@@ -51,7 +51,7 @@ const ButtonContainer = styled('button')<ButtonProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border-radius: 6px;
+  border-radius: 30px;
   overflow: hidden;
   border: none;
   cursor: pointer;
@@ -60,10 +60,11 @@ const ButtonContainer = styled('button')<ButtonProps>`
 
   &:disabled {
     pointer-events: none;
+    background-color: ${({ theme }) => theme.palette.gray['200']};
+    color: ${({ theme }) => theme.palette.gray['400']};
   }
 
   ${({ width }) => `width: ${width}`};
-  ${({ color }) => color && buttonStyles.colors[color]};
   ${({ variant }) => variant && buttonStyles.variants[variant]};
   ${({ size }) => size && buttonStyles.sizes[size]};
 `;

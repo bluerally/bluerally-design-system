@@ -124,8 +124,8 @@ export const Select = ({
               selected.length ? (
                 isSelectedAll ? (
                   <Button
-                    size="xs"
-                    variant="outlined"
+                    size="sm"
+                    variant="primary-outline"
                     key={allItem.value}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -142,8 +142,8 @@ export const Select = ({
                       </React.Fragment>
                     ) : (
                       <Button
-                        size="xs"
-                        variant="outlined"
+                        size="sm"
+                        variant="primary-outline"
                         key={value}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -163,8 +163,8 @@ export const Select = ({
             ) : selected?.title ? (
               chip ? (
                 <Button
-                  size="xs"
-                  variant="outlined"
+                  size="sm"
+                  variant="primary-outline"
                   key={selected.value}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -230,7 +230,7 @@ export const Select = ({
               setIsSelectOpen((prev) => !prev);
             }}
           >
-            <ChevronDown size={20} color={theme.palette.newGray['400']} />
+            <ChevronDown size={20} color={theme.palette.gray['400']} />
           </IconBox>
         )}
       </SelectContainer>
@@ -265,7 +265,7 @@ export const Select = ({
                   <OptionItemSpan>{allItem.title}</OptionItemSpan>
                   <OptionCheckedIcon>
                     {isSelectedAll && (
-                      <Check size={16} color={theme.palette.sky['500']} />
+                      <Check size={16} color={theme.palette.primary['300']} />
                     )}
                   </OptionCheckedIcon>
                 </OptionItem>
@@ -302,7 +302,7 @@ export const Select = ({
                       ? selected.some((select) => select.value === option.value)
                       : selected?.value === option.value) && (
                       <OptionCheckedIcon>
-                        <Check size={16} color={theme.palette.sky['500']} />
+                        <Check size={16} color={theme.palette.primary['300']} />
                       </OptionCheckedIcon>
                     )}
                   </OptionItem>
@@ -330,17 +330,17 @@ const SelectContainer = styled('div')<{
   width: ${({ width }) => {
     return width || '340px';
   }};
-  min-height: 48px;
+  height: 42px;
   display: flex;
   align-items: center;
   padding: ${({ theme }) => `${theme.spacing(7)} ${theme.spacing(8)}`};
   border: 1px solid
     ${({ theme, isSelectOpen, error }) =>
       error
-        ? theme.palette.error.main
+        ? theme.palette.error['300']
         : isSelectOpen
         ? theme.palette.primary['400']
-        : theme.palette.newGray['200']};
+        : theme.palette.gray['200']};
   border-radius: 8px;
   ${({ theme }) => theme.typography.basic.regular};
   justify-content: space-between;
@@ -351,7 +351,7 @@ const SelectContainer = styled('div')<{
   &:hover {
     border: 1px solid
       ${({ error, theme }) =>
-        error ? theme.palette.newError['600'] : theme.palette.sky['500']};
+        error ? theme.palette.error['300'] : theme.palette.primary['300']};
   }
 `;
 
@@ -384,7 +384,7 @@ const OptionList = styled('ul')<{ width?: number; maxHeight?: number }>`
   border: none;
   padding: 0;
   overflow: auto;
-  color: ${({ theme }) => theme.palette.newGray['950']};
+  color: ${({ theme }) => theme.palette.gray['900']};
 `;
 
 const OptionItem = styled('li')<{ lineHeight?: string; selected?: boolean }>`
@@ -392,20 +392,20 @@ const OptionItem = styled('li')<{ lineHeight?: string; selected?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${({ theme }) => theme.palette.newGray['950']};
+  color: ${({ theme }) => theme.palette.gray['900']};
   ${({ theme }) => theme.typography.md.medium};
   cursor: pointer;
 
   &:hover {
     background: ${({ theme, selected }) =>
-      selected ? theme.palette.sky['50'] : theme.palette.newGray['50']};
+      selected ? theme.palette.primary['50'] : theme.palette.gray['50']};
   }
 
   ${({ theme, selected }) => {
     if (selected) {
       return css`
-        color: ${theme.palette.sky['500']};
-        background-color: ${theme.palette.sky['50']};
+        color: ${theme.palette.primary['300']};
+        background-color: ${theme.palette.primary['50']};
       `;
     }
   }}
@@ -446,10 +446,10 @@ const OptionContainer = styled('div')`
 
 const StyledOverlay = styled(Overlay)`
   background: ${({ theme }) => theme.palette.white};
-  outline: 1px solid ${({ theme }) => theme.palette.newGray['200']};
+  outline: 1px solid ${({ theme }) => theme.palette.gray['200']};
   border-radius: 5px;
 `;
 
 const PlaceHolderContainer = styled('div')`
-  color: ${({ theme }) => theme.palette.newGray['400']};
+  color: ${({ theme }) => theme.palette.gray['400']};
 `;

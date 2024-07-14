@@ -111,4 +111,7 @@ const OverlayContainer = styled('div')`
   :focus {
     outline: none;
   }
+
+  border-radius: 12px;
+  box-shadow: 0px 6px 18px 0px #0000001f;
 `;

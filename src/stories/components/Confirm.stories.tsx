@@ -22,6 +22,7 @@ const Template: Story<ConfirmProps> = () => {
         title="게시물 삭제"
         description="게시물을 정말 삭제하시겠습니까?"
         onClose={() => setOpen(false)}
+        onConfirm={() => setOpen(false)}
       />
       <Button onClick={() => setOpen((prev) => !prev)}>버튼</Button>
     </>

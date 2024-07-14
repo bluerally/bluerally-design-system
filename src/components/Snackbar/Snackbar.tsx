@@ -1,11 +1,9 @@
+import { Icon } from '../Icon';
+import { palette } from '@/style/theme/palette';
+import { FontWeight } from '@/style/theme/typography';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { useCallback, useEffect, useRef } from 'react';
-
-import { palette } from '@/style/theme/palette';
-import { FontWeight } from '@/style/theme/typography';
-
-import { Icon } from '../Icon';
 
 const DURATION = 7000;
 const ANIMATION_TIME = 300;
@@ -14,50 +12,28 @@ const VARIANTS = {
   info: {
     icon: {
       type: 'info',
-      color: palette.gray.main,
+      color: palette.gray['600'],
     },
     style: {
       backgroundColor: palette.gray['50'],
       color: palette.gray['500'],
-      borderColor: palette.gray.main,
-    },
-  },
-  success: {
-    icon: {
-      type: 'check-circle',
-      color: palette.success.main,
-    },
-    style: {
-      backgroundColor: palette.success['50'],
-      color: palette.success['600'],
-      borderColor: palette.success.main,
-    },
-  },
-  warning: {
-    icon: {
-      type: 'alert-triangle',
-      color: palette.warning.main,
-    },
-    style: {
-      backgroundColor: palette.warning['50'],
-      color: palette.warning['600'],
-      borderColor: palette.warning.main,
+      borderColor: palette.gray['600'],
     },
   },
   error: {
     icon: {
       type: 'x-circle',
-      color: palette.error.main,
+      color: palette.error['300'],
     },
     style: {
       backgroundColor: palette.error['50'],
-      color: palette.error['600'],
-      borderColor: palette.error.main,
+      color: palette.error['300'],
+      borderColor: palette.error['300'],
     },
   },
 };
 
-export type SnackbarType = 'info' | 'success' | 'warning' | 'error';
+export type SnackbarType = 'info' | 'error';
 
 export interface SnackbarProps extends React.HTMLAttributes<HTMLDivElement> {
   uniqueId: number;

@@ -24,7 +24,7 @@ const ProgressContainer = styled('div')<ProgressProps>`
     ),
     linear-gradient(
       to right,
-      ${({ theme }) => theme.palette.primary.main},
+      ${({ theme }) => theme.palette.primary['300']},
       ${({ theme }) => theme.palette.white}
     );
   background-origin: border-box;

@@ -52,11 +52,10 @@ export const ChipGroup = ({
         {enableAll && (
           <Chip
             key={allValue}
-            variant="outlined"
-            color={isSelectedAll ? 'sky' : 'gray'}
+            variant={isSelectedAll ? 'primary-outline' : 'gray-filled'}
             startIcon={
               isSelectedAll && (
-                <Icon icon="check" color={theme.palette.primary.main} />
+                <Icon icon="check" color={theme.palette.primary['300']} />
               )
             }
           >
@@ -69,11 +68,10 @@ export const ChipGroup = ({
           return (
             <Chip
               key={option.value}
-              variant="outlined"
-              color={isChecked ? 'sky' : 'gray'}
+              variant={isSelectedAll ? 'primary-outline' : 'gray-filled'}
               startIcon={
                 isChecked && (
-                  <Icon icon="check" color={theme.palette.primary.main} />
+                  <Icon icon="check" color={theme.palette.primary['300']} />
                 )
               }
             >

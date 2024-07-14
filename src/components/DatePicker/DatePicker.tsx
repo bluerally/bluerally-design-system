@@ -1,5 +1,5 @@
 import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
-import { Button } from '../Button';
+import { Button as ButtonBase } from '../Button';
 import { Calendar } from '../Calendar';
 import { CalendarIcon } from '../CalendarIcon';
 import { Overlay as OverlayBase } from '../Overlay';
@@ -244,7 +244,7 @@ export const DatePicker = <T extends boolean = false>({
           startIcon={
             <CalendarIcon
               onClick={handleOpen}
-              color={theme.palette.newGray['400']}
+              color={theme.palette.gray['400']}
             />
           }
           onChange={handleInputChange}
@@ -252,7 +252,7 @@ export const DatePicker = <T extends boolean = false>({
           disabled={disabled}
           endIcon={
             <IconBox isOpen={openProp || open}>
-              <ChevronDown size={20} color={theme.palette.newGray['400']} />
+              <ChevronDown size={20} color={theme.palette.gray['400']} />
             </IconBox>
           }
         />
@@ -288,8 +288,7 @@ export const DatePicker = <T extends boolean = false>({
                 endYear={endYear}
               />
               <Button
-                variant="outlined"
-                color="gray"
+                variant="gray-outline"
                 width="100%"
                 onClick={() => openCalendar(false)}
               >
@@ -313,7 +312,7 @@ const Container = styled('div')<{
 
 const Overlay = styled(OverlayBase)`
   background: ${({ theme }) => theme.palette.white};
-  outline: 1px solid ${({ theme }) => theme.palette.newGray['200']};
+  outline: 1px solid ${({ theme }) => theme.palette.gray['200']};
   border-radius: 5px;
   padding: ${({ theme }) => `${theme.spacing(10)} ${theme.spacing(10)}`};
 `;
@@ -324,4 +323,8 @@ const IconBox = styled('div')<{ isOpen: boolean }>`
   height: 20px;
   transition: transform 0.3s ease;
   transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
+`;
+
+const Button = styled(ButtonBase)`
+  margin-top: 20px;
 `;

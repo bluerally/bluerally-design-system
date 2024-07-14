@@ -1,12 +1,9 @@
+import { LabeledComponentType } from '@/@types/LabeledComponentType';
+import { Button as ButtonBase } from '@/components';
+import { LabeledComponentWrapper } from '@/components/@common/LabeledComponentWrapper';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
-
-import { LabeledComponentType } from '@/@types/LabeledComponentType';
-
-import { LabeledComponentWrapper } from '@/components/@common/LabeledComponentWrapper';
-
-import { Button as ButtonBase } from '@/components';
 
 type SegmentButtonVariant = 'default' | 'button';
 export interface SegmentButtonItem {
@@ -68,13 +65,7 @@ export const SegmentButton = ({
             style={{ flex: fullWidth ? 1 : undefined }}
             type={type ?? 'button'}
             key={allValue}
-            variant={
-              value === allValue
-                ? variant === 'button'
-                  ? 'filled'
-                  : 'outlined'
-                : 'text'
-            }
+            variant={value === allValue ? 'primary-filled' : 'primary-outline'}
             value={allValue}
             onClick={(e) => {
               onChange?.(allValue, e);
@@ -91,11 +82,7 @@ export const SegmentButton = ({
               type={type ?? 'button'}
               key={option.value}
               variant={
-                option.value === value
-                  ? variant === 'button'
-                    ? 'filled'
-                    : 'outlined'
-                  : 'text'
+                value === allValue ? 'primary-filled' : 'primary-outline'
               }
               value={option.value}
               onClick={(e) => {

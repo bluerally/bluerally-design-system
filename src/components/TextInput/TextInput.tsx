@@ -93,7 +93,7 @@ export const TextInput = ({
         />
         {endIcon && <EndAdornment>{endIcon}</EndAdornment>}
         {status === STATUS.ERROR && (
-          <CircleAlert size={24} color={theme.palette.newError[600]} />
+          <CircleAlert size={24} color={theme.palette.error[300]} />
         )}
       </TextInputContainer>
     </LabeledComponentWrapper>
@@ -109,18 +109,18 @@ const TextInputContainer = styled('div')<{
   align-items: center;
   overflow: hidden;
   width: 100%;
-  height: 48px;
+  height: 42px;
   border-radius: 8px;
   background-color: ${({ theme, error, disabled }) =>
     error
       ? theme.palette.error['50']
       : disabled
-      ? theme.palette.newGray['50']
+      ? theme.palette.gray['50']
       : theme.palette.white};
   padding: ${({ theme }) => `${theme.spacing(7)} ${theme.spacing(8)}`};
   border: 1px solid
     ${({ theme, error }) =>
-      error ? theme.palette.newError['600'] : theme.palette.newGray['200']};
+      error ? theme.palette.error['300'] : theme.palette.gray['200']};
 
   ${({ disabled }) =>
     disabled &&
@@ -131,26 +131,26 @@ const TextInputContainer = styled('div')<{
   &:hover {
     border: 1px solid
       ${({ error, theme }) =>
-        error ? theme.palette.newError['600'] : theme.palette.sky['500']};
+        error ? theme.palette.error['300'] : theme.palette.primary['300']};
   }
 `;
 
 const StyledInput = styled('input')<{ error?: boolean; disabled: boolean }>`
-  ${({ theme }) => theme.typography.md.regular}
+  ${({ theme }) => theme.typography['md-2'].medium}
   width: 100%;
   border: none;
   outline: none;
   color: ${({ theme, error, disabled }) =>
     error
-      ? theme.palette.error['600']
+      ? theme.palette.error['300']
       : disabled
-      ? theme.palette.newGray['400']
-      : theme.palette.newGray['950']};
+      ? theme.palette.gray['400']
+      : theme.palette.gray['900']};
   background-color: ${({ theme, error, disabled }) =>
     error
       ? theme.palette.error['50']
       : disabled
-      ? theme.palette.newGray['50']
+      ? theme.palette.gray['50']
       : theme.palette.white};
 
   ${({ disabled }) =>
@@ -160,7 +160,7 @@ const StyledInput = styled('input')<{ error?: boolean; disabled: boolean }>`
     `};
 
   &::placeholder {
-    color: ${({ theme }) => theme.palette.newGray['400']};
+    color: ${({ theme }) => theme.palette.gray['400']};
   }
 
   &:focus::placeholder {
@@ -172,12 +172,12 @@ const StartAdornment = styled('div')<{ focused?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: ${({ theme }) => theme.spacing(2)};
+  margin-right: ${({ theme }) => theme.spacing(3)};
 `;
 
 const EndAdornment = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: ${({ theme }) => theme.spacing(2)};
+  margin-left: ${({ theme }) => theme.spacing(3)};
 `;

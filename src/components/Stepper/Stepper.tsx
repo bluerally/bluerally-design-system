@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import React from 'react';
 
 type Direction = 'vertical' | 'horizontal';
 type Color = 'black' | 'primary' | 'gray' | 'white';
@@ -256,10 +256,10 @@ const LineInner = styled('div')<{ isActive: boolean; direction: Direction }>`
   ${({ theme, isActive }) =>
     isActive
       ? css`
-          border-color: ${theme.palette.primary.main};
+          border-color: ${theme.palette.primary['300']};
         `
       : css`
-          border-color: ${theme.palette.gray.main};
+          border-color: ${theme.palette.gray['600']};
         `};
 
   ${({ direction }) =>

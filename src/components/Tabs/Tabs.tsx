@@ -87,10 +87,10 @@ const TabBase = styled('button')<{
   ${({ selected, theme }) => {
     return css`
       color: ${selected
-        ? theme.palette.sky['500']
-        : theme.palette.newGray['400']};
+        ? theme.palette.primary['300']
+        : theme.palette.gray['400']};
       box-shadow: ${selected
-        ? `inset 0px -2px 0px ${theme.palette.sky['500']}`
+        ? `inset 0px -2px 0px ${theme.palette.primary['300']}`
         : 'none'};
     `;
   }}

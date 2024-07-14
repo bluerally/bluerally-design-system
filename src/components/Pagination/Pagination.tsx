@@ -1,11 +1,9 @@
+import { Icon } from '../Icon';
+import { Align } from '@/@types';
+import { theme } from '@/style/theme';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-
-import { Align } from '@/@types';
-import { theme } from '@/style/theme';
-
-import { Icon } from '../Icon';
 
 export interface PaginationProps {
   defaultPage?: number;
@@ -105,7 +103,7 @@ export const Pagination = ({
         <CellContainer>
           <ArrowButton onClick={handleFirst}>
             <Icon
-              color={theme.palette.primary.main}
+              color={theme.palette.primary['300']}
               icon="chevrons-left"
               size={24}
               width={24}
@@ -120,8 +118,8 @@ export const Pagination = ({
             <Icon
               color={
                 current === 1
-                  ? theme.palette.gray.main
-                  : theme.palette.primary.main
+                  ? theme.palette.gray['600']
+                  : theme.palette.primary['300']
               }
               icon="chevron-left"
               size={24}
@@ -156,8 +154,8 @@ export const Pagination = ({
             <Icon
               color={
                 totalPage === current
-                  ? theme.palette.gray.main
-                  : theme.palette.primary.main
+                  ? theme.palette.gray['600']
+                  : theme.palette.primary['300']
               }
               icon="chevron-right"
               size={24}
@@ -171,7 +169,7 @@ export const Pagination = ({
         <CellContainer>
           <ArrowButton onClick={handleLast}>
             <Icon
-              color={theme.palette.primary.main}
+              color={theme.palette.primary['300']}
               icon="chevrons-right"
               size={24}
               width={24}
@@ -239,7 +237,7 @@ const ArrowButton = styled('div')<{ isDisabled?: boolean }>`
   user-select: none;
 
   color: ${({ theme, isDisabled }) =>
-    isDisabled ? theme.palette.gray.main : theme.palette.primary.main};
+    isDisabled ? theme.palette.gray['600'] : theme.palette.primary['300']};
   border: 1px solid rgba(0, 0, 0, 0);
 `;
 
@@ -270,8 +268,8 @@ const PageButton = styled('div')<{ selected?: boolean }>`
   ${({ selected }) =>
     selected
       ? css`
-          color: ${theme.palette.primary.main};
-          border: 1px solid ${theme.palette.primary.main};
+          color: ${theme.palette.primary['300']};
+          border: 1px solid ${theme.palette.primary['300']};
           border-radius: 8px;
         `
       : css`

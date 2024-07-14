@@ -13,8 +13,7 @@ const Template: Story = (args) => <Button {...args}>버튼</Button>;
 export const Default = Template.bind({});
 
 Default.args = {
-  variant: 'filled',
-  color: 'sky',
+  variant: 'primary-filled',
   size: 'sm',
   disabled: false,
 };

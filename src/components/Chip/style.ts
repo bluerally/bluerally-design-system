@@ -7,30 +7,21 @@ export const chipIconColors = {
 };
 
 export default {
-  colors: {
-    sky: css`
-      --main-color: ${theme.palette.sky['500']};
-      --main-text-color: ${theme.palette.white};
-      --outlined-background-color: ${theme.palette.sky['50']};
-      --outlined-border-color: ${theme.palette.sky['200']};
-      --outlined-text-color: ${theme.palette.sky['500']};
-    `,
-    gray: css`
-      --main-color: ${theme.palette.newGray['100']};
-      --main-text-color: ${theme.palette.newGray['500']};
-    `,
-  },
   variants: {
-    filled: css`
-      background: var(--main-color);
+    'gray-filled': css`
+      background: ${theme.palette.gray['100']};
       border: 1px solid transparent;
-      color: var(--main-text-color);
+      color: ${theme.palette.gray['500']};
     `,
-
-    outlined: css`
-      border: 1px solid var(--outlined-border-color);
-      background-color: var(--outlined-background-color);
-      color: var(--outlined-text-color);
+    'primary-outline': css`
+      border: 1px solid ${theme.palette.primary['100']};
+      background-color: ${theme.palette.primary['50']};
+      color: ${theme.palette.primary['200']};
+    `,
+    'red-outline': css`
+      border: 1px solid ${theme.palette.error['100']};
+      background-color: ${theme.palette.error['50']};
+      color: ${theme.palette.error['200']};
     `,
   },
 };

@@ -147,7 +147,7 @@ export const typography: Typography = {
   },
   md: {
     lighter: css`
-      font-size: 14px;
+      font-size: 1;
       font-weight: ${FontWeight.lighter};
       line-height: 21px;
     `,

@@ -13,6 +13,5 @@ const Template: Story = (args) => <Chip {...args}>프리 다이빙</Chip>;
 export const Default = Template.bind({});
 
 Default.args = {
-  variant: 'filled',
-  color: 'sky',
+  variant: 'primary-filled',
 };

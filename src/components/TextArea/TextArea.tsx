@@ -122,15 +122,15 @@ const TextAreaContainer = styled('div')<{
   width: 100%;
   border-radius: 8px;
   background-color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.newGray['50'] : theme.palette.white};
+    disabled ? theme.palette.gray['50'] : theme.palette.white};
   padding: ${({ theme }) => `${theme.spacing(4)} ${theme.spacing(7)}`};
   border: 1px solid
     ${({ theme, error, disabled }) =>
       error
-        ? theme.palette.newError['600']
+        ? theme.palette.error['300']
         : disabled
-        ? theme.palette.newGray['100']
-        : theme.palette.newGray['200']};
+        ? theme.palette.gray['100']
+        : theme.palette.gray['200']};
 
   ${({ disabled }) =>
     disabled &&
@@ -141,7 +141,7 @@ const TextAreaContainer = styled('div')<{
   &:hover {
     border: 1px solid
       ${({ error, theme }) =>
-        error ? theme.palette.newError['600'] : theme.palette.sky['500']};
+        error ? theme.palette.error['300'] : theme.palette.primary['300']};
   }
 `;
 
@@ -149,7 +149,7 @@ const TextAreaInner = styled('textarea')<{
   autoHeight?: boolean;
   innerHeight?: number | string;
 }>`
-  ${({ theme }) => theme.typography.basic.regular}
+  ${({ theme }) => theme.typography.md.regular}
   width: 100%;
   height: ${({ innerHeight }) =>
     typeof innerHeight === 'number' ? `${innerHeight}px` : innerHeight};
@@ -162,9 +162,9 @@ const TextAreaInner = styled('textarea')<{
   outline: none;
   resize: none;
   color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.newGray['200'] : theme.palette.black};
+    disabled ? theme.palette.gray['200'] : theme.palette.black};
   background-color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.newGray['50'] : theme.palette.white};
+    disabled ? theme.palette.gray['50'] : theme.palette.white};
 
   ${({ disabled }) =>
     disabled &&
@@ -173,7 +173,7 @@ const TextAreaInner = styled('textarea')<{
     `};
 
   &::placeholder {
-    color: ${({ theme }) => theme.palette.newGray['300']};
+    color: ${({ theme }) => theme.palette.gray['300']};
   }
 
   &:focus::placeholder {

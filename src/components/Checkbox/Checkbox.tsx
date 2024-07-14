@@ -1,9 +1,7 @@
+import { Icon } from '@/components/Icon';
+import { theme } from '@/style/theme';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-
-import { Icon } from '@/components/Icon';
-
-import { theme } from '@/style/theme';
 
 export interface CheckboxProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -71,7 +69,7 @@ const CheckBoxBase = styled('span')<CheckboxProps>`
   ${({ checked, theme }) =>
     checked
       ? css`
-          background: ${theme.palette.primary.main};
+          background: ${theme.palette.primary['300']};
         `
       : css`
           outline: 1px solid ${theme.palette.gray['300']};

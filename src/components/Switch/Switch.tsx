@@ -79,13 +79,13 @@ const Slider = styled('span')<{
   ${({ theme, checked, disabled }) =>
     disabled
       ? css`
-          background-color: ${theme.palette.newGray['150']};
+          background-color: ${theme.palette.gray['100']};
         `
       : css`
           cursor: pointer;
           background-color: ${checked
-            ? theme.palette.sky['500']
-            : theme.palette.newGray['200']};
+            ? theme.palette.primary['300']
+            : theme.palette.gray['200']};
         `}
 
   &:before {
@@ -93,7 +93,7 @@ const Slider = styled('span')<{
     position: absolute;
     border-radius: 50%;
     background-color: ${({ theme, disabled }) =>
-      disabled ? theme.palette.newGray['300'] : theme.palette.white};
+      disabled ? theme.palette.gray['300'] : theme.palette.white};
     transition: 0.4s;
 
     ${({ checked }) => sliderStyleOverride(checked)};
@@ -109,5 +109,5 @@ const Container = styled('div')`
 const Label = styled(LabelBase)`
   padding: 0;
   ${({ theme }) => theme.typography.md.medium}
-  color: ${({ theme }) => theme.palette.newGray['700']};
+  color: ${({ theme }) => theme.palette.gray['600']};
 `;

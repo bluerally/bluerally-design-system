@@ -21,6 +21,7 @@ export interface ModalProps {
   dimmed?: boolean;
   position?: { top: number; left: number };
   children: React.ReactNode;
+  isOnClickOutside?: boolean;
   onClose?: () => void;
   isContentScroll?: boolean;
 }
@@ -33,6 +34,7 @@ export const Modal = ({
   align = 'center',
   dimmed = false,
   position = { top: 0, left: 0 },
+  isOnClickOutside = false,
   children,
   onClose,
   isContentScroll = false,
@@ -84,7 +86,7 @@ export const Modal = ({
         defaultPosition={position}
         side={side}
         align={align}
-        onClickOutside={dimmed ? onClose : undefined}
+        onClickOutside={isOnClickOutside ? onClose : undefined}
         isModal={true}
         isAttachRoot={true}
       >
@@ -107,7 +109,7 @@ const Dim = styled('div')<{ dimmed: boolean }>`
   left: 0;
   position: fixed;
   background-color: ${({ theme, dimmed }) =>
-    dimmed ? theme.palette.newGray['950'] : 'transparent'};
+    dimmed ? theme.palette.gray['900'] : 'transparent'};
   z-index: ${({ theme }) => theme.zIndex.DIM};
   opacity: 0.3;
   animation: fade_in 0.4s ease;
@@ -130,8 +132,7 @@ const ModalContainer = styled('div')<{
   height?: string | number;
 }>`
   background-color: ${({ theme }) => theme.palette.white};
-  border-radius: ${({ theme }) => theme.spacing(5)};
-  box-shadow: 0px 6px 18px 0px #0000001f;
+  border-radius: 12px;
   overflow-y: auto;
   ${({ height }) =>
     `height: ${typeof height === 'number' ? `${height}px` : height}`};

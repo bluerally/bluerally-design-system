@@ -1,11 +1,11 @@
-import { Button, ButtonColor } from '../Button';
+import { Button } from '../Button';
 import { Modal } from '@/components/Modal';
 import styled from '@emotion/styled';
 
 export interface ConfirmProps {
   open: boolean;
   cancelText?: string;
-  confirmStatus?: ButtonColor;
+  confirmStatus?: 'default' | 'error';
   confirmText?: string;
   title: string;
   description?: string;
@@ -26,7 +26,7 @@ export const Confirm = ({
   onConfirm,
 }: ConfirmProps) => {
   return (
-    <Modal open={open} dimmed position={{ top: 30, left: 0 }} onClose={onClose}>
+    <Modal open={open} position={{ top: 30, left: 0 }} onClose={onClose}>
       <Container>
         <Modal.Header align="left">
           <Header>{title}</Header>
@@ -35,19 +35,15 @@ export const Confirm = ({
         <Modal.Footer>
           <ButtonContainer>
             {cancelText && onCancel && (
-              <Button
-                variant="outlined"
-                color="gray"
-                onClick={onCancel}
-                width="100%"
-              >
+              <Button variant="gray-outline" onClick={onCancel} width="100%">
                 {cancelText}
               </Button>
             )}
 
             <Button
-              variant="outlined"
-              color={confirmStatus}
+              variant={
+                confirmStatus === 'error' ? 'red-outline' : 'primary-outline'
+              }
               onClick={onConfirm}
               width="100%"
             >
@@ -79,6 +75,6 @@ const ButtonContainer = styled('div')`
 const Description = styled('span')`
   width: 260px;
   ${({ theme }) => theme.typography.md.regular};
-  color: ${({ theme }) => theme.palette.newGray['500']};
+  color: ${({ theme }) => theme.palette.gray['500']};
   padding: ${({ theme }) => theme.spacing(2)} 0;
 `;

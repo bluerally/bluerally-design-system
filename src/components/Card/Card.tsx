@@ -1,14 +1,13 @@
-import { Colors } from '@/@types';
+import cardStyles from './styles';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
-import cardStyles from './styles';
 
 export type CardVariants = 'default' | 'leftBorder' | 'noBorder';
 
 interface CardProps {
   variant?: CardVariants;
-  color?: Colors;
+  color?: 'primary' | 'error' | 'gray';
   children?: React.ReactNode;
   onClick?: (e?: React.MouseEvent<HTMLDivElement>) => void;
 }

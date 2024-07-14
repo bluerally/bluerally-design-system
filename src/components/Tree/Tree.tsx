@@ -1,14 +1,14 @@
-import styled from '@emotion/styled';
-import React, { Fragment, useState } from 'react';
 import { Checkbox } from '../Checkbox';
 import { Icon } from '../Icon';
 import {
   TreeNode,
-  initTree,
-  updateTree,
   changeParentStatus,
   initDefaultCheck,
+  initTree,
+  updateTree,
 } from './generateTreeNode';
+import styled from '@emotion/styled';
+import React, { Fragment, useState } from 'react';
 
 export interface TreeProps {
   data: TreeNode[];
