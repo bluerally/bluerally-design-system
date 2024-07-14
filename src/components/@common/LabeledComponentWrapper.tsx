@@ -41,5 +41,5 @@ const LabeledContainer = styled('div')<{ width?: string | number }>`
 `;
 
 const StarIconWrapper = styled('span')`
-  color: ${({ theme }) => theme.palette.error.main};
+  color: ${({ theme }) => theme.palette.error['300']};
 `;

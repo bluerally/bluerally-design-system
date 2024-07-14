@@ -64,7 +64,7 @@ export const NotificationProvider = ({
           open={!!notification}
           title={notification.title ?? ''}
           description={notification.content}
-          confirmStatus={notification.type === 'error' ? 'error' : 'sky'}
+          confirmStatus={notification.type === 'error' ? 'error' : 'default'}
           onClose={handleExit}
           onCancel={notification.type !== 'alert' ? handleExit : undefined}
           onConfirm={() => {

@@ -1,6 +1,5 @@
-import { css } from '@emotion/react';
-
 import { theme } from '..';
+import { css } from '@emotion/react';
 
 export const reset = () => css`
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css');
@@ -57,7 +56,7 @@ export const reset = () => css`
   }
 
   a {
-    color: ${theme.palette.primary.main};
+    color: ${theme.palette.primary['300']};
     cursor: pointer;
     text-decoration: none;
   }
