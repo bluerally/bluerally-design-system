@@ -125,18 +125,11 @@ export const Calendar = ({
                           disabled={disabled}
                           selected={active}
                           currentMonth={isCurrentMonth}
+                          isToday={isToday}
                         >
                           {date.date()}
                         </DateInner>
                       </DateContainer>
-                      <CalendarDotContainer>
-                        {isToday && (
-                          <CalendarDot
-                            full={true}
-                            key={`dots-${week}-${day}`}
-                          />
-                        )}
-                      </CalendarDotContainer>
                     </Td>
                   );
                 })}
@@ -276,6 +269,7 @@ const DateInner = styled('div')<{
   disabled: boolean;
   selected: boolean;
   currentMonth: boolean;
+  isToday: boolean;
 }>`
   display: flex;
   width: 32px;
@@ -285,14 +279,21 @@ const DateInner = styled('div')<{
   z-index: 1;
   cursor: pointer;
 
+  font-weight: ${({ theme, isToday }) =>
+    isToday ? theme.FontWeight.semiBold : theme.FontWeight.regular};
+
   background-color: ${({ theme, disabled, selected }) =>
     selected
       ? theme.palette.primary['300']
       : disabled
       ? theme.palette.primary['50']
       : 'transparent'};
-  color: ${({ theme, disabled, selected, currentMonth }) =>
-    selected
+  color: ${({ theme, disabled, selected, currentMonth, isToday }) =>
+    isToday && !selected
+      ? theme.palette.primary['300']
+      : isToday && selected
+      ? theme.palette.white
+      : selected
       ? theme.palette.white
       : disabled
       ? theme.palette.gray['500']
@@ -312,23 +313,4 @@ const RangePanel = styled('div')<{ selected?: boolean }>`
   background-color: ${({ selected = false, theme }) =>
     selected ? theme.palette.primary['50'] : 'transparent'};
   flex-grow: 1;
-`;
-
-const CalendarDotContainer = styled('div')`
-  display: flex;
-  justify-content: center;
-  gap: ${({ theme }) => theme.spacing(1)};
-  height: 8px;
-  align-items: center;
-`;
-
-const CalendarDot = styled('div')<{ full: boolean }>`
-  display: inline-block;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  border: 1px solid ${({ theme }) => theme.palette.primary['300']};
-
-  background-color: ${({ theme, full }) =>
-    full ? theme.palette.primary['300'] : 'transparent'};
 `;

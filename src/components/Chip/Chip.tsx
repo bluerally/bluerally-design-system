@@ -46,9 +46,9 @@ const ChipContainer = styled('div')<{
   white-space: nowrap;
   vertical-align: middle;
   height: 24px;
-  border-radius: 4px;
+  border-radius: 30px;
   gap: ${({ theme }) => theme.spacing(2)};
-  padding: 0 ${({ theme }) => theme.spacing(5)};
+  padding: 0 ${({ theme }) => theme.spacing(3)};
 
   ${({ variant }) => variant && chipStyles.variants[variant]};
 `;
@@ -62,6 +62,6 @@ const ChipInner = styled('div')<{
   gap: 4px;
   white-space: nowrap;
 
-  ${({ theme }) => theme.typography['sm-2'].medium};
+  ${({ theme }) => theme.typography['sm'].medium};
   line-height: 16px;
 `;

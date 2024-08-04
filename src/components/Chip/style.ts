@@ -10,18 +10,15 @@ export default {
   variants: {
     'gray-filled': css`
       background: ${theme.palette.gray['100']};
-      border: 1px solid transparent;
       color: ${theme.palette.gray['500']};
     `,
     'primary-outline': css`
-      border: 1px solid ${theme.palette.primary['100']};
       background-color: ${theme.palette.primary['50']};
-      color: ${theme.palette.primary['200']};
+      color: ${theme.palette.primary['300']};
     `,
     'red-outline': css`
-      border: 1px solid ${theme.palette.error['100']};
       background-color: ${theme.palette.error['50']};
-      color: ${theme.palette.error['200']};
+      color: ${theme.palette.error['300']};
     `,
   },
 };
