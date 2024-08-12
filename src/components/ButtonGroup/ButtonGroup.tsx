@@ -1,81 +1,85 @@
-import { Button, ButtonVariant } from '../Button';
-import { Size } from '@/@types';
+import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
+import { Button } from '../Button';
 import { LabeledComponentType } from '@/@types/LabeledComponentType';
 import styled from '@emotion/styled';
-import React, { MouseEventHandler, useState } from 'react';
+import React from 'react';
 
-export type ButtonItemOption = {
-  id: number;
-  name?: string;
-};
+export type ButtonValue = string | number;
+export interface ButtonItem {
+  title: string;
+  value: ButtonValue;
+  disabled?: boolean;
+}
 
 export interface ButtonGroupProps extends LabeledComponentType {
   gap?: number;
-  options: ButtonItemOption[];
-  value?: string | number | (string | number)[];
-  onClick?: (value: string | number) => void;
-  size?: Size;
-  variant?: ButtonVariant;
-  width?: string;
+  values?: ButtonValue[];
+  onChange?: (selectedValues: ButtonValue[]) => void;
+  options: ButtonItem[];
+  disabled?: boolean;
+  size?: 'sm' | 'md';
   isMultiple?: boolean;
 }
 
 export const ButtonGroup = ({
-  value,
-  gap = 6,
-  size = 'sm',
+  gap = 12,
+  values = [],
+  onChange,
   options,
-  onClick,
-  width = 'auto',
-  variant = 'primary-filled',
+  label,
+  name,
+  status,
+  statusMessage,
+  description,
+  disabled,
+  required,
+  size,
   isMultiple = false,
 }: ButtonGroupProps) => {
-  const [selectedValues, setSelectedValues] = useState<(string | number)[]>(
-    Array.isArray(value) ? value.filter((v) => v) : value ? [value] : [],
-  );
-
-  const handleButtonClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-    const selectedValue = event.currentTarget.value;
-
-    const isSelected = selectedValues.includes(selectedValue);
-
-    setSelectedValues(
-      isMultiple
-        ? isSelected
-          ? selectedValues.filter((value) => value !== selectedValue)
-          : [...selectedValues, selectedValue]
-        : [selectedValue],
-    );
-
-    if (onClick) {
-      onClick(selectedValue);
+  const handleChange = (value: ButtonValue) => {
+    if (!isMultiple) {
+      return onChange?.(values.includes(value) ? [] : [value]);
     }
+
+    if (values.includes(value)) {
+      return onChange?.(values.filter((val) => val !== value));
+    }
+
+    return onChange?.([...values, value]);
   };
 
   return (
-    <ButtonGroupContainer gap={gap} width={width}>
-      {options.map(({ id, name }) => {
-        const isSelected = selectedValues.includes(String(id));
+    <LabeledComponentWrapper
+      status={status}
+      name={name}
+      label={label}
+      statusMessage={statusMessage}
+      description={description}
+      required={required}
+    >
+      <ButtonGroupContainer gap={gap}>
+        {options.map((option) => {
+          const isChecked = values.includes(option.value);
 
-        return (
-          <Button
-            key={id}
-            value={id}
-            variant={isSelected ? variant : 'primary-outline'}
-            onClick={handleButtonClick}
-            size={size}
-            width="100%"
-          >
-            {name || id}
-          </Button>
-        );
-      })}
-    </ButtonGroupContainer>
+          return (
+            <Button
+              key={option.value}
+              variant={isChecked ? 'primary-outline' : 'gray-outline'}
+              onClick={() => handleChange(option.value)}
+              size={size}
+              disabled={option.disabled || disabled}
+            >
+              {option.title}
+            </Button>
+          );
+        })}
+      </ButtonGroupContainer>
+    </LabeledComponentWrapper>
   );
 };
 
-const ButtonGroupContainer = styled('div')<{ gap: number; width: string }>`
+const ButtonGroupContainer = styled('div')<{ gap: number }>`
   display: flex;
-  gap: ${({ theme, gap }) => theme.spacing(gap / 2)};
-  width: ${({ width }) => width};
+  flex-wrap: wrap;
+  gap: ${({ gap }) => `${gap}px`};
 `;

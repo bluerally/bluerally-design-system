@@ -1,4 +1,4 @@
-import { ButtonGroup } from '@/components/ButtonGroup';
+import { ButtonGroup, ButtonValue } from '@/components/ButtonGroup';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
 
@@ -8,38 +8,39 @@ export default {
   argTypes: {},
 };
 
-const SPORTS_TYPE_CODES = [
+const SPORTS = [
   {
-    id: 1,
-    name: '프리다이빙',
+    title: '프리다이빙',
+    value: '0',
   },
   {
-    id: 2,
-    name: '스쿠버다이빙',
+    title: '스쿠버다이빙',
+    value: '1',
   },
   {
-    id: 3,
-    name: '서핑',
+    title: '서핑',
+    value: '2',
   },
   {
-    id: 4,
-    name: '수영',
+    title: '수영',
+    value: '3',
   },
 ];
 
 const Template: Story = (args) => {
-  const [value, setValue] = useState<string | number>('1');
+  const [selectedValues, setSelectedValues] = useState<ButtonValue[]>([]);
 
-  const handleClick: (value: string | number) => void = (selectedValue) => {
-    setValue(selectedValue);
+  const handleChange = (values: ButtonValue[]) => {
+    setSelectedValues(values);
   };
 
   return (
     <ButtonGroup
+      options={SPORTS}
       {...args}
-      value={value}
-      onClick={handleClick}
-      options={SPORTS_TYPE_CODES}
+      values={selectedValues}
+      onChange={handleChange}
+      isMultiple
     />
   );
 };
@@ -47,6 +48,7 @@ const Template: Story = (args) => {
 export const Default = Template.bind({});
 
 Default.args = {
-  disabled: false,
-  isMultiple: false,
+  options: SPORTS,
+  gap: 4,
+  enableAll: true,
 };
