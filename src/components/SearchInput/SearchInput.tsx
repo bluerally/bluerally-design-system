@@ -45,7 +45,6 @@ export const SearchInput = ({
         {...rest}
         width={width}
         containerStyle={{
-          border: 'none',
           backgroundColor: theme.palette.gray['100'],
         }}
         inputContainerStyle={{
