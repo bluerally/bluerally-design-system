@@ -1,8 +1,8 @@
-import { Icon } from '../Icon';
 import { palette } from '@/style/theme/palette';
 import { FontWeight } from '@/style/theme/typography';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { CircleX, Info, X } from 'lucide-react';
 import React, { useCallback, useEffect, useRef } from 'react';
 
 const DURATION = 7000;
@@ -10,10 +10,7 @@ const ANIMATION_TIME = 300;
 
 const VARIANTS = {
   info: {
-    icon: {
-      type: 'info',
-      color: palette.gray['600'],
-    },
+    icon: <Info width={24} height={24} color={palette.gray['600']} />,
     style: {
       backgroundColor: palette.gray['50'],
       color: palette.gray['500'],
@@ -21,10 +18,7 @@ const VARIANTS = {
     },
   },
   error: {
-    icon: {
-      type: 'x-circle',
-      color: palette.error['300'],
-    },
+    icon: <CircleX width={24} height={24} color={palette.error['300']} />,
     style: {
       backgroundColor: palette.error['50'],
       color: palette.error['300'],
@@ -91,26 +85,18 @@ export const Snackbar = ({
       ref={ref}
       {...rest}
     >
-      <Icon
-        size={24}
-        width={24}
-        height={24}
-        icon={VARIANTS[variant].icon.type}
-        color={VARIANTS[variant].icon.color}
-      />
+      {VARIANTS[variant].icon}
       <TextContainer>
         {title && <TitleContainer>{title}</TitleContainer>}
         {content && <ContentContainer>{content}</ContentContainer>}
       </TextContainer>
       {isClose && (
         <IconContainer>
-          <Icon
+          <X
             onClick={handleExit}
             color={VARIANTS[variant].style.borderColor}
-            size={24}
             width={24}
             height={24}
-            icon="x"
           />
         </IconContainer>
       )}
