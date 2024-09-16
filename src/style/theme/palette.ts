@@ -16,33 +16,33 @@ export type GrayColorType = { [variant in GrayColorVariant]: string };
 export type SubColorType = { [variant in SubColorVariant]: string };
 
 const primaryColors: PrimaryColorType = {
-  '20': '#F6F9FF',
-  '50': '#EFF2FF',
-  '100': '#D7E2FF',
-  '150': '#7894FF',
-  '200': '#425CE7',
-  '300': '#3C58F3',
-  '400': '#2139BB',
+  '20': '#F2F5FF',
+  '50': '#E5EAFF',
+  '100': '#CFD7FF',
+  '150': '#8C9BFF',
+  '200': '#647EFF',
+  '300': '#3C3CFF',
+  '400': '#2D2DC8',
 };
 
 const grayColors: GrayColorType = {
-  '50': '#fafafa',
-  '100': '#f4f4f5',
-  '200': '#F0F0F0',
-  '300': '#E4E4E7',
-  '400': '#a1a1aa',
-  '500': '#73737A',
-  '600': '#52525b',
-  '900': '#0D0D0D',
+  '50': '#FAFAFA',
+  '100': '#F5F5F5',
+  '200': '#E5E5E5',
+  '300': '#D4D4D4',
+  '400': '#A3A3A3',
+  '500': '#808080',
+  '600': '#595959',
+  '900': '#0A0A0A',
 };
 
 const errorColors: SubColorType = {
-  '50': '#FEEEEF',
-  '100': '#FFDCDD',
-  '150': '#FFB1B6',
-  '200': '#F23A62',
-  '300': '#e11d48',
-  '400': '#C51239',
+  '50': '#FEF2F2',
+  '100': '#FEE2E2',
+  '150': '#FECACA',
+  '200': '#EF4444',
+  '300': '#DC2626',
+  '400': '#B91C1C',
 };
 
 export const palette = {
