@@ -10,10 +10,10 @@ export default {
   variants: {
     'gray-filled': css`
       background: ${theme.palette.gray['100']};
-      color: ${theme.palette.gray['500']};
+      color: ${theme.palette.gray['600']};
     `,
     'primary-outline': css`
-      background-color: ${theme.palette.primary['50']};
+      background-color: ${theme.palette.primary['20']};
       color: ${theme.palette.primary['300']};
     `,
     'red-outline': css`
