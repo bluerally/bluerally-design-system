@@ -27,9 +27,10 @@ export const Card = ({
 
 const CardContainer = styled('div')<CardProps>`
   width: max-content;
-  padding: ${({ theme }) => theme.spacing(10)};
+  padding: 16px;
   background-color: ${({ theme }) => theme.palette.white};
-  border-radius: 8px;
+  border-radius: 16px;
+  border: 1px solid ${({ theme }) => theme.palette.gray['100']};
 
   ${({ onClick }) =>
     onClick &&

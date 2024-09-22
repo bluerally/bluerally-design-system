@@ -121,17 +121,13 @@ const TextAreaContainer = styled('div')<{
   align-items: center;
   overflow: hidden;
   width: 100%;
-  border-radius: 8px;
+  border-radius: 14px;
   background-color: ${({ theme, disabled }) =>
     disabled ? theme.palette.gray['50'] : theme.palette.white};
   padding: ${({ theme }) => `${theme.spacing(4)} ${theme.spacing(7)}`};
   border: 1px solid
     ${({ theme, error, disabled }) =>
-      error
-        ? theme.palette.error['300']
-        : disabled
-        ? theme.palette.gray['200']
-        : theme.palette.gray['100']};
+      error ? theme.palette.error['300'] : theme.palette.gray['200']};
 
   ${({ disabled }) =>
     disabled &&
@@ -150,7 +146,7 @@ const TextAreaInner = styled('textarea')<{
   autoHeight?: boolean;
   innerHeight?: number | string;
 }>`
-  ${({ theme }) => theme.typography.md.lighter}
+  ${({ theme }) => theme.typography.lg.regular}
   width: 100%;
   height: ${({ innerHeight }) =>
     typeof innerHeight === 'number' ? `${innerHeight}px` : innerHeight};

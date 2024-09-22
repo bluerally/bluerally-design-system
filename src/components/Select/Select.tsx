@@ -376,7 +376,7 @@ const SelectBox = styled('div')`
 `;
 
 const ValueBox = styled('div')<{ lineHeight?: string }>`
-  ${({ theme }) => theme.typography.md.medium}
+  ${({ theme }) => theme.typography.lg.regular}
   white-space: pre-wrap;
 `;
 

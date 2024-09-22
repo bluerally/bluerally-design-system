@@ -136,7 +136,7 @@ const TextInputContainer = styled('div')<{
 `;
 
 const StyledInput = styled('input')<{ error?: boolean; disabled: boolean }>`
-  ${({ theme }) => theme.typography.md.lighter}
+  ${({ theme }) => theme.typography.lg.regular}
   width: 100%;
   border: none;
   outline: none;
