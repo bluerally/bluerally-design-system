@@ -16,8 +16,8 @@ export const Label = ({ error, children, ...rest }: LabelProps) => {
 const StyledLabel = styled('label')<{
   error?: boolean;
 }>`
-  ${({ theme }) => theme.typography['basic-2'].regular};
-  padding-bottom: ${({ theme }) => theme.spacing(3)};
+  ${({ theme }) => theme.typography.md.regular};
+  padding-bottom: 8px;
   color: ${({ theme, error }) =>
     error ? theme.palette.error['300'] : theme.palette.gray['600']};
 `;

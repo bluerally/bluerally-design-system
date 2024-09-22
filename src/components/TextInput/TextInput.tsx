@@ -109,15 +109,15 @@ const TextInputContainer = styled('div')<{
   align-items: center;
   overflow: hidden;
   width: 100%;
-  height: 42px;
-  border-radius: 8px;
+  height: 44px;
+  border-radius: 14px;
   background-color: ${({ theme, error, disabled }) =>
     error
       ? theme.palette.error['50']
       : disabled
       ? theme.palette.gray['50']
       : theme.palette.white};
-  padding: ${({ theme }) => `${theme.spacing(7)} ${theme.spacing(8)}`};
+  padding: 10px 14px;
   border: 1px solid
     ${({ theme, error }) =>
       error ? theme.palette.error['300'] : theme.palette.gray['200']};
@@ -128,7 +128,7 @@ const TextInputContainer = styled('div')<{
       cursor: not-allowed;
     `};
 
-  &:hover {
+  &:active {
     border: 1px solid
       ${({ error, theme }) =>
         error ? theme.palette.error['300'] : theme.palette.primary['300']};

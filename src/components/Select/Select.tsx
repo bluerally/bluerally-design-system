@@ -6,7 +6,7 @@ import { Position } from '@/utils/getPosition';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Check, ChevronDown, Search } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import Highlighter from 'react-highlight-words';
 
@@ -72,6 +72,10 @@ export const Select = ({
   const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
   const selectRef = useRef<HTMLDivElement>(null);
   const [searchValue, setSearchValue] = useState<string>('');
+  const [optionListWidth, setOptionListWidth] = useState<number | undefined>(
+    undefined,
+  );
+
   const filteredOptions =
     search && searchValue.length >= minimumSearchLength
       ? options.filter(({ title }) =>
@@ -100,6 +104,12 @@ export const Select = ({
     setSearchValue('');
     onSelect?.(undefined as Selected);
   };
+
+  useEffect(() => {
+    if (selectRef.current) {
+      setOptionListWidth(selectRef.current.offsetWidth - 13);
+    }
+  }, [selectRef.current?.offsetWidth]);
 
   return (
     <LabeledComponentWrapper
@@ -255,10 +265,7 @@ export const Select = ({
               isClickOutsideClose ? () => setIsSelectOpen(false) : null
             }
           >
-            <OptionList
-              width={selectRef.current?.offsetWidth}
-              maxHeight={optionMaxHeight}
-            >
+            <OptionList width={optionListWidth} maxHeight={optionMaxHeight}>
               {enableAll && (
                 <OptionItem
                   lineHeight={lineHeight}
@@ -336,12 +343,12 @@ const SelectContainer = styled('div')<{
 }>`
   position: relative;
   width: ${({ width }) => {
-    return width || '340px';
+    return width || '293px';
   }};
-  height: 42px;
+  height: 44px;
   display: flex;
   align-items: center;
-  padding: ${({ theme }) => `${theme.spacing(7)} ${theme.spacing(8)}`};
+  padding: 10px 14px;
   border: 1px solid
     ${({ theme, isSelectOpen, error }) =>
       error
@@ -349,7 +356,7 @@ const SelectContainer = styled('div')<{
         : isSelectOpen
         ? theme.palette.primary['400']
         : theme.palette.gray['200']};
-  border-radius: 8px;
+  border-radius: 14px;
   ${({ theme }) => theme.typography.basic.lighter};
   justify-content: space-between;
 
@@ -383,12 +390,12 @@ const IconBox = styled('div')<{ isOpen: boolean }>`
 
 const OptionList = styled('ul')<{ width?: number; maxHeight?: number }>`
   width: ${({ width }) => {
-    return width ? `${width}px` : '340px';
+    return width ? `${width}px` : '10px';
   }};
   max-height: ${({ maxHeight }) => maxHeight && `${maxHeight}px`};
   margin: 0;
   background: ${({ theme }) => theme.palette.white};
-  border-radius: 5px;
+  border-radius: 16px;
   border: none;
   padding: 0;
   overflow: auto;
@@ -396,13 +403,15 @@ const OptionList = styled('ul')<{ width?: number; maxHeight?: number }>`
 `;
 
 const OptionItem = styled('li')<{ lineHeight?: string; selected?: boolean }>`
-  padding: 5px 14px;
+  padding: 9px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 39px;
   color: ${({ theme }) => theme.palette.gray['900']};
-  ${({ theme }) => theme.typography.md.medium};
+  ${({ theme }) => theme.typography.md.regular};
   cursor: pointer;
+  border-radius: 10px;
 
   &:hover {
     background: ${({ theme, selected }) =>
@@ -420,7 +429,7 @@ const OptionItem = styled('li')<{ lineHeight?: string; selected?: boolean }>`
 `;
 
 const OptionItemSpan = styled('span')<{ lineHeight?: string }>`
-  ${({ theme }) => theme.typography.md.medium};
+  ${({ theme }) => theme.typography.md.regular};
   line-height: ${({ lineHeight }) => {
     return lineHeight || '38px';
   }};
@@ -440,7 +449,6 @@ const OptionCheckedIcon = styled('div')`
 `;
 
 const OptionContainer = styled('div')`
-  width: 100%;
   height: 100%;
   top: 0;
   left: 0;
@@ -455,7 +463,11 @@ const OptionContainer = styled('div')`
 const StyledOverlay = styled(Overlay)`
   background: ${({ theme }) => theme.palette.white};
   outline: 1px solid ${({ theme }) => theme.palette.gray['200']};
-  border-radius: 5px;
+  border-radius: 16px;
+  box-shadow: 0px 0px 1px 0px rgba(80, 84, 90, 0.08);
+  box-shadow: 0px 1px 4px 0px rgba(80, 84, 90, 0.08);
+  box-shadow: 0px 2px 8px 0px rgba(80, 84, 90, 0.12);
+  padding: 6px;
 `;
 
 const ValueContainer = styled('div')`
