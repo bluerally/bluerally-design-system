@@ -13,8 +13,8 @@ export interface ButtonItem {
 
 export interface ButtonGroupProps extends LabeledComponentType {
   gap?: number;
-  values?: ButtonValue[];
-  onChange?: (selectedValues: ButtonValue[]) => void;
+  values?: ButtonValue[] | ButtonValue;
+  onChange?: (selectedValues: ButtonValue[] | ButtonValue) => void;
   options: ButtonItem[];
   disabled?: boolean;
   size?: 'sm' | 'md';

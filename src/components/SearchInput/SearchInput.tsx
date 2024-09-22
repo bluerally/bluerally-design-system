@@ -45,21 +45,16 @@ export const SearchInput = ({
         {...rest}
         width={width}
         containerStyle={{
-          backgroundColor: theme.palette.gray['100'],
+          backgroundColor: theme.palette.gray['50'],
+          borderRadius: '30px',
+          border: `1px solid ${theme.palette.gray['100']}}`,
         }}
         inputContainerStyle={{
-          backgroundColor: theme.palette.gray['100'],
+          backgroundColor: theme.palette.gray['50'],
+          fontWeight: '500',
+          padding: '12px 10px',
         }}
-        startIcon={<Search size={18} color={theme.palette.gray['400']} />}
-        endIcon={
-          rest.value?.trim() !== '' && (
-            <X
-              size={18}
-              onClick={onClickReset}
-              color={theme.palette.gray['400']}
-            />
-          )
-        }
+        endIcon={<Search size={18} color={theme.palette.gray['400']} />}
         onKeyUp={handleKeyUp}
       />
     </LabeledComponentWrapper>

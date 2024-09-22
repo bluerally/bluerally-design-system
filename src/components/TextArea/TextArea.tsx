@@ -17,6 +17,7 @@ export interface TextAreaProps
   inputRef?: React.RefObject<HTMLTextAreaElement>;
   containerRef?: React.RefObject<HTMLDivElement>;
   containerStyle?: CSSProperties;
+  textareaContainerStyle?: CSSProperties;
   autoHeight?: boolean;
 }
 
@@ -106,7 +107,7 @@ const Area = styled('div')`
 `;
 
 const TextCount = styled('p')`
-  ${({ theme }) => theme.typography.sm.medium};
+  ${({ theme }) => theme.typography.sm.lighter};
   color: ${({ theme }) => theme.palette.gray['300']};
   margin-top: ${({ theme }) => theme.spacing(3)};
   align-self: flex-end;
@@ -129,8 +130,8 @@ const TextAreaContainer = styled('div')<{
       error
         ? theme.palette.error['300']
         : disabled
-        ? theme.palette.gray['100']
-        : theme.palette.gray['200']};
+        ? theme.palette.gray['200']
+        : theme.palette.gray['100']};
 
   ${({ disabled }) =>
     disabled &&
@@ -149,7 +150,7 @@ const TextAreaInner = styled('textarea')<{
   autoHeight?: boolean;
   innerHeight?: number | string;
 }>`
-  ${({ theme }) => theme.typography.md.regular}
+  ${({ theme }) => theme.typography.md.lighter}
   width: 100%;
   height: ${({ innerHeight }) =>
     typeof innerHeight === 'number' ? `${innerHeight}px` : innerHeight};
@@ -173,7 +174,7 @@ const TextAreaInner = styled('textarea')<{
     `};
 
   &::placeholder {
-    color: ${({ theme }) => theme.palette.gray['300']};
+    color: ${({ theme }) => theme.palette.gray['400']};
   }
 
   &:focus::placeholder {

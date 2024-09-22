@@ -38,6 +38,7 @@ export interface SelectProps extends LabeledComponentType {
   onSelect?: (selected: Selected) => void;
   onEnter?: (e: string) => void;
   onChangeSearchValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  startIcon?: React.ReactNode;
 }
 
 export const Select = ({
@@ -62,6 +63,7 @@ export const Select = ({
   minimumSearchLength = 0,
   enableAll,
   allItem = { title: '전체', value: 'ALL' },
+  startIcon,
   required,
   onSelect,
   onEnter,
@@ -179,11 +181,17 @@ export const Select = ({
                   value: selected.value,
                 })
               ) : (
-                selected.title
+                <ValueContainer>
+                  {startIcon && startIcon}
+                  {selected.title}
+                </ValueContainer>
               )
             ) : (
               !search && (
-                <PlaceHolderContainer>{placeholder}</PlaceHolderContainer>
+                <PlaceHolderContainer>
+                  {startIcon && startIcon}
+                  {placeholder}
+                </PlaceHolderContainer>
               )
             )}
           </ValueBox>
@@ -342,7 +350,7 @@ const SelectContainer = styled('div')<{
         ? theme.palette.primary['400']
         : theme.palette.gray['200']};
   border-radius: 8px;
-  ${({ theme }) => theme.typography.basic.regular};
+  ${({ theme }) => theme.typography.basic.lighter};
   justify-content: space-between;
 
   color: ${({ theme }) => theme.palette.gray['600']};
@@ -450,6 +458,15 @@ const StyledOverlay = styled(Overlay)`
   border-radius: 5px;
 `;
 
+const ValueContainer = styled('div')`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+`;
+
 const PlaceHolderContainer = styled('div')`
+  display: flex;
+  gap: 4px;
+  align-items: center;
   color: ${({ theme }) => theme.palette.gray['400']};
 `;
