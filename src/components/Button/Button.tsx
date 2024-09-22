@@ -51,7 +51,6 @@ const ButtonContainer = styled('button')<ButtonProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
   overflow: hidden;
   border: none;
   cursor: pointer;

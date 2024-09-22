@@ -19,5 +19,5 @@ const StyledLabel = styled('label')<{
   ${({ theme }) => theme.typography['basic-2'].regular};
   padding-bottom: ${({ theme }) => theme.spacing(3)};
   color: ${({ theme, error }) =>
-    error ? theme.palette.error['300'] : theme.palette.gray['700']};
+    error ? theme.palette.error['300'] : theme.palette.gray['600']};
 `;
