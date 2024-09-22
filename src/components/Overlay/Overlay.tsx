@@ -113,5 +113,5 @@ const OverlayContainer = styled('div')`
   }
 
   border-radius: 12px;
-  box-shadow: 0px 6px 18px 0px #0000001f;
+  box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.12);
 `;

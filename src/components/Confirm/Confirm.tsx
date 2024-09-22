@@ -58,6 +58,7 @@ export const Confirm = ({
 
 const Container = styled('div')`
   padding: ${({ theme }) => theme.spacing(12)};
+  color: ${({ theme }) => theme.palette.gray['900']};
 `;
 
 const Header = styled('h1')`

@@ -132,7 +132,7 @@ const ModalContainer = styled('div')<{
   height?: string | number;
 }>`
   background-color: ${({ theme }) => theme.palette.white};
-  border-radius: 12px;
+  border-radius: 16px;
   overflow-y: auto;
   ${({ height }) =>
     `height: ${typeof height === 'number' ? `${height}px` : height}`};
