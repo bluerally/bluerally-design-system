@@ -210,7 +210,7 @@ export const DatePicker = <T extends boolean = false>({
     <LabeledComponentWrapper
       status={status}
       name={name}
-      width={width}
+      width={Number(width) - 40}
       label={label}
       statusMessage={statusMessage}
       description={description}
@@ -286,6 +286,7 @@ export const DatePicker = <T extends boolean = false>({
                 onClick={handleClick}
                 startYear={startYear}
                 endYear={endYear}
+                width={Number(width) - 40}
               />
               <Button
                 variant="gray-outline"
@@ -313,7 +314,7 @@ const Container = styled('div')<{
 const Overlay = styled(OverlayBase)`
   background: ${({ theme }) => theme.palette.white};
   outline: 1px solid ${({ theme }) => theme.palette.gray['200']};
-  border-radius: 5px;
+  border-radius: 16px;
   padding: ${({ theme }) => `${theme.spacing(10)} ${theme.spacing(10)}`};
 `;
 
