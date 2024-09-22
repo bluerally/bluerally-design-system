@@ -1,5 +1,7 @@
+import { theme } from '@/style';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Check, CheckCircle2, Circle, Dice1 } from 'lucide-react';
 
 export interface RadioProps extends React.HTMLAttributes<HTMLInputElement> {
   value?: number | string;
@@ -28,6 +30,16 @@ export const Radio = ({
         onChange={onChange}
         {...rest}
       />
+
+      {checked ? (
+        <CheckCircle2
+          size={24}
+          color={theme.palette.white}
+          fill={theme.palette.primary['300']}
+        />
+      ) : (
+        <Circle size={24} color={theme.palette.gray['300']} />
+      )}
       <Label>{label}</Label>
     </RadioContainer>
   );
@@ -41,9 +53,10 @@ const RadioContainer = styled('label')<RadioProps>`
 
 const RadioBase = styled('input')<RadioProps>`
   appearance: none;
+  display: none;
   border-radius: 50%;
-  width: 16px;
-  height: 16px;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
   border: 1px solid
     ${({ disabled, theme }) =>
@@ -68,10 +81,21 @@ const RadioBase = styled('input')<RadioProps>`
 
     if (checked) {
       return css`
-        border: 5px solid ${theme.palette.primary['300']};
+        background: ${theme.palette.primary['300']};
+        border: none;
       `;
     }
   }}
+`;
+
+const CheckIcon = styled('span')`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(30%, 0%);
+  color: white;
+  font-weight: 900;
 `;
 
 const Label = styled('span')`
