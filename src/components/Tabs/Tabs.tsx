@@ -75,22 +75,22 @@ const TabContainer = styled('div')`
 const TabBase = styled('button')<{
   selected: boolean;
 }>`
-  ${({ theme }) => theme.typography.md.bold}
+  ${({ theme }) => theme.typography.lg.semiBold}
   border-radius: 8px 8px 0px 0px;
   background-color: ${({ theme }) => theme.palette.white};
   width: 100%;
   min-width: 92px;
-  padding: 14.5px ${({ theme }) => theme.spacing(8)};
+  padding: 16px 12px;
   cursor: pointer;
   transition: all 0.3s;
 
   ${({ selected, theme }) => {
     return css`
       color: ${selected
-        ? theme.palette.primary['300']
+        ? theme.palette.gray['900']
         : theme.palette.gray['400']};
       box-shadow: ${selected
-        ? `inset 0px -2px 0px ${theme.palette.primary['300']}`
+        ? `inset 0px -2px 0px ${theme.palette.gray['900']}`
         : 'none'};
     `;
   }}
