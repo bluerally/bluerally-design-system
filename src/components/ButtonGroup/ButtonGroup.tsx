@@ -37,17 +37,18 @@ export const ButtonGroup = ({
   isMultiple = false,
 }: ButtonGroupProps) => {
   const handleChange = (value: ButtonValue) => {
+    const currentValues = Array.isArray(values) ? values : [values];
+
     if (!isMultiple) {
-      return onChange?.(values.includes(value) ? [] : [value]);
+      return onChange?.(currentValues.includes(value) ? [] : [value]);
     }
 
-    if (values.includes(value)) {
-      return onChange?.(values.filter((val) => val !== value));
+    if (currentValues.includes(value)) {
+      return onChange?.(currentValues.filter((val) => val !== value));
     }
 
-    return onChange?.([...values, value]);
+    return onChange?.([...currentValues, value]);
   };
-
   return (
     <LabeledComponentWrapper
       status={status}
@@ -59,7 +60,9 @@ export const ButtonGroup = ({
     >
       <ButtonGroupContainer gap={gap}>
         {options.map((option) => {
-          const isChecked = values.includes(option.value);
+          const currentValues = Array.isArray(values) ? values : [values];
+
+          const isChecked = currentValues.includes(option.value);
 
           return (
             <Button
