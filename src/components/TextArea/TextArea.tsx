@@ -40,6 +40,7 @@ export const TextArea = ({
   containerRef,
   onFocus,
   containerStyle,
+  textareaContainerStyle,
   autoHeight,
   ...rest
 }: TextAreaProps) => {
@@ -69,7 +70,12 @@ export const TextArea = ({
       required={required}
     >
       <Area style={containerStyle}>
-        <TextAreaContainer error={error} disabled={disabled} ref={containerRef}>
+        <TextAreaContainer
+          error={error}
+          disabled={disabled}
+          ref={containerRef}
+          style={textareaContainerStyle}
+        >
           <TextAreaInner
             ref={inputRef}
             aria-label={name}

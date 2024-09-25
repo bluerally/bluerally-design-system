@@ -2,8 +2,7 @@ import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
 import { TextInput, TextInputProps } from '../TextInput';
 import { LabeledComponentType } from '@/@types/LabeledComponentType';
 import { theme } from '@/style/theme';
-import styled from '@emotion/styled';
-import { Search, X } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { KeyboardEvent } from 'react';
 
 interface SearchInputProps extends TextInputProps, LabeledComponentType {
@@ -41,28 +40,12 @@ export const SearchInput = ({
       description={description}
       required={required}
     >
-      <SearchTextInput
+      <TextInput
         {...rest}
         width={width}
-        containerStyle={{
-          backgroundColor: theme.palette.gray['50'],
-          borderRadius: '30px',
-          border: `1px solid ${theme.palette.gray['100']}}`,
-        }}
-        inputContainerStyle={{
-          backgroundColor: theme.palette.gray['50'],
-          fontWeight: '500',
-          padding: '12px 10px',
-        }}
-        endIcon={<Search size={18} color={theme.palette.gray['400']} />}
+        startIcon={<Search size={20} color={theme.palette.gray['400']} />}
         onKeyUp={handleKeyUp}
       />
     </LabeledComponentWrapper>
   );
 };
-
-const SearchTextInput = styled(TextInput)`
-  input {
-    background-color: ${({ theme }) => theme.palette.gray['50']};
-  }
-`;

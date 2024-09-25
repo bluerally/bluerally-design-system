@@ -172,12 +172,12 @@ const StartAdornment = styled('div')<{ focused?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: ${({ theme }) => theme.spacing(3)};
+  margin-right: 8px;
 `;
 
 const EndAdornment = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: ${({ theme }) => theme.spacing(3)};
+  margin-left: 8px;
 `;

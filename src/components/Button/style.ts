@@ -62,21 +62,18 @@ export default {
       border-radius: 10px;
       padding: 5px 12px;
       height: 30px;
-      min-width: 69px;
     `,
     md: css`
       ${theme.typography.md.semiBold}
       border-radius: 12px;
       padding: 10px 18px;
       height: 41px;
-      min-width: 85px;
     `,
     lg: css`
       ${theme.typography.lg.semiBold}
       border-radius: 14px;
       padding: 13px, 40px;
       height: 50px;
-      min-width: 136px;
     `,
   },
 };
