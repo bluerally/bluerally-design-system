@@ -132,7 +132,7 @@ const TextAreaContainer = styled('div')<{
     disabled ? theme.palette.gray['50'] : theme.palette.white};
   padding: ${({ theme }) => `${theme.spacing(4)} ${theme.spacing(7)}`};
   border: 1px solid
-    ${({ theme, error, disabled }) =>
+    ${({ theme, error }) =>
       error ? theme.palette.error['300'] : theme.palette.gray['200']};
 
   ${({ disabled }) =>

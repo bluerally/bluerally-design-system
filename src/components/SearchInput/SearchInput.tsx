@@ -6,12 +6,10 @@ import { Search } from 'lucide-react';
 import { KeyboardEvent } from 'react';
 
 interface SearchInputProps extends TextInputProps, LabeledComponentType {
-  onClickReset?: () => void;
   onSearch?: (e: KeyboardEvent<HTMLInputElement>, value: string) => void;
 }
 
 export const SearchInput = ({
-  onClickReset,
   onSearch,
   status,
   name,
