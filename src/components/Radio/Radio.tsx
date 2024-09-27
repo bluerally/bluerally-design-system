@@ -1,7 +1,7 @@
 import { theme } from '@/style';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Check, CheckCircle2, Circle, Dice1 } from 'lucide-react';
+import { CheckCircle2, Circle } from 'lucide-react';
 
 export interface RadioProps extends React.HTMLAttributes<HTMLInputElement> {
   value?: number | string;
@@ -86,16 +86,6 @@ const RadioBase = styled('input')<RadioProps>`
       `;
     }
   }}
-`;
-
-const CheckIcon = styled('span')`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translate(30%, 0%);
-  color: white;
-  font-weight: 900;
 `;
 
 const Label = styled('span')`

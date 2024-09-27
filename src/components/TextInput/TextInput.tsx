@@ -128,7 +128,7 @@ const TextInputContainer = styled('div')<{
       cursor: not-allowed;
     `};
 
-  &:active {
+  &:focus-within {
     border: 1px solid
       ${({ error, theme }) =>
         error ? theme.palette.error['300'] : theme.palette.primary['300']};
