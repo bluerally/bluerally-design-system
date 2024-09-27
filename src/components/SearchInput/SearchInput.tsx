@@ -2,14 +2,16 @@ import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
 import { TextInput, TextInputProps } from '../TextInput';
 import { LabeledComponentType } from '@/@types/LabeledComponentType';
 import { theme } from '@/style/theme';
-import { Search } from 'lucide-react';
+import { Search, XCircle } from 'lucide-react';
 import { KeyboardEvent } from 'react';
 
 interface SearchInputProps extends TextInputProps, LabeledComponentType {
+  onClickReset?: () => void;
   onSearch?: (e: KeyboardEvent<HTMLInputElement>, value: string) => void;
 }
 
 export const SearchInput = ({
+  onClickReset,
   onSearch,
   status,
   name,
@@ -43,6 +45,17 @@ export const SearchInput = ({
         width={width}
         startIcon={<Search size={20} color={theme.palette.gray['400']} />}
         onKeyUp={handleKeyUp}
+        endIcon={
+          rest.value?.trim() !== '' && (
+            <XCircle
+              fill={theme.palette.gray['400']}
+              size={16}
+              onClick={onClickReset}
+              color={theme.palette.white}
+              cursor="pointer"
+            />
+          )
+        }
       />
     </LabeledComponentWrapper>
   );
