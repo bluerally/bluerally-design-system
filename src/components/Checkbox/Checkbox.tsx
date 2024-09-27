@@ -1,7 +1,6 @@
-import { Icon } from '@/components/Icon';
 import { theme } from '@/style/theme';
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { CheckCircle2, Circle } from 'lucide-react';
 
 export interface CheckboxProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -40,12 +39,14 @@ export const Checkbox = ({
           checked={checked}
           value={value}
         />
-        {checked && (
-          <Icon
-            icon="checkbox-check"
-            width={16}
-            color={disabled ? theme.palette.gray['200'] : theme.palette.white}
+        {checked ? (
+          <CheckCircle2
+            size={24}
+            color={theme.palette.white}
+            fill={theme.palette.primary['300']}
           />
+        ) : (
+          <Circle size={24} color={theme.palette.gray['300']} />
         )}
       </CheckBoxBase>
       {label && <Label>{label}</Label>}
@@ -60,28 +61,10 @@ const CheckboxContainer = styled('label')<{ disabled: boolean }>`
 `;
 
 const CheckBoxBase = styled('span')<CheckboxProps>`
+  appearance: none;
   display: inline-flex;
   justify-content: center;
-  border-radius: 4px;
-  width: 16px;
-  height: 16px;
-
-  ${({ checked, theme }) =>
-    checked
-      ? css`
-          background: ${theme.palette.primary['300']};
-        `
-      : css`
-          outline: 1px solid ${theme.palette.gray['300']};
-          background: 'transparent';
-        `}
-
-  ${({ theme, disabled }) =>
-    disabled &&
-    css`
-      outline: 1px solid ${theme.palette.gray['200']};
-      background: ${theme.palette.gray['100']};
-    `}
+  align-items: flex-start;
 `;
 
 const CheckboxInputBase = styled('input')<CheckboxProps>`
