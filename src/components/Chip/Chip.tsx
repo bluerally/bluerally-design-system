@@ -6,9 +6,10 @@ import React from 'react';
 
 type ChipVariant =
   | 'primary-filled'
-  | 'primary-outline'
   | 'primary-light-filled'
+  | 'primary-outline'
   | 'gray-filled'
+  | 'gray-outline'
   | 'red-outline';
 
 type ChipSize = Exclude<Size, 'md'>;

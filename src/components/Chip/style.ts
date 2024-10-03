@@ -25,6 +25,11 @@ export default {
       background: ${theme.palette.gray['100']};
       color: ${theme.palette.gray['600']};
     `,
+    'gray-outline': css`
+      background-color: ${theme.palette.white};
+      color: ${theme.palette.gray['500']};
+      outline: 1px solid ${theme.palette.gray['200']};
+    `,
     'red-outline': css`
       background-color: ${theme.palette.error['50']};
       color: ${theme.palette.error['300']};
