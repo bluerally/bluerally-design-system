@@ -1,20 +1,16 @@
+import { SnackbarContext, SnackbarContextProps } from '.';
+import { Toast, ToastType } from '@/components';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { Snackbar, SnackbarType } from '@/components';
-
-import { SnackbarContext, SnackbarContextProps } from '.';
-
 export interface SnackbarData {
   uniqueId: number;
-  variant: SnackbarType;
-  title: string;
+  variant: ToastType;
   content?: string;
   isClose?: boolean;
 }
 
 export interface SnackbarProviderProps {
-  title?: string;
   content?: string;
   isClose?: boolean;
 }
@@ -32,7 +28,6 @@ export const SnackbarProvider = ({
 
   const handleOpen: SnackbarContextProps['addSnackbar'] = ({
     variant,
-    title,
     content,
     isClose,
   }) => {
@@ -44,7 +39,6 @@ export const SnackbarProvider = ({
       {
         uniqueId: randomValue[0],
         variant,
-        title,
         content,
         isClose,
       },
@@ -60,7 +54,7 @@ export const SnackbarProvider = ({
     <SnackbarContext.Provider value={contextValue}>
       <SnackbarArea>
         {snackbars.map(({ uniqueId, ...rest }) => (
-          <Snackbar
+          <Toast
             key={uniqueId}
             uniqueId={uniqueId}
             onExit={handleExit}

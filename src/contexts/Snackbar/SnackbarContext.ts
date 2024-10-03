@@ -1,16 +1,14 @@
-import { SnackbarType } from '@/components';
-import { createContext } from 'react';
 import { SnackbarData } from '.';
+import { ToastType } from '@/components';
+import { createContext } from 'react';
 
 export interface SnackbarContextProps {
   addSnackbar: ({
     variant,
-    title,
     content,
     isClose,
   }: {
-    variant: SnackbarType;
-    title: string;
+    variant: ToastType;
     content?: string;
     isClose?: boolean;
   }) => void;

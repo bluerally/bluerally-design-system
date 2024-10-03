@@ -1,23 +1,22 @@
-import { SnackbarType } from '..';
+import { ToastType } from '..';
 import { SnackbarContext, SnackbarProviderProps } from '@/contexts/Snackbar';
 import { useContext } from 'react';
 
 const useSnackbar = () => {
   const snackbar = useContext(SnackbarContext);
 
-  const info = ({ title = '', content, isClose }: SnackbarProviderProps) => {
-    toast({ variant: 'info', title, content, isClose });
+  const success = ({ content, isClose }: SnackbarProviderProps) => {
+    toast({ variant: 'success', content, isClose });
   };
 
-  const error = ({ title = '', content, isClose }: SnackbarProviderProps) => {
-    toast({ variant: 'error', title, content, isClose });
+  const warning = ({ content, isClose }: SnackbarProviderProps) => {
+    toast({ variant: 'warning', content, isClose });
   };
 
   const toast = ({
     ...rest
   }: {
-    variant: SnackbarType;
-    title: string;
+    variant: ToastType;
     content?: string;
     isClose?: boolean;
   }) => {
@@ -27,8 +26,8 @@ const useSnackbar = () => {
   };
 
   return {
-    info,
-    error,
+    success,
+    warning,
   };
 };
 

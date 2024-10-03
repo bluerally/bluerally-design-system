@@ -28,7 +28,7 @@ export * from './RadioGroup';
 export * from './SearchInput';
 export * from './SegmentButton';
 export * from './Select';
-export * from './Snackbar';
+export * from './Toast';
 export * from './Stepper';
 export * from './Switch';
 export * from './Table';
