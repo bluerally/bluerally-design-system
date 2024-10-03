@@ -64,12 +64,12 @@ export const Uploader = ({
     });
 
     if (notAcceptFiles.length) {
-      snackbar.error({ content: '지원하지 않는 파일 형식입니다.' });
+      snackbar.warning({ content: '지원하지 않는 파일 형식입니다.' });
       setDragOver(false);
     }
 
     if (isOverLimit) {
-      snackbar.error({
+      snackbar.warning({
         content: `최대 ${maxUploadFiles}개 업로드 가능합니다.`,
       });
       setDragOver(false);
