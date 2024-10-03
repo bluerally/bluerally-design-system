@@ -51,4 +51,6 @@ export const palette = {
   black: '#000',
   white: '#fff',
   gray: grayColors,
+  success: '#2db362',
+  warning: '#ffc750',
 };
