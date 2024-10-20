@@ -38,3 +38,4 @@ export * from './TextInput';
 export * from './Tooltip';
 export * from './Tree';
 export * from './Uploader';
+export * from './Badge';

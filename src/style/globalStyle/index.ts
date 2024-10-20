@@ -38,9 +38,9 @@ export const reset = () => css`
   a {
     margin: 0;
     padding: 0;
-    font-family: 'Malgun Gothic', 'Pretendard Variable', Pretendard,
-      -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue',
-      'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Apple Color Emoji',
+    font-family: 'Pretendard Variable', Pretendard, -apple-system,
+      BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
+      'Apple SD Gothic Neo', 'Noto Sans KR', 'Apple Color Emoji',
       'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
   }
 
