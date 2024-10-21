@@ -356,6 +356,8 @@ const SelectContainer = styled('div')<{
         : isSelectOpen
         ? theme.palette.primary['400']
         : theme.palette.gray['200']};
+  background-color: ${({ theme, error }) =>
+    error ? theme.palette.error['50'] : theme.palette.white};
   border-radius: 14px;
   ${({ theme }) => theme.typography.basic.lighter};
   justify-content: space-between;

@@ -15,11 +15,13 @@ const Template: Story = () => {
 
   return (
     <div style={{ height: 600 }}>
+      {value}
       <DatePicker
         isRange={true}
         placeholder={formatter.date(dayjs())}
         value={value}
         onChange={setValue}
+        status="error"
       />
     </div>
   );

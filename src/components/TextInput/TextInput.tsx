@@ -1,10 +1,8 @@
 import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
 import { LabeledComponentType } from '@/@types/LabeledComponentType';
 import { STATUS } from '@/components';
-import { theme } from '@/style/theme';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { CircleAlert } from 'lucide-react';
 import React, { CSSProperties, InputHTMLAttributes } from 'react';
 
 export interface TextInputProps
@@ -92,9 +90,6 @@ export const TextInput = ({
           {...rest}
         />
         {endIcon && <EndAdornment>{endIcon}</EndAdornment>}
-        {status === STATUS.ERROR && (
-          <CircleAlert size={24} color={theme.palette.error[300]} />
-        )}
       </TextInputContainer>
     </LabeledComponentWrapper>
   );

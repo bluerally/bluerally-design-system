@@ -1,8 +1,9 @@
 import { GuideText, STATUS } from '../GuideText';
 import { Label } from '../Label';
 import { LabeledComponentType } from '@/@types/LabeledComponentType';
+import { theme } from '@/style';
 import styled from '@emotion/styled';
-import React from 'react';
+import { AlertTriangle } from 'lucide-react';
 
 export const LabeledComponentWrapper = ({
   children,
@@ -23,11 +24,16 @@ export const LabeledComponentWrapper = ({
       )}
       {children}
       {(status || description || statusMessage) && (
-        <GuideText
-          status={status}
-          statusMessage={statusMessage}
-          description={description}
-        />
+        <StatusMessageContainer>
+          {(description || statusMessage) && (
+            <AlertTriangle size={16} color={theme.palette.error[300]} />
+          )}
+          <GuideText
+            status={status}
+            statusMessage={statusMessage}
+            description={description}
+          />
+        </StatusMessageContainer>
       )}
     </LabeledContainer>
   );
@@ -42,4 +48,11 @@ const LabeledContainer = styled('div')<{ width?: string | number }>`
 
 const StarIconWrapper = styled('span')`
   color: ${({ theme }) => theme.palette.error['300']};
+`;
+
+const StatusMessageContainer = styled('div')`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-top: 6px;
 `;

@@ -49,7 +49,7 @@ const GuideTextContainer = styled('div')<{ status?: Status }>`
 `;
 
 const Description = styled('p')`
-  ${({ theme }) => theme.typography['sm-2'].lighter};
+  ${({ theme }) => theme.typography.basic.regular};
   line-height: 24px;
   color: ${({ theme }) => theme.palette.gray['600']};
   margin-top: ${({ theme }) => theme.spacing(3)};
@@ -57,5 +57,4 @@ const Description = styled('p')`
 
 const StatusText = styled('p')`
   line-height: 24px;
-  margin-top: ${({ theme }) => theme.spacing(3)};
 `;

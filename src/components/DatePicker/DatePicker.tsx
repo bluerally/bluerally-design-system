@@ -1,4 +1,3 @@
-import { LabeledComponentWrapper } from '../@common/LabeledComponentWrapper';
 import { Button as ButtonBase } from '../Button';
 import { Calendar } from '../Calendar';
 import { CalendarIcon } from '../CalendarIcon';
@@ -57,13 +56,8 @@ export const DatePicker = <T extends boolean = false>({
   onEnterInput,
   inputRef: inputRefProp,
   status,
-  name,
-  label,
-  statusMessage,
-  description,
   isAttachRoot,
   disabled,
-  required,
   startYear,
   endYear,
 }: DatePickerProps<T>) => {
@@ -207,99 +201,97 @@ export const DatePicker = <T extends boolean = false>({
   };
 
   return (
-    <LabeledComponentWrapper
-      status={status}
-      name={name}
-      width={Number(width) - 40}
-      label={label}
-      statusMessage={statusMessage}
-      description={description}
-      required={required}
-    >
-      <Container width={width}>
-        <TextInput
-          containerStyle={{ position: 'relative', overflow: 'unset' }}
-          inputRef={(ref) => {
-            inputRef.current = ref;
+    <Container width={width}>
+      <TextInput
+        containerStyle={{
+          position: 'relative',
+          overflow: 'unset',
+          cursor: 'pointer',
+          border: open ? `1px solid ${theme.palette.primary['300']}` : '',
+        }}
+        inputContainerStyle={{
+          cursor: 'pointer',
+        }}
+        inputRef={(ref) => {
+          inputRef.current = ref;
 
-            if (inputRefProp) {
-              inputRefProp.current = ref;
-            }
-          }}
-          value={
-            Array.isArray(value)
-              ? value[0] && value.join(` ${SEPARATOR} `)
-              : value
+          if (inputRefProp) {
+            inputRefProp.current = ref;
           }
-          containerRef={inputContainerRef}
-          onBlur={(e) => {
-            const value = e.target.value;
-            const newValue = (
-              isRange
-                ? (value.split(SEPARATOR).map((v) => v.trim()) as DateRangeType)
-                : value
-            ) as DateType<T>;
-            calcDate(newValue);
-          }}
-          startIcon={
-            <CalendarIcon
-              onClick={handleOpen}
-              color={theme.palette.gray['400']}
+        }}
+        value={
+          Array.isArray(value)
+            ? value[0] && value.join(` ${SEPARATOR} `)
+            : value
+        }
+        containerRef={inputContainerRef}
+        readOnly
+        onClick={handleOpen}
+        startIcon={
+          <CalendarIcon
+            onClick={handleOpen}
+            color={theme.palette.gray['400']}
+          />
+        }
+        onChange={handleInputChange}
+        placeholder={placeholder}
+        disabled={disabled}
+        endIcon={
+          <IconBox isOpen={openProp || open}>
+            <ChevronDown size={20} color={theme.palette.gray['400']} />
+          </IconBox>
+        }
+        status={status}
+      />
+      {(openProp || open) && (
+        <OverlayDimmedWrapper isAttachRoot={isAttachRoot}>
+          <Overlay
+            open={openProp ?? open}
+            anchorRef={inputContainerRef}
+            gap={4}
+            side="bottom"
+            ignoreClickRefs={[inputContainerRef]}
+            onClickOutside={() => {
+              openCalendar(false);
+              inputContainerRef.current?.classList.remove('active');
+            }}
+            isAttachRoot={isAttachRoot}
+          >
+            <Calendar
+              defaultDate={
+                Array.isArray(value) ? value[1] || value[0] : selectedDate
+              }
+              info={
+                isRange && Array.isArray(value)
+                  ? [
+                      value[1]
+                        ? {
+                            startDate: value[0],
+                            endDate: value[1],
+                          }
+                        : { date: value[0], active: true },
+                    ]
+                  : [{ date: selectedDate, active: true }]
+              }
+              onClick={handleClick}
+              startYear={startYear}
+              endYear={endYear}
+              width={Number(width) - 40}
             />
-          }
-          onChange={handleInputChange}
-          placeholder={placeholder}
-          disabled={disabled}
-          endIcon={
-            <IconBox isOpen={openProp || open}>
-              <ChevronDown size={20} color={theme.palette.gray['400']} />
-            </IconBox>
-          }
-        />
-        {(openProp || open) && (
-          <OverlayDimmedWrapper isAttachRoot={isAttachRoot}>
-            <Overlay
-              open={openProp ?? open}
-              anchorRef={inputContainerRef}
-              gap={4}
-              side="bottom"
-              ignoreClickRefs={[inputContainerRef]}
-              onClickOutside={() => openCalendar(false)}
-              isAttachRoot={isAttachRoot}
+            <Button
+              variant="gray-outline"
+              width="100%"
+              onClick={() => {
+                openCalendar(false);
+                inputContainerRef.current?.classList.remove('active');
+              }}
             >
-              <Calendar
-                defaultDate={
-                  Array.isArray(value) ? value[1] || value[0] : selectedDate
-                }
-                info={
-                  isRange && Array.isArray(value)
-                    ? [
-                        value[1]
-                          ? {
-                              startDate: value[0],
-                              endDate: value[1],
-                            }
-                          : { date: value[0], active: true },
-                      ]
-                    : [{ date: selectedDate, active: true }]
-                }
-                onClick={handleClick}
-                startYear={startYear}
-                endYear={endYear}
-                width={Number(width) - 40}
-              />
-              <Button
-                variant="gray-outline"
-                width="100%"
-                onClick={() => openCalendar(false)}
-              >
-                닫기
-              </Button>
-            </Overlay>
-          </OverlayDimmedWrapper>
-        )}
-      </Container>
-    </LabeledComponentWrapper>
+              닫기
+            </Button>
+          </Overlay>
+        </OverlayDimmedWrapper>
+      )}
+    </Container>
   );
 };
 
@@ -309,6 +301,8 @@ const Container = styled('div')<{
   ${({ width }) =>
     `width: ${typeof width === 'number' ? `${width}px` : width}`};
   min-height: 42px;
+
+  position: relative;
 `;
 
 const Overlay = styled(OverlayBase)`
