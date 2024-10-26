@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 export interface ConfirmProps {
   open: boolean;
+  dimmed?: boolean;
   cancelText?: string;
   confirmStatus?: 'default' | 'error';
   confirmText?: string;
@@ -21,12 +22,18 @@ export const Confirm = ({
   confirmStatus = 'error',
   title,
   description = '',
+  dimmed = true,
   onClose,
   onCancel,
   onConfirm,
 }: ConfirmProps) => {
   return (
-    <Modal open={open} position={{ top: 30, left: 0 }} onClose={onClose}>
+    <Modal
+      open={open}
+      position={{ top: 30, left: 0 }}
+      onClose={onClose}
+      dimmed={dimmed}
+    >
       <Container>
         <Modal.Header align="left">
           <Header>{title}</Header>

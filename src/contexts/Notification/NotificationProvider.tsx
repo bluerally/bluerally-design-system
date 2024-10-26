@@ -15,6 +15,7 @@ export interface NotificationBaseProps {
   onConfirm?: () => void;
   cancelButtonText?: string;
   confirmButtonText?: string;
+  dimmed?: boolean;
 }
 
 export const NotificationProvider = ({
@@ -40,6 +41,7 @@ export const NotificationProvider = ({
     onConfirm,
     cancelButtonText = '취소',
     confirmButtonText = '확인',
+    dimmed = true,
   }) => {
     setNotification({
       type,
@@ -49,6 +51,7 @@ export const NotificationProvider = ({
       onConfirm,
       cancelButtonText: type === 'alert' ? undefined : cancelButtonText,
       confirmButtonText,
+      dimmed,
     });
   };
 
@@ -79,6 +82,7 @@ export const NotificationProvider = ({
               : undefined
           }
           confirmText={notification.confirmButtonText}
+          dimmed={notification.dimmed}
         />
       )}
       {children}
