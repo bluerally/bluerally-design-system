@@ -56,6 +56,7 @@ export const DatePicker = <T extends boolean = false>({
   onEnterInput,
   inputRef: inputRefProp,
   status,
+  statusMessage,
   isAttachRoot,
   disabled,
   startYear,
@@ -242,6 +243,7 @@ export const DatePicker = <T extends boolean = false>({
           </IconBox>
         }
         status={status}
+        statusMessage={statusMessage}
       />
       {(openProp || open) && (
         <OverlayDimmedWrapper isAttachRoot={isAttachRoot}>

@@ -9,7 +9,6 @@ export interface TextAreaProps
     LabeledComponentType {
   value?: string;
   maxLength?: number;
-  error?: boolean;
   disabled?: boolean;
   height?: number | string;
   validRegex?: RegExp;
@@ -30,7 +29,6 @@ export const TextArea = ({
   description,
   maxLength,
   value = '',
-  error = false,
   disabled = false,
   height = 100,
   validRegex,
@@ -71,7 +69,7 @@ export const TextArea = ({
     >
       <Area style={containerStyle}>
         <TextAreaContainer
-          error={error}
+          error={status === 'error'}
           disabled={disabled}
           ref={containerRef}
           style={textareaContainerStyle}
@@ -94,6 +92,7 @@ export const TextArea = ({
             onKeyUp={onKeyUp}
             onFocus={onFocus}
             maxLength={maxLength}
+            error={status === 'error'}
             {...rest}
           />
         </TextAreaContainer>
@@ -128,8 +127,12 @@ const TextAreaContainer = styled('div')<{
   overflow: hidden;
   width: 100%;
   border-radius: 14px;
-  background-color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.gray['50'] : theme.palette.white};
+  background-color: ${({ theme, error, disabled }) =>
+    error
+      ? theme.palette.error['50']
+      : disabled
+      ? theme.palette.gray['50']
+      : theme.palette.white};
   padding: ${({ theme }) => `${theme.spacing(4)} ${theme.spacing(7)}`};
   border: 1px solid
     ${({ theme, error }) =>
@@ -151,6 +154,7 @@ const TextAreaContainer = styled('div')<{
 const TextAreaInner = styled('textarea')<{
   autoHeight?: boolean;
   innerHeight?: number | string;
+  error?: boolean;
 }>`
   ${({ theme }) => theme.typography.lg.regular}
   width: 100%;
@@ -166,8 +170,12 @@ const TextAreaInner = styled('textarea')<{
   resize: none;
   color: ${({ theme, disabled }) =>
     disabled ? theme.palette.gray['200'] : theme.palette.black};
-  background-color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.gray['50'] : theme.palette.white};
+  background-color: ${({ theme, error, disabled }) =>
+    error
+      ? theme.palette.error['50']
+      : disabled
+      ? theme.palette.gray['50']
+      : theme.palette.white};
 
   ${({ disabled }) =>
     disabled &&

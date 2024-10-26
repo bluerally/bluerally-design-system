@@ -21,7 +21,6 @@ const Template: Story = () => {
         placeholder={formatter.date(dayjs())}
         value={value}
         onChange={setValue}
-        status="error"
       />
     </div>
   );
