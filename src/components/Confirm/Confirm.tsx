@@ -28,12 +28,7 @@ export const Confirm = ({
   onConfirm,
 }: ConfirmProps) => {
   return (
-    <Modal
-      open={open}
-      position={{ top: 30, left: 0 }}
-      onClose={onClose}
-      dimmed={dimmed}
-    >
+    <Modal open={open} onClose={onClose} dimmed={dimmed} side="center">
       <Container>
         <Modal.Header align="left">
           <Header>{title}</Header>
