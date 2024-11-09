@@ -43,6 +43,9 @@ export interface DatePickerProps<T> extends LabeledComponentType {
   disabled?: boolean;
   startYear?: number;
   endYear?: number;
+  disabledDates?: string[];
+  disableBefore?: string;
+  disableAfter?: string;
 }
 
 export const DatePicker = <T extends boolean = false>({
@@ -61,6 +64,9 @@ export const DatePicker = <T extends boolean = false>({
   disabled,
   startYear,
   endYear,
+  disabledDates = [],
+  disableBefore,
+  disableAfter,
 }: DatePickerProps<T>) => {
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
@@ -68,9 +74,11 @@ export const DatePicker = <T extends boolean = false>({
     null,
   ) as MutableRefObject<HTMLInputElement | null>;
   const inputContainerRef = useRef<HTMLDivElement>(null);
+  const [inputWidth, setInputWidth] = useState(311);
 
   const openCalendar = useCallback(
     (isOpen: boolean) => {
+      setInputWidth(inputContainerRef.current?.offsetWidth ?? 311);
       setOpen(isOpen);
       onOpen?.(isOpen);
     },
@@ -278,7 +286,10 @@ export const DatePicker = <T extends boolean = false>({
               onClick={handleClick}
               startYear={startYear}
               endYear={endYear}
-              width={Number(width) - 40}
+              width={inputWidth - 40}
+              disabledDates={disabledDates}
+              disableBefore={disableBefore}
+              disableAfter={disableAfter}
             />
             <Button
               variant="gray-outline"

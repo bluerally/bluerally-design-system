@@ -25,6 +25,9 @@ export interface CalendarProps extends LabeledComponentType {
   border?: number;
   startYear?: number;
   endYear?: number;
+  disabledDates?: string[];
+  disableBefore?: string;
+  disableAfter?: string;
 }
 
 interface DateInfo {
@@ -46,6 +49,9 @@ export const Calendar = ({
   description,
   required,
   border = 0,
+  disabledDates = [],
+  disableBefore,
+  disableAfter,
 }: CalendarProps) => {
   const [displayDate, setDisplayDate] = useState<Dayjs>(
     dayjs(dayjs(defaultDate).isValid() ? defaultDate : undefined),
@@ -79,7 +85,7 @@ export const Calendar = ({
             cursor="pointer"
           />
           <YearMonthContainer>
-            <YearMonthText>{displayDate.year()}</YearMonthText>
+            <YearMonthText>{displayDate.year()}년</YearMonthText>
             <YearMonthText>{displayDate.month() + 1}월</YearMonthText>
           </YearMonthContainer>
           <ChevronRight
@@ -112,20 +118,35 @@ export const Calendar = ({
                   } = getDateInfo(info ?? [], date);
 
                   const isToday = date.isSame(dayjs(), 'day');
+                  const isDisabled =
+                    disabled ||
+                    disabledDates.includes(formatter.date(date)) ||
+                    (disableBefore
+                      ? date.isBefore(dayjs(disableBefore), 'day')
+                      : false) ||
+                    (disableAfter
+                      ? date.isAfter(dayjs(disableAfter), 'day')
+                      : false);
+
                   return (
                     <Td key={`day-${week}-${day}`}>
-                      <DateContainer
-                        onClick={() => onClick?.(formatter.date(date))}
-                      >
+                      <DateContainer>
                         <RangeContainer>
                           <RangePanel selected={left} />
                           <RangePanel selected={right} />
                         </RangeContainer>
                         <DateInner
-                          disabled={disabled}
+                          disabled={isDisabled}
                           selected={active}
                           currentMonth={isCurrentMonth}
                           isToday={isToday}
+                          onClick={() => {
+                            if (isDisabled) {
+                              return;
+                            }
+
+                            onClick?.(formatter.date(date));
+                          }}
                         >
                           {date.date()}
                         </DateInner>
@@ -277,26 +298,23 @@ const DateInner = styled('div')<{
   align-items: center;
   justify-content: center;
   z-index: 1;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 
   font-weight: ${({ theme, isToday }) =>
     isToday ? theme.FontWeight.semiBold : theme.FontWeight.regular};
 
-  background-color: ${({ theme, disabled, selected }) =>
-    selected
-      ? theme.palette.primary['300']
-      : disabled
-      ? theme.palette.primary['50']
-      : 'transparent'};
+  background-color: ${({ theme, selected }) =>
+    selected ? theme.palette.primary['300'] : 'transparent'};
+
   color: ${({ theme, disabled, selected, currentMonth, isToday }) =>
-    isToday && !selected
+    selected
+      ? theme.palette.white
+      : disabled
+      ? theme.palette.gray['300']
+      : isToday && !selected
       ? theme.palette.primary['300']
       : isToday && selected
       ? theme.palette.white
-      : selected
-      ? theme.palette.white
-      : disabled
-      ? theme.palette.gray['500']
       : theme.palette.gray[currentMonth ? '600' : '300']};
   border-radius: 50%;
 `;
