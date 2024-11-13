@@ -22,6 +22,7 @@ export interface SelectProps extends LabeledComponentType {
   search?: boolean;
   selected?: Selected;
   options: SelectItem[];
+  noOptionText?: string;
   placeholder?: string;
   isClickOutsideClose?: boolean;
   chip?: boolean;
@@ -45,6 +46,7 @@ export const Select = ({
   search,
   selected,
   options,
+  noOptionText = '선택할 수 있는 옵션이 없습니다.',
   placeholder,
   isClickOutsideClose = true,
   defaultPosition = { top: 4, left: 0 },
@@ -324,7 +326,7 @@ export const Select = ({
                 ))
               ) : (
                 <OptionItem>
-                  <OptionItemSpan>검색 결과 없음</OptionItemSpan>
+                  <OptionItemSpan>{noOptionText}</OptionItemSpan>
                 </OptionItem>
               )}
             </OptionList>
