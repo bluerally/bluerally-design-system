@@ -23,11 +23,11 @@ export default {
     `,
     'gray-filled': css`
       background: ${theme.palette.gray['100']};
-      color: ${theme.palette.gray['600']};
+      color: ${theme.palette.gray['500']};
     `,
     'gray-outline': css`
       background-color: ${theme.palette.white};
-      color: ${theme.palette.gray['500']};
+      color: ${theme.palette.gray['400']};
       outline: 1px solid ${theme.palette.gray['200']};
     `,
     'red-outline': css`

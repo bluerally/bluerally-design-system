@@ -10,7 +10,7 @@ export default {
     `,
     'gray-outline': css`
       background-color: transparent;
-      color: ${theme.palette.gray['600']};
+      color: ${theme.palette.gray['500']};
       outline: 1px solid ${theme.palette.gray['200']};
     `,
     'gray-filled': css`
