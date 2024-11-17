@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { CheckCircle2, Info } from 'lucide-react';
 import React, { useCallback, useEffect, useRef } from 'react';
 
-const DURATION = 3000;
+const DURATION = 300000;
 const ANIMATION_TIME = 200;
 
 export type ToastType = 'success' | 'warning';
@@ -17,6 +17,7 @@ export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
   onExit?: (sequenceId: number) => void;
   marginX?: string;
   marginY?: string;
+  maxWidth?: string;
 }
 
 export const Toast = ({
@@ -24,8 +25,9 @@ export const Toast = ({
   onExit,
   content,
   variant = 'success',
-  marginX = '16px',
-  marginY = '20px',
+  marginX = '20px',
+  marginY = '250px',
+  maxWidth = '600px',
   ...rest
 }: ToastProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -59,7 +61,13 @@ export const Toast = ({
   }, [handleExit]);
 
   return (
-    <ToastContainer ref={ref} marginX={marginX} marginY={marginY} {...rest}>
+    <ToastContainer
+      ref={ref}
+      marginX={marginX}
+      marginY={marginY}
+      maxWidth={maxWidth}
+      {...rest}
+    >
       {variant === 'success' ? (
         <CheckCircle2
           width={16}
@@ -92,11 +100,16 @@ const enter = keyframes`
   }
 `;
 
-const ToastContainer = styled('div')<{ marginX?: string; marginY?: string }>`
+const ToastContainer = styled('div')<{
+  marginX?: string;
+  marginY?: string;
+  maxWidth: string;
+}>`
   position: fixed;
   bottom: 0;
   left: 0;
   width: calc(100% - ${({ marginX }) => marginX && `calc(${marginX} * 2)`});
+  max-width: ${({ maxWidth }) => maxWidth};
 
   overflow: hidden;
   display: flex;
