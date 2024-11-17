@@ -41,7 +41,7 @@ const errorColors: SubColorType = {
   '100': '#FEE2E2',
   '150': '#FECACA',
   '200': '#EF4444',
-  '300': '#DC2626',
+  '300': '#D51E1E',
   '400': '#B91C1C',
 };
 
