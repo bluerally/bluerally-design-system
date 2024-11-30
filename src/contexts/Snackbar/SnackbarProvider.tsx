@@ -69,6 +69,7 @@ export const SnackbarProvider = ({
 
 const SnackbarArea = styled('div')`
   position: fixed;
+  max-width: 600px;
   top: 10px;
   right: 10px;
   z-index: 3000;

@@ -139,7 +139,6 @@ export const DatePicker = <T extends boolean = false>({
     }
 
     changeValue(date as DateType<T>);
-    openCalendar(false);
   };
 
   const changeValue = (value: DateType<T>, inputChanged: boolean = false) => {
@@ -299,7 +298,7 @@ export const DatePicker = <T extends boolean = false>({
                 inputContainerRef.current?.classList.remove('active');
               }}
             >
-              닫기
+              확인
             </Button>
           </Overlay>
         </OverlayDimmedWrapper>

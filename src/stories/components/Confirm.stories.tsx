@@ -24,7 +24,20 @@ const Template: Story<ConfirmProps> = () => {
         onClose={() => setOpen(false)}
         onConfirm={() => setOpen(false)}
       />
-      <Button onClick={() => setOpen((prev) => !prev)}>버튼</Button>
+      <div
+        style={{
+          height: '100vh',
+        }}
+      >
+        <Button
+          onClick={() => setOpen((prev) => !prev)}
+          style={{
+            marginTop: '1000px',
+          }}
+        >
+          버튼
+        </Button>
+      </div>
     </>
   );
 };
