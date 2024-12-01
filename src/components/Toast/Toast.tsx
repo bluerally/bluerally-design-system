@@ -17,6 +17,8 @@ export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
   onExit?: (sequenceId: number) => void;
   marginX?: string;
   marginY?: string;
+  minWidth?: string;
+  maxWidth?: string;
 }
 
 export const Toast = ({
@@ -24,6 +26,8 @@ export const Toast = ({
   onExit,
   content,
   variant = 'success',
+  minWidth = '350px',
+  maxWidth = '600px',
   marginX = '16px',
   marginY = '20px',
   ...rest
@@ -34,11 +38,11 @@ export const Toast = ({
     ref.current?.animate(
       [
         {
-          transform: 'translateY(0)',
+          transform: 'translate(-50%, 0)',
           opacity: 1,
         },
         {
-          transform: 'translateY(100%)',
+          transform: 'translate(-50%, 100%)',
           opacity: 0,
         },
       ],
@@ -53,13 +57,21 @@ export const Toast = ({
   }, [onExit, uniqueId]);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       handleExit();
     }, DURATION);
+    return () => clearTimeout(timer);
   }, [handleExit]);
 
   return (
-    <ToastContainer ref={ref} marginX={marginX} marginY={marginY} {...rest}>
+    <ToastContainer
+      ref={ref}
+      minWidth={minWidth}
+      maxWidth={maxWidth}
+      marginX={marginX}
+      marginY={marginY}
+      {...rest}
+    >
       {variant === 'success' ? (
         <CheckCircle2
           width={16}
@@ -82,31 +94,37 @@ export const Toast = ({
 
 const enter = keyframes`
   from {
-    transform: translateY(100%);
+    transform: translate(-50%, 100%); 
     opacity: 0;
   }
-
   to {
-    transform: translateY(0);
+    transform: translate(-50%, 0); 
     opacity: 1;
   }
 `;
 
 const ToastContainer = styled('div')<{
+  width?: string;
+  minWidth?: string;
+  maxWidth?: string;
   marginX?: string;
   marginY?: string;
 }>`
   position: fixed;
-  bottom: 0;
-  left: 0;
+  bottom: ${({ marginY }) => marginY};
+  left: 50%;
+  transform: translateX(-50%);
+
   width: calc(100% - ${({ marginX }) => marginX && `calc(${marginX} * 2)`});
+
+  min-width: ${({ minWidth }) => minWidth};
+  max-width: ${({ maxWidth }) => maxWidth};
 
   overflow: hidden;
   display: flex;
   align-items: center;
 
   padding: 12px 14px;
-  margin: ${({ marginX, marginY }) => `${marginX} ${marginY}`};
 
   border-radius: 14px;
   background-color: ${({ theme }) => theme.palette.gray['600']};
