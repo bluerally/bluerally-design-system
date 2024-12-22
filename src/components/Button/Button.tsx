@@ -7,7 +7,8 @@ export type ButtonVariant =
   | 'primary-filled'
   | 'primary-outline'
   | 'red-outline'
-  | 'gray-outline';
+  | 'gray-outline'
+  | 'gray-filled';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

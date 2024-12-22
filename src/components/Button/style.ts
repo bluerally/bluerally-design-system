@@ -55,6 +55,19 @@ export default {
         background: ${theme.palette.gray['300']};
       }
     `,
+    'gray-filled': css`
+      border: 1px solid ${theme.palette.gray['200']};
+      background: ${theme.palette.gray['100']};
+      color: ${theme.palette.gray['600']};
+
+      &:hover {
+        background: ${theme.palette.gray['200']};
+      }
+
+      &:active {
+        background: ${theme.palette.gray['300']};
+      }
+    `,
   },
   sizes: {
     sm: css`
