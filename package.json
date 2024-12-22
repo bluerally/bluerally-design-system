@@ -1,8 +1,8 @@
 {
   "homepage": ".",
-  "name": "bluerally-design-system",
-  "version": "1.0.43",
-  "description": "bluerally 공통 컴포넌트",
+  "name": "buooy-design-system",
+  "version": "1.0.44",
+  "description": "buooy 공통 컴포넌트",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",

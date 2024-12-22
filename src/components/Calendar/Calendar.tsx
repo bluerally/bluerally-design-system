@@ -109,7 +109,7 @@ export const Calendar = ({
                 {[...Array(7)].map((_, day) => {
                   const date = firstDateOfCalendar.add(week * 7 + day, 'day');
                   const isCurrentMonth =
-                    date >= firstDate && date < firstDate.add(1, 'month');
+                    date >= firstDate && date < firstDate.add(2, 'month');
                   const {
                     left,
                     right,
