@@ -90,7 +90,7 @@ const TabBase = styled('button')<{
         ? theme.palette.gray['900']
         : theme.palette.gray['400']};
       box-shadow: ${selected
-        ? `inset 0px -2px 0px ${theme.palette.gray['900']}`
+        ? `inset 0px -1px 0px ${theme.palette.gray['300']}`
         : `inset 0px -1px 0px ${theme.palette.gray['50']}`};
     `;
   }}
