@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { CheckCircle2, Info } from 'lucide-react';
 import React, { useCallback, useEffect, useRef } from 'react';
 
-const DURATION = 2000;
+const DURATION = 1000;
 const ANIMATION_TIME = 200;
 
 export type ToastType = 'success' | 'warning';
